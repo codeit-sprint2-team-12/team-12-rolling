@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import { LuSmilePlus } from "react-icons/lu";
-//<LuSmilePlus />
-import { LiaTrashAlt } from "react-icons/lia";
-// <LiaTrashAlt />
+import { LuSmilePlus } from 'react-icons/lu';
+
 const SIZES = {
   lg: {
     padding: `1.4rem 1.6rem`,
@@ -89,16 +87,18 @@ const Button = styled.button`
   }
 `;
 
-function Outlined({ className, size, children, disabled, onClick }) {
+function EmojiOutlined({ className, size, children, disabled, onClick }) {
   return (
     <Button
       className={className}
       size={size}
       disabled={disabled}
-      onClick={onClick}>
+      onClick={onClick}
+    >
+      <LuSmilePlus />
       <div>{children}</div>
     </Button>
   );
 }
 
-export default Outlined;
+export default EmojiOutlined;
