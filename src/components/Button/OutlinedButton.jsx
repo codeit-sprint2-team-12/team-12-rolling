@@ -92,8 +92,7 @@ function Outlined({ className, size, children, disabled, onClick }) {
       className={className}
       size={size}
       disabled={disabled}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <div>{children}</div>
     </Button>
   );
