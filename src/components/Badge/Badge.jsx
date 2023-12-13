@@ -1,0 +1,48 @@
+import styled from 'styled-components';
+
+const STYLE = {
+  지인: {
+    color: 'var(--orange-500, #FF8832)',
+    background: 'var(--orange-100, #FFF0D6)',
+  },
+  동료: {
+    color: 'var(--purple-600, #9935FF)',
+    background: 'var(--purple-100, #F8F0FF)',
+  },
+  가족: {
+    color: 'var(--green-500, #2BA600)',
+    background: 'var(--green-100, #E4FBDC)',
+  },
+  친구: {
+    color: 'var(--blue-500, #00A2FE)',
+    background: 'var(--blue-100, #E2F5FF)',
+  },
+};
+
+const BadgeContainer = styled.span`
+  display: inline-flex;
+  padding: 0rem 0.8rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.4rem;
+  line-height: 2rem; /* 142.857% */
+  letter-spacing: -0.007rem;
+  border-radius: 0.4rem;
+
+  color: ${({ relation }) =>
+    relation ? STYLE[relation].color : 'transparent'};
+
+  background: ${({ relation }) =>
+    relation ? STYLE[relation].background : 'transparent'};
+`;
+
+function Badge({ className, relation = '지인' }) {
+  return (
+    <BadgeContainer className={className} relation={relation}>
+      {relation}
+    </BadgeContainer>
+  );
+}
+
+export default Badge;
