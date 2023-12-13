@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { LuSmilePlus } from "react-icons/lu";
+import { LuSmilePlus } from 'react-icons/lu';
 //<LuSmilePlus />
-import { LiaTrashAlt } from "react-icons/lia";
+import { LiaTrashAlt } from 'react-icons/lia';
 // <LiaTrashAlt />
 const SIZES = {
   lg: {
@@ -95,8 +95,9 @@ function Outlined({ className, size, children, disabled, onClick }) {
       className={className}
       size={size}
       disabled={disabled}
-      onClick={onClick}>
-      <div>{children}</div>
+      onClick={onClick}
+    >
+      {children}
     </Button>
   );
 }
