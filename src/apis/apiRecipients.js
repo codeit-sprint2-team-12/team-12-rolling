@@ -74,3 +74,5 @@ async function deleteRecipients(id = '') {
   }
   alert('삭제에 성공했습니다.');
 }
+
+export { getRecipients, getRecipientMessages, getRecipientReactions };
