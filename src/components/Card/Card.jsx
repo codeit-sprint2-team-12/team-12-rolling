@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
-
-import Plus from '../Button/Plus';
+import deleteBtn from '../../assets/deleted.svg';
+import PlusBtn from '../../components/Button/PlusBtn';
+import { useState } from 'react';
+import OutlinedBtn from '../Button/OutlinedBtn';
 
 const CardBox = styled.article`
+  position: relative;
   width: 38.4rem;
   height: 28rem;
   padding: 2.4rem;
@@ -67,15 +70,28 @@ const MakeDate = styled.span`
   color: var(--gray-400, #999);
 
   /* Font/12 Regular */
-  font-family: Pretendard;
+
   font-size: 1.2rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 1.8rem; /* 150% */
   letter-spacing: -0.006rem;
 `;
 
+const AddCards = styled(PlusBtn)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const DeleteBtn = styled(OutlinedBtn)`
+  padding: 0.8rem;
+  margin-left: 11.7rem;
+`;
+
 export default function Card({
+  deletePage,
+  add = false,
   name = 'ddd',
   createAt = '2023.12.12',
   content = '열심히 일하는 모습 멋있습니다.',
@@ -83,21 +99,32 @@ export default function Card({
   modal = '',
 }) {
   return (
-    <CardBox modal={modal}>
-      <ProfileBox>
-        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-        <ProfileText>
-          <h1>
-            <span>From. </span>
-            {name}
-          </h1>
-          <Badge relation="가족" />
-        </ProfileText>
-      </ProfileBox>
-      <TextBox>{content}</TextBox>
-      <MakeDate>{createAt}</MakeDate>
+    <CardBox modal={modal} deletePage={deletePage}>
+      {add ? (
+        <AddCards></AddCards>
+      ) : (
+        <>
+          <ProfileBox>
+            <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+            <ProfileText>
+              <h1>
+                <span>From. </span>
+                {name}
+              </h1>
+              <Badge relation="가족" />
+            </ProfileText>
+            {deletePage ? (
+              <DeleteBtn size="md">
+                <img src={deleteBtn} alt="삭제하기" />
+              </DeleteBtn>
+            ) : (
+              ''
+            )}
+          </ProfileBox>
+          <TextBox>{content}</TextBox>
+          <MakeDate>{createAt}</MakeDate>
+        </>
+      )}
     </CardBox>
   );
 }
-
-//<CardBox><img src={enabledImg}  /></CardBox>

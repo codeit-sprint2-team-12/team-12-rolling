@@ -49,7 +49,7 @@ const Option = ({ color }) => {
 };
 
 export default function OptionList() {
-  const handleAll = (e) => {};
+  //const handleAll = (e) => {};
 
   return (
     <>

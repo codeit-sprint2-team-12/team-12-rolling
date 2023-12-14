@@ -5,9 +5,10 @@ import ArrowUp from '../../assets/arrow_top.png';
 
 const BtnDropdown = styled.button`
   display: flex;
+  position: relative;
   justify-content: space-between;
   font-size: 1.6rem;
-  width: 32rem;
+  width: ${({ nav }) => (nav ? '32rem' : 'auto')};
   padding: 1.2rem 1.6rem;
   align-items: center;
   border-radius: 0.8rem;
@@ -55,6 +56,7 @@ const BtnDropdown = styled.button`
 `;
 
 const DropdownUl = styled.ul`
+  position: absolute;
   display: inline-flex;
   padding: 1rem 0.1rem;
   flex-direction: column;
@@ -97,7 +99,7 @@ const DropdownItems = ({ children }) => {
   );
 };
 
-function DropdownBox({ children }) {
+function DropdownBox({ children, nav }) {
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -114,11 +116,8 @@ function DropdownBox({ children }) {
     <div>
       <BtnDropdown onClick={handleOpen} isError={isError} onBlur={onBlur}>
         <span>{children}</span>
-        {open ? (
-          <DropdownIcon src={ArrowDown} />
-        ) : (
-          <DropdownIcon src={ArrowUp} />
-        )}
+
+        {nav && <DropdownIcon src={open ? ArrowDown : ArrowUp} />}
       </BtnDropdown>
       {isError ? <Span>Error Message</Span> : null}
       {open ? (
