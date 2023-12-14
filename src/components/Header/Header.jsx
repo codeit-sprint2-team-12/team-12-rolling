@@ -34,8 +34,7 @@ const Nav = styled.nav`
 export default function Header({ children }) {
   return (
     <Nav>
-      <div><HeaderTop/>
-      </div>
+      <div>{children}</div>
     </Nav>
   );
 }

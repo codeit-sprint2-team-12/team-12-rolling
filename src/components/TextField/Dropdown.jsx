@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { children, useState } from 'react';
+import { useState } from 'react';
 import ArrowDown from '../../assets/arrow_down.png';
 import ArrowUp from '../../assets/arrow_top.png';
 
@@ -8,7 +8,7 @@ const BtnDropdown = styled.button`
   position: relative;
   justify-content: space-between;
   font-size: 1.6rem;
-  width: ${({ nav }) => (nav ? '32rem' : 'auto')};
+  width: '32rem';
   padding: 1.2rem 1.6rem;
   align-items: center;
   border-radius: 0.8rem;
@@ -55,7 +55,7 @@ const BtnDropdown = styled.button`
   } */
 `;
 
-const DropdownUl = styled.ul`
+export const DropdownUl = styled.ul`
   position: absolute;
   display: inline-flex;
   padding: 1rem 0.1rem;
@@ -91,7 +91,7 @@ const Span = styled.span`
   color: var(--Error, #dc3a3a);
 `;
 
-const DropdownItems = ({ children }) => {
+export const DropdownItems = ({ children }) => {
   return (
     <div>
       <DropdownList>{children}</DropdownList>
@@ -99,7 +99,7 @@ const DropdownItems = ({ children }) => {
   );
 };
 
-function DropdownBox({ children, nav }) {
+function DropdownBox({ children, nav = false }) {
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -114,10 +114,15 @@ function DropdownBox({ children, nav }) {
   };
   return (
     <div>
-      <BtnDropdown onClick={handleOpen} isError={isError} onBlur={onBlur}>
+      <BtnDropdown
+        nav={nav}
+        onClick={handleOpen}
+        isError={isError}
+        onBlur={onBlur}
+      >
         <span>{children}</span>
 
-        {nav && <DropdownIcon src={open ? ArrowDown : ArrowUp} />}
+        <DropdownIcon src={open ? ArrowDown : ArrowUp} />
       </BtnDropdown>
       {isError ? <Span>Error Message</Span> : null}
       {open ? (

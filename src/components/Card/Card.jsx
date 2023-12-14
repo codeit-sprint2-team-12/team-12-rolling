@@ -3,9 +3,10 @@ import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 
 import deleteBtn from '../../assets/deleted.svg';
-import PlusBtn from '../../components/Button/PlusBtn';
+import PlusBtn, { PlusButtonStyle } from '../../components/Button/PlusBtn';
+import { FaPlus } from 'react-icons/fa6';
 import { useState } from 'react';
-import OutlinedBtn from '../Button/OutlinedBtn';
+import OutlinedBtn, { Button } from '../Button/OutlinedBtn';
 
 const CardBox = styled.article`
   position: relative;
@@ -52,13 +53,17 @@ const TextBox = styled.p`
   padding-top: 1.6rem;
   width: 100%;
   height: 10.6rem;
-  overflow: hidden;
+
   color: var(--gray-600, #4a4a4a);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  align-items: center;
 
   font-size: 1.8rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 2.8rem;
   letter-spacing: -0.018rem;
@@ -78,31 +83,33 @@ const MakeDate = styled.span`
   letter-spacing: -0.006rem;
 `;
 
-const AddCards = styled(PlusBtn)`
+const AddCardsBtn = styled(PlusButtonStyle)`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `;
 
-const DeleteBtn = styled(OutlinedBtn)`
+const DeleteBtn = styled(Button)`
   padding: 0.8rem;
   margin-left: 11.7rem;
 `;
 
 export default function Card({
-  deletePage,
+  deletePage = false,
+  modal,
   add = false,
   name = 'ddd',
   createAt = '2023.12.12',
-  content = '열심히 일하는 모습 멋있습니다.',
+  content = 'ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
   profileImageURL = '',
-  modal = '',
 }) {
   return (
     <CardBox modal={modal} deletePage={deletePage}>
       {add ? (
-        <AddCards></AddCards>
+        <AddCardsBtn>
+          <FaPlus />
+        </AddCardsBtn>
       ) : (
         <>
           <ProfileBox>
