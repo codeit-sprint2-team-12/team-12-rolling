@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 
-import Plus from '../Button/Plus';
-
 const CardBox = styled.article`
   width: 38.4rem;
   height: 28rem;

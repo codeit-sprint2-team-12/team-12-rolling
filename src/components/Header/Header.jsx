@@ -1,5 +1,5 @@
-import { children } from 'react';
 import styled from 'styled-components';
+import HeaderTop from './HeaderTop';
 
 const Nav = styled.nav`
   width: 100%;
@@ -32,16 +32,13 @@ const Nav = styled.nav`
       padding: 0 2rem;
     }
   }
-
- 
-
-  }
 `;
 
 export default function Header({ children }) {
   return (
     <Nav>
-      <div>{children}</div>
+      <div><HeaderTop/>
+      </div>
     </Nav>
   );
 }
