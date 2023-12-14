@@ -1,11 +1,11 @@
 import GlobalStyle from './components/GlobalStyle';
-import Dropdown from './components/TextField/Dropdown';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Dropdown />
+      <Header/>
     </div>
   );
 }

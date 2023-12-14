@@ -1,7 +1,7 @@
 import { children } from 'react';
 import styled from 'styled-components';
 import EmojiBadge from '../Badge/EmojiBadge';
-import Outlined from '../Button/Outlined';
+import OutlinedBtn from '../Button/OutlinedBtn';
 import goShare from '../../assets/share-24.svg';
 import addFace from '../../assets/add-24.svg';
 
@@ -55,14 +55,14 @@ export default function HeaderBottom({ children }) {
             <EmojiBadge></EmojiBadge>
           </li>
         </HandleEmojiSelect>
-        <Outlined size="sm">
+        <OutlinedBtn size="sm">
           <img src={addFace} alt="추가하기" />
           추가
-        </Outlined>
+        </OutlinedBtn>
         <SplitLine />
-        <Outlined size="sm">
+        <OutlinedBtn size="sm">
           <img src={goShare} alt="공유하기" />
-        </Outlined>
+        </OutlinedBtn>
       </EmojiSelectBox>
     </>
   );
