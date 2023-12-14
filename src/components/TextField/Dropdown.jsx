@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { children, useState } from 'react';
+import { useState } from 'react';
 import ArrowDown from '../../assets/arrow_down.png';
 import ArrowUp from '../../assets/arrow_top.png';
 
@@ -110,6 +110,7 @@ function DropdownBox({ children }) {
     setOpen(false);
     setIsError(true);
   };
+
   return (
     <div>
       <BtnDropdown onClick={handleOpen} isError={isError} onBlur={onBlur}>
