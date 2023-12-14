@@ -44,7 +44,7 @@ const SIZES = {
   },
 };
 
-const Button = styled.button`
+export const Button = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;

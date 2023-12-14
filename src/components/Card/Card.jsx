@@ -2,7 +2,14 @@ import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 
+import deleteBtn from '../../assets/deleted.svg';
+import PlusBtn, { PlusButtonStyle } from '../../components/Button/PlusBtn';
+import { FaPlus } from 'react-icons/fa6';
+import { useState } from 'react';
+import OutlinedBtn, { Button } from '../Button/OutlinedBtn';
+
 const CardBox = styled.article`
+  position: relative;
   width: 38.4rem;
   height: 28rem;
   padding: 2.4rem;
@@ -46,13 +53,17 @@ const TextBox = styled.p`
   padding-top: 1.6rem;
   width: 100%;
   height: 10.6rem;
-  overflow: hidden;
+
   color: var(--gray-600, #4a4a4a);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  align-items: center;
 
   font-size: 1.8rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 2.8rem;
   letter-spacing: -0.018rem;
@@ -65,37 +76,63 @@ const MakeDate = styled.span`
   color: var(--gray-400, #999);
 
   /* Font/12 Regular */
-  font-family: Pretendard;
+
   font-size: 1.2rem;
-  font-style: normal;
   font-weight: 400;
   line-height: 1.8rem; /* 150% */
   letter-spacing: -0.006rem;
 `;
 
+const AddCardsBtn = styled(PlusButtonStyle)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const DeleteBtn = styled(Button)`
+  padding: 0.8rem;
+  margin-left: 11.7rem;
+`;
+
 export default function Card({
+  deletePage = false,
+  modal,
+  add = false,
   name = 'ddd',
   createAt = '2023.12.12',
-  content = '열심히 일하는 모습 멋있습니다.',
+  content = 'ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
   profileImageURL = '',
-  modal = '',
 }) {
   return (
-    <CardBox modal={modal}>
-      <ProfileBox>
-        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-        <ProfileText>
-          <h1>
-            <span>From. </span>
-            {name}
-          </h1>
-          <Badge relation="가족" />
-        </ProfileText>
-      </ProfileBox>
-      <TextBox>{content}</TextBox>
-      <MakeDate>{createAt}</MakeDate>
+    <CardBox modal={modal} deletePage={deletePage}>
+      {add ? (
+        <AddCardsBtn>
+          <FaPlus />
+        </AddCardsBtn>
+      ) : (
+        <>
+          <ProfileBox>
+            <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+            <ProfileText>
+              <h1>
+                <span>From. </span>
+                {name}
+              </h1>
+              <Badge relation="가족" />
+            </ProfileText>
+            {deletePage ? (
+              <DeleteBtn size="md">
+                <img src={deleteBtn} alt="삭제하기" />
+              </DeleteBtn>
+            ) : (
+              ''
+            )}
+          </ProfileBox>
+          <TextBox>{content}</TextBox>
+          <MakeDate>{createAt}</MakeDate>
+        </>
+      )}
     </CardBox>
   );
 }
-
-//<CardBox><img src={enabledImg}  /></CardBox>

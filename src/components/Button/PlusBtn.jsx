@@ -10,13 +10,12 @@ const PlusSize = {
 const PlusBtn = ({ children, disabled }) => {
   return (
     <PlusButtonStyle disabled={disabled}>
-      {children}
       <FaPlus style={PlusSize} />
     </PlusButtonStyle>
   );
 };
 
-const PlusButtonStyle = styled.button`
+export const PlusButtonStyle = styled.button`
   display: flex;
   padding: 16px;
   align-items: flex-start;
