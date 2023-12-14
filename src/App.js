@@ -17,15 +17,6 @@ function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Header>
-        <HeaderTop size="sm" />
-      </Header>
-      <Header>
-        <HeaderBottom>ddd</HeaderBottom>
-      </Header>
-      <Card deletePage={deletePage}> </Card>
-      <Card deletePage={!deletePage}> </Card>
-      <Card deletePage={deletePage} add={add}></Card>
     </div>
   );
 }

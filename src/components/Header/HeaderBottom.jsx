@@ -1,7 +1,7 @@
 import { children, useState } from 'react';
 import styled from 'styled-components';
 import EmojiBadge from '../Badge/EmojiBadge';
-import Outlined from '../Button/OutlinedBtn';
+import OutlinedBtn from '../Button/OutlinedBtn';
 import goShare from '../../assets/share-24.svg';
 import addFace from '../../assets/add-24.svg';
 import upImg from '../../assets/arrow_top.png';
@@ -88,14 +88,14 @@ export default function HeaderBottom({ children, profileImageURL = null }) {
             <DropDown src={open ? downImg : upImg} />
           </DropDownBtn>
         </HandleEmojiSelect>
-        <Outlined size="sm">
+        <OutlinedBtn size="sm">
           <img src={addFace} alt="추가하기" />
           추가
-        </Outlined>
+        </OutlinedBtn>
         <SplitLine />
-        <ShareBtn nav={notNav}>
+        <Outlined size="sm">
           <img src={goShare} alt="공유하기" />
-        </ShareBtn>
+        </Outlined>
       </EmojiSelectBox>
     </>
   );

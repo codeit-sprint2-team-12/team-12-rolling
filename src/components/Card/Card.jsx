@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
+
 import deleteBtn from '../../assets/deleted.svg';
 import PlusBtn from '../../components/Button/PlusBtn';
 import { useState } from 'react';
