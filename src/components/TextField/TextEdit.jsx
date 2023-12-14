@@ -2,8 +2,29 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
-const TextEditBox = styled.div`
+const StyledReactQuill = styled(ReactQuill)`
   width: 72rem;
+
+  .ql-container {
+    border-radius: 15px;
+  }
+
+  .ql-editor {
+    height: 40rem;
+  }
+
+  .ql-toolbar {
+    border-radius: 15px;
+    background-color: aliceblue;
+  }
+
+  @media (max-width: 767px) {
+    width: 32rem;
+
+    .ql-toolbar.ql-snow .ql-formats {
+      margin-right: 0;
+    }
+  }
 `;
 
 function TextEdit() {
@@ -20,9 +41,7 @@ function TextEdit() {
   };
 
   return (
-    <TextEditBox>
-      <ReactQuill modules={modules} />
-    </TextEditBox>
+    <StyledReactQuill className="ql-editor ql-toolbar" modules={modules} />
   );
 }
 

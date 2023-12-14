@@ -114,11 +114,7 @@ function DropdownBox({ children }) {
     <div>
       <BtnDropdown onClick={handleOpen} isError={isError} onBlur={onBlur}>
         <span>{children}</span>
-        {open ? (
-          <DropdownIcon src={ArrowDown} />
-        ) : (
-          <DropdownIcon src={ArrowUp} />
-        )}
+        <DropdownIcon src={open ? ArrowDown : ArrowUp} />
       </BtnDropdown>
       {isError ? <Span>Error Message</Span> : null}
       {open ? (
