@@ -8,7 +8,7 @@ import { FaPlus } from 'react-icons/fa6';
 
 import OutlinedBtn from '../Button/OutlinedBtn';
 
-const CardBox = styled.article`
+export const CardBox = styled.section`
   position: relative;
   width: 38.4rem;
   height: 28rem;
