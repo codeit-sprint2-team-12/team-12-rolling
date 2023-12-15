@@ -38,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@cspell/eslint-plugin": "^8.1.3"
   }
 }

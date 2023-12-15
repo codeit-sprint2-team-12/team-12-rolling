@@ -45,6 +45,12 @@ const SplitLine = styled.div`
 
 const AddBtn = styled(OutlinedBtn)`
   gap: 0.4rem;
+
+  @media (max-width: 767px) {
+    &:last-child {
+      display: none;
+    }
+  }
 `;
 
 const DropDown = styled.img`
@@ -107,7 +113,7 @@ export default function HeaderBottumRight() {
 
   return (
     <RightSection>
-      <ProfileImgList />
+      <ProfileImgList nav={true} />
       <SplitLine first={true} />
       <EmojiSelectBox>
         <HandleEmojiSelect>
@@ -173,3 +179,5 @@ export default function HeaderBottumRight() {
     </RightSection>
   );
 }
+
+// 반응형 구현안됨
