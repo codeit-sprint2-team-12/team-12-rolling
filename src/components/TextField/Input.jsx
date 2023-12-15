@@ -34,20 +34,13 @@ const InputStyle = styled.input`
     color: var(--gray-900, #181818);
   }
 
-  /* @media (min-width: 375px) {
+  @media (max-width: 767px) {
     display: flex;
-    width: 72rem;
+    width: 32rem;
     padding: 1.2rem 1.6rem;
     align-items: center;
     gap: 1rem;
   }
-
-  @media (min-width: 1248px) {
-    > div {
-      padding: 1.1rem 0rem;
-      max-width: 120.7rem;
-    }
-  } */
 `;
 
 const Span = styled.span`

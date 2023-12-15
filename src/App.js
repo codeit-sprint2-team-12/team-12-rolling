@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-import GlobalStyle from './components/GlobalStyle';
+//import GlobalStyle from './components/GlobalStyle';
+//import { useEffect } from 'react';
+import CardList from './pages/CreateRecipientPage/CardList';
+import items from './pages/CreateRecipientPage/mock.json';
 
 function App() {
-  const [deletePage, setDeletePage] = useState(true);
-  const [add, setAdd] = useState(true);
-
-  const isDelete = () => {
-    setDeletePage((prev) => !prev);
-  };
-
   return (
     <div className="App">
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
+      <CardList items={items} />
     </div>
   );
 }

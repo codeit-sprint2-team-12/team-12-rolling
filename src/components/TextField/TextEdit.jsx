@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const StyledEditorContainer = styled.div`
   border-radius: 10px;
   border: 2 solid red;
-  overflow: hidden; // Optional: Ensure content doesn't overflow the rounded corners
-  width: 72rem; // Adjust width as needed
+  overflow: hidden;
+  width: 72rem;
 `;
 
 const StyledReactQuill = styled(ReactQuill)`

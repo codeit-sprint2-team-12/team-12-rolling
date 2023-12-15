@@ -1,0 +1,97 @@
+[
+  {
+    "count": 13,
+    "next": "https://rolling-api.vercel.app/2-12/recipients/?limit=8&offset=8",
+    "previous": null,
+    "results": [
+      {
+        "id": 1078,
+        "name": "백설이",
+        "backgroundColor": "green",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:45:18.722357Z",
+        "messageCount": 0,
+        "recentMessages": ["aaa"],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1077,
+        "name": "신데렐라",
+        "backgroundColor": "purple",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:44:58.817244Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1076,
+        "name": "꼬부랑",
+        "backgroundColor": "beige",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:44:44.951788Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": [{}]
+      },
+      {
+        "id": 1075,
+        "name": "꼬북이",
+        "backgroundColor": "blue",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:44:15.530626Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1074,
+        "name": "파이리",
+        "backgroundColor": "blue",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:43:50.454971Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1073,
+        "name": "룰루레몬",
+        "backgroundColor": "purple",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:43:31.765174Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1072,
+        "name": "이유준",
+        "backgroundColor": "beige",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:43:10.787305Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      },
+      {
+        "id": 1071,
+        "name": "피카츄",
+        "backgroundColor": "green",
+        "backgroundImageURL": null,
+        "createdAt": "2023-12-14T13:42:50.697416Z",
+        "messageCount": 0,
+        "recentMessages": [],
+        "reactionCount": 0,
+        "topReactions": []
+      }
+    ]
+  }
+]
