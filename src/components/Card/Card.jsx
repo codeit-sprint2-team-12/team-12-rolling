@@ -3,10 +3,10 @@ import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 
 import deleteBtn from '../../assets/deleted.svg';
-import PlusBtn, { PlusButtonStyle } from '../../components/Button/PlusBtn';
+import { PlusButtonStyle } from '../../components/Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
-import { useState } from 'react';
-import OutlinedBtn, { Button } from '../Button/OutlinedBtn';
+
+import OutlinedBtn from '../Button/OutlinedBtn';
 
 const CardBox = styled.article`
   position: relative;
@@ -16,6 +16,10 @@ const CardBox = styled.article`
   border-radius: 1.6rem;
   background: var(--white, #fff);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 const ProfileBox = styled.div`
@@ -90,8 +94,8 @@ const AddCardsBtn = styled(PlusButtonStyle)`
   transform: translate(-50%, -50%);
 `;
 
-const DeleteBtn = styled(Button)`
-  padding: 0.8rem;
+const DeleteBtn = styled(OutlinedBtn)`
+  padding: 0.8rem !important;
   margin-left: 11.7rem;
 `;
 
