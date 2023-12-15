@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
-
 import deleteBtn from '../../assets/deleted.svg';
 import { PlusButtonStyle } from '../../components/Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
@@ -98,45 +97,72 @@ const DeleteBtn = styled(OutlinedBtn)`
   padding: 0.8rem !important;
   margin-left: 11.7rem;
 `;
+const formatDate = (value) => {
+  const date = new Date(value);
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+};
+
+function CardContent({ item }) {
+  const {
+    sender,
+    createdAt,
+    content,
+    profileImageURL = '',
+    relationship = '',
+    deletePage = false,
+  } = item;
+
+  return (
+    <div>
+      <ProfileBox>
+        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+        <ProfileText>
+          <h1>
+            <span>From. </span>
+            {sender}
+          </h1>
+          <Badge relationship={relationship} />
+        </ProfileText>
+        {deletePage ? (
+          <DeleteBtn size="md">
+            <img src={deleteBtn} alt="삭제하기" />
+          </DeleteBtn>
+        ) : (
+          ''
+        )}
+      </ProfileBox>
+      <TextBox>{content}</TextBox>
+      <MakeDate>{formatDate(createdAt)}</MakeDate>
+    </div>
+  );
+}
 
 export default function Card({
   deletePage = false,
   modal,
   add = false,
-  name = 'ddd',
-  createAt = '2023.12.12',
-  content = 'ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
-  profileImageURL = '',
+  items, // 이 {}는 프롭. =는 디폴트값
 }) {
   return (
-    <CardBox modal={modal} deletePage={deletePage}>
-      {add ? (
-        <AddCardsBtn>
-          <FaPlus />
-        </AddCardsBtn>
-      ) : (
-        <>
-          <ProfileBox>
-            <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-            <ProfileText>
-              <h1>
-                <span>From. </span>
-                {name}
-              </h1>
-              <Badge relation="가족" />
-            </ProfileText>
-            {deletePage ? (
-              <DeleteBtn size="md">
-                <img src={deleteBtn} alt="삭제하기" />
-              </DeleteBtn>
-            ) : (
-              ''
-            )}
-          </ProfileBox>
-          <TextBox>{content}</TextBox>
-          <MakeDate>{createAt}</MakeDate>
-        </>
-      )}
-    </CardBox>
+    <div>
+      {items?.map((item) => {
+        //여기서 item은 파라미터
+        return (
+          <>
+            <CardBox modal={modal} deletePage={deletePage}>
+              {add ? (
+                <AddCardsBtn>
+                  <FaPlus />
+                </AddCardsBtn>
+              ) : (
+                <>
+                  <CardContent item={item} />
+                </>
+              )}
+            </CardBox>
+          </>
+        );
+      })}
+    </div>
   );
 }

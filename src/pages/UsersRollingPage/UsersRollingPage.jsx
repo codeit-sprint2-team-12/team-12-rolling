@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom from '../../components/Header/HeaderBottom';
 import HeaderTop from '../../components/Header/HeaderTop';
-import Card, { CardBox } from '../../components/Card/Card';
-import { children, useState } from 'react';
+import Card from '../../components/Card/Card';
+import { children, useEffect, useState } from 'react';
+import { getRecipientMessages } from '../../apis/apiRecipients';
 
 const Main = styled.main`
   background-color: var(--Orange-200, #ffe2ad);
@@ -43,11 +44,20 @@ const CardList = styled.article`
 export default function UsersRollingPage({ name = 'recipient' }) {
   const [deletePage, setDeletePage] = useState(true);
   const [add, setAdd] = useState(true);
+  const [items, setItems] = useState();
 
   const isDelete = () => {
     setDeletePage((prev) => !prev);
   };
 
+  const handleLoad = async () => {
+    const { results } = await getRecipientMessages();
+    return setItems(results);
+  };
+
+  useEffect(() => {
+    handleLoad();
+  }, []);
   return (
     <>
       <Header>
@@ -59,24 +69,7 @@ export default function UsersRollingPage({ name = 'recipient' }) {
 
       <Main>
         <CardList>
-          <Card add={add}></Card>
-
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          <Card></Card>
-          {}
+          <Card items={items}></Card>
         </CardList>
       </Main>
     </>
