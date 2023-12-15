@@ -88,6 +88,7 @@ export default function CardList({
             <span>{count}</span>명이 작성했어요!
           </CountWritePeople>
         </TextBox>
+
         <EmojiBox>
           <li>
             <EmojiBadge></EmojiBadge>
