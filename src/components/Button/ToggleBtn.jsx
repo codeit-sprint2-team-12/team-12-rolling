@@ -33,23 +33,25 @@ const ToggleStyle = styled.div`
   }
 `;
 
-export default function ToggleButton({ className }) {
-  const [isActive, setIsActive] = useState(false);
-
+export default function ToggleButton({ className, onClick, isActive }) {
   const handleClick = () => {
-    setIsActive(!isActive);
+    onClick(!isActive);
   };
 
   return (
     <ToggleStyle className={className}>
       <button
         className={isActive ? '' : 'toggle-selected'}
-        onClick={handleClick}>
+        value="color"
+        onClick={handleClick}
+        type="button">
         컬러
       </button>
       <button
         className={isActive ? 'toggle-selected' : ''}
-        onClick={handleClick}>
+        onClick={handleClick}
+        value="image"
+        type="button">
         이미지
       </button>
     </ToggleStyle>
