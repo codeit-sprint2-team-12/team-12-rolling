@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateRecipientPage from './pages/CreateRecipientPage/CreateRecipientPage';
-import UsersRollingPage from './pages/UsersRollingPage/UsersRollingPage';
+
 import GlobalStyle from './components/GlobalStyle';
 import UsersRollingPage from './pages/UsersRollingPage/UsersRollingPage';
 

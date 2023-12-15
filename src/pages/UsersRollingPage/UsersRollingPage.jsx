@@ -61,7 +61,6 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         <CardList>
           <Card add={add}></Card>
 
-          <CardBox></CardBox>
           <Card></Card>
           <Card></Card>
           <Card></Card>
