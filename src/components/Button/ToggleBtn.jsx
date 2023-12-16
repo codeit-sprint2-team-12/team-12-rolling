@@ -40,19 +40,20 @@ export default function ToggleButton({ className, onClick, isActive }) {
 
   return (
     <ToggleStyle className={className}>
-    <button
-      className={isActive ? '' : 'toggle-selected'}
-      value="color"
-      onClick={handleClick}
-      type="button">
-      컬러
-    </button>
-    <button
-      className={isActive ? 'toggle-selected' : ''}
-      onClick={handleClick}
-      value="image"
-      type="button">
-      이미지
-    </button>
+      <button
+        className={isActive ? '' : 'toggle-selected'}
+        value="color"
+        onClick={handleClick}
+        type="button">
+        컬러
+      </button>
+      <button
+        className={isActive ? 'toggle-selected' : ''}
+        onClick={handleClick}
+        value="image"
+        type="button">
+        이미지
+      </button>
+    </ToggleStyle>
   );
 }
