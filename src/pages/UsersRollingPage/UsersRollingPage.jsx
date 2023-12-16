@@ -5,6 +5,9 @@ import HeaderTop from '../../components/Header/HeaderTop';
 import Card from '../../components/Card/Card';
 import { children, useEffect, useState } from 'react';
 import { getRecipientMessages } from '../../apis/apiRecipients';
+import CardListForRollingPage from '../../components/Card/RollingPageCardList';
+import EmojiPicker from 'emoji-picker-react';
+import CardList from '../../components/CardList/CardList';
 
 const Main = styled.main`
   background-color: var(--Orange-200, #ffe2ad);
@@ -21,30 +24,15 @@ const Main = styled.main`
   }
 `;
 
-const CardList = styled.article`
-  max-width: 120rem;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.4rem;
-
-  @media screen and (max-width: 1247px) {
-    width: 100%;
-    grid-template-columns: repeat(2, 1fr);
-
-    ${children} {
-      width: 100%;
-      height: auto;
-    }
-  }
-  @media screen and (max-width: 767px) {
-  }
-`;
-
 export default function UsersRollingPage({ name = 'recipient' }) {
   const [deletePage, setDeletePage] = useState(true);
   const [add, setAdd] = useState(true);
   const [items, setItems] = useState();
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+
+  const handleClickEmojiPickerOpenList = (e) => {
+    setEmojiPickerOpen((prev) => !prev);
+  };
 
   const isDelete = () => {
     setDeletePage((prev) => !prev);
@@ -64,13 +52,13 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         <HeaderTop />
       </Header>
       <Header>
-        <HeaderBottom>{name}</HeaderBottom>
+        <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
+          {name}
+        </HeaderBottom>
       </Header>
-
+      {emojiPickerOpen ? <EmojiPicker /> : ''}
       <Main>
-        <CardList>
-          <Card items={items}></Card>
-        </CardList>
+        <CardListForRollingPage items={items}></CardListForRollingPage>
       </Main>
     </>
   );

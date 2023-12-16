@@ -54,6 +54,5 @@ export default function ToggleButton({ className, onClick, isActive }) {
       type="button">
       이미지
     </button>
-  </ToggleStyle>
   );
 }
