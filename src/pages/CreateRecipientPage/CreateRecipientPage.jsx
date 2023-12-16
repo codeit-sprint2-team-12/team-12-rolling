@@ -49,6 +49,10 @@ function CreateRecipientPage() {
     }
   };
 
+  const handleChange = (target, value) => {
+    setPostData({ ...postData, [target]: value });
+  };
+
   useEffect(() => {
     handleLoad();
   }, []);
@@ -70,8 +74,8 @@ function CreateRecipientPage() {
           <Title>To.{postData.name}</Title>
           <ToInput
             placeholder="받는 사람 이름을 입력해주세요."
-            onChange={setPostData}
-            postData={postData}
+            onChange={handleChange}
+            target="name"
           />
         </div>
         <div className="RecipientForm__title-box">
@@ -82,8 +86,7 @@ function CreateRecipientPage() {
           <ToggleBtn onClick={setIsActive} isActive={isActive} />
           <Selector
             isImage={isActive}
-            onClick={setPostData}
-            postData={postData}
+            onClick={handleChange}
             backgroundImages={backgroundImages}
           />
         </div>

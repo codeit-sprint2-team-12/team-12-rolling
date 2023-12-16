@@ -48,12 +48,7 @@ const CheckIcon = styled.img`
   background: var(--gray-500, #555);
 `;
 
-export default function Option({
-  isImage,
-  onClick,
-  postData,
-  backgroundImages,
-}) {
+export default function Option({ isImage, onClick, backgroundImages }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const BACKGROUND = backgroundImages;
   const data = isImage ? BACKGROUND : COLOR;
@@ -61,14 +56,11 @@ export default function Option({
   const handleClick = (e) => {
     const id = Number(e.target.id);
     if (isImage) {
-      onClick({ ...postData, backgroundImageURL: BACKGROUND[id] });
+      onClick('backgroundImageURL', BACKGROUND[id]);
       setSelectedIndex(Number(id));
     } else {
-      onClick({
-        ...postData,
-        backgroundColor: COLOR[id].value,
-        backgroundImageURL: null,
-      });
+      onClick('backgroundColor', COLOR[id].value);
+      onClick('backgroundImageURL', null);
       setSelectedIndex(Number(id));
     }
   };
@@ -76,13 +68,10 @@ export default function Option({
   useEffect(() => {
     setSelectedIndex(0);
     if (isImage) {
-      onClick({ ...postData, backgroundImageURL: BACKGROUND[0] });
+      onClick('backgroundImageURL', BACKGROUND[0]);
     } else {
-      onClick({
-        ...postData,
-        backgroundColor: COLOR[0].value,
-        backgroundImageURL: null,
-      });
+      onClick('backgroundColor', COLOR[0].value);
+      onClick('backgroundImageURL', null);
     }
   }, [isImage]);
 

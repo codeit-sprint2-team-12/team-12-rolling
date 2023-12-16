@@ -39,7 +39,7 @@ const Span = styled.span`
   color: var(--Error, #dc3a3a);
 `;
 
-function Input({ placeholder, postData, onChange }) {
+function Input({ placeholder, onChange, target }) {
   const [isError, setIsError] = useState('');
 
   const blurHandler = (e) => {
@@ -54,7 +54,7 @@ function Input({ placeholder, postData, onChange }) {
   };
 
   const handleChange = (e) => {
-    onChange({ ...postData, name: e.target.value });
+    onChange(target, e.target.value);
   };
 
   return (
