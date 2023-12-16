@@ -2,24 +2,8 @@ import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
-import { PlusButtonStyle } from '../../components/Button/PlusBtn';
-import { FaPlus } from 'react-icons/fa6';
 
 import OutlinedBtn from '../Button/OutlinedBtn';
-
-export const CardBox = styled.section`
-  position: relative;
-  width: 38.4rem;
-  height: 28rem;
-  padding: 2.4rem;
-  border-radius: 1.6rem;
-  background: var(--white, #fff);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-
-  @media screen and (max-width: 767px) {
-    width: 100%;
-  }
-`;
 
 const ProfileBox = styled.div`
   display: flex;
@@ -46,7 +30,7 @@ const ProfileImg = styled.img`
   width: 5.6rem;
   height: 5.6rem;
   border-radius: 10rem;
-  border: 1px solid var(--gray-200, #eee);
+  border: 2px solid var(--gray-200, #eee);
   background: var(--white, #fff);
 `;
 
@@ -86,13 +70,6 @@ const MakeDate = styled.span`
   letter-spacing: -0.006rem;
 `;
 
-const AddCardsBtn = styled(PlusButtonStyle)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 const DeleteBtn = styled(OutlinedBtn)`
   padding: 0.8rem !important;
   margin-left: 11.7rem;
@@ -102,7 +79,7 @@ const formatDate = (value) => {
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
 
-function CardContent({ item }) {
+export default function Card({ item }) {
   const {
     sender,
     createdAt,
@@ -133,36 +110,6 @@ function CardContent({ item }) {
       </ProfileBox>
       <TextBox>{content}</TextBox>
       <MakeDate>{formatDate(createdAt)}</MakeDate>
-    </div>
-  );
-}
-
-export default function Card({
-  deletePage = false,
-  modal,
-  add = false,
-  items, // 이 {}는 프롭. =는 디폴트값
-}) {
-  return (
-    <div>
-      {items?.map((item) => {
-        //여기서 item은 파라미터
-        return (
-          <>
-            <CardBox modal={modal} deletePage={deletePage}>
-              {add ? (
-                <AddCardsBtn>
-                  <FaPlus />
-                </AddCardsBtn>
-              ) : (
-                <>
-                  <CardContent item={item} />
-                </>
-              )}
-            </CardBox>
-          </>
-        );
-      })}
     </div>
   );
 }

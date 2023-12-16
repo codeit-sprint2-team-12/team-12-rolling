@@ -4,6 +4,7 @@ import greenBackground from '../../assets/cardListGreen.png';
 import blueBackground from '../../assets/cardListblue.png';
 import orangeBackground from '../../assets/cardListOrange.png';
 import purpleBackground from '../../assets/cardListPurple.png';
+import ProfileImgList from '../Header/ProfieImgList';
 
 const COLOR = {
   green: `url(${greenBackground})`,
@@ -83,10 +84,12 @@ export default function CardList({
       <Card backgroundcolor={backgroundcolor}>
         <TextBox>
           <ToRecipient>To.{name}</ToRecipient>
-          <div>프로필 이미지 나열</div>
+
+          <ProfileImgList></ProfileImgList>
+          {/* <div>프로필 이미지 나열</div>
           <CountWritePeople>
             <span>{count}</span>명이 작성했어요!
-          </CountWritePeople>
+          </CountWritePeople>  */}
         </TextBox>
 
         <EmojiBox>
