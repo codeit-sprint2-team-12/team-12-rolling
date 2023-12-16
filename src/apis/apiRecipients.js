@@ -15,11 +15,13 @@ async function getRecipients(id = '') {
   return body;
 }
 
-async function getRecipientMessages(id = '') {
-  if (!id) {
+async function getRecipientMessages(recipientId = '1099') {
+  if (!recipientId) {
     throw new Error('불러올 대상을 지정해주세요.');
   }
-  const response = await fetch(`${ROOT_URL}/recipients/${id}/messages/`);
+  const response = await fetch(
+    `${ROOT_URL}/recipients/${recipientId}/messages/`
+  );
   if (!response.ok) {
     throw new Error('대상을 불러오는데 실패했습니다.');
   }
@@ -75,4 +77,9 @@ async function deleteRecipients(id = '') {
   alert('삭제에 성공했습니다.');
 }
 
-export { getRecipients, getRecipientMessages, getRecipientReactions };
+export {
+  getRecipients,
+  getRecipientMessages,
+  getRecipientReactions,
+  postRecipients,
+};

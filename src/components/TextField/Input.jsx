@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 const InputStyle = styled.input`
   display: flex;
-  width: 32rem;
+  width: 100%;
   padding: 1.2rem 1.6rem;
   align-items: center;
   gap: 1rem;
   border-radius: 0.8rem;
-  border: ${({ isError }) =>
-    isError
+  border: ${({ $iserror }) =>
+    $iserror
       ? '1px solid var(--Error, #dc3a3a)'
       : '1px solid var(--gray-300, #ccc)'};
   background: var(--white, #fff);
@@ -33,47 +33,40 @@ const InputStyle = styled.input`
     background: var(--white, #fff);
     color: var(--gray-900, #181818);
   }
-
-  /* @media (min-width: 375px) {
-    display: flex;
-    width: 72rem;
-    padding: 1.2rem 1.6rem;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  @media (min-width: 1248px) {
-    > div {
-      padding: 1.1rem 0rem;
-      max-width: 120.7rem;
-    }
-  } */
 `;
 
 const Span = styled.span`
   color: var(--Error, #dc3a3a);
 `;
 
-function Input() {
-  const [isError, setIsError] = useState(false);
+function Input({ placeholder, onChange, target }) {
+  const [isError, setIsError] = useState('');
 
-  const blurHandler = () => {
-    // 에러인지 아닌지 확인
-    setIsError(true);
+  const blurHandler = (e) => {
+    if (!e.target.value) {
+      setIsError('이름을 입력해주세요');
+    } else {
+      setIsError('');
+    }
   };
   const focusHandler = () => {
-    setIsError(false);
+    setIsError('');
+  };
+
+  const handleChange = (e) => {
+    onChange(target, e.target.value);
   };
 
   return (
     <div>
       <InputStyle
-        isError={isError}
-        placeholder="Placeholder"
+        $iserror={isError}
+        placeholder={placeholder}
         onBlur={blurHandler}
         onFocus={focusHandler}
+        onChange={handleChange}
       />
-      {isError ? <Span> Error Message</Span> : null}
+      {isError ? <Span>{isError}</Span> : null}
     </div>
   );
 }

@@ -8,6 +8,7 @@ import upImg from '../../assets/arrow_top.png';
 import downImg from '../../assets/arrow_down.png';
 import ProfileImgList from './ProfieImgList';
 import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
+import EmojiPick from './EmojiInput';
 
 const RightSection = styled.div`
   position: relative;
@@ -45,6 +46,13 @@ const SplitLine = styled.div`
 
 const AddBtn = styled(OutlinedBtn)`
   gap: 0.4rem;
+  position: relative;
+
+  @media (max-width: 767px) {
+    &:last-child {
+      display: none;
+    }
+  }
 `;
 
 const DropDown = styled.img`
@@ -86,6 +94,7 @@ const ShareList = styled(DropdownUl)`
   width: 13.8rem;
   top: 4.5rem;
   right: -8rem;
+  overflow: hidden;
   z-index: 1;
 
   @media screen and (max-width: 767px) {
@@ -96,6 +105,11 @@ const ShareList = styled(DropdownUl)`
 export default function HeaderBottomRight() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+
+  const handleClickEmojiPickerOpenList = (e) => {
+    setEmojiPickerOpen((prev) => !prev);
+  };
 
   const handleClickShareOpenList = (e) => {
     setShareOpen((prev) => !prev);
@@ -107,7 +121,7 @@ export default function HeaderBottomRight() {
 
   return (
     <RightSection>
-      <ProfileImgList />
+      <ProfileImgList nav={true} />
       <SplitLine first={true} />
       <EmojiSelectBox>
         <HandleEmojiSelect>
@@ -153,10 +167,11 @@ export default function HeaderBottomRight() {
             )}
           </DropDownBtn>
         </HandleEmojiSelect>
-        <AddBtn size="sm">
+        <AddBtn size="sm" onClick={handleClickEmojiPickerOpenList}>
           <img src={addFace} alt="추가하기" />
           추가
         </AddBtn>
+        {emojiPickerOpen ? <EmojiPick /> : ''}
         <SplitLine />
         <OutlinedBtn size="sm" nav={true} onClick={handleClickShareOpenList}>
           <img src={goShare} alt="공유하기" />
@@ -173,3 +188,5 @@ export default function HeaderBottomRight() {
     </RightSection>
   );
 }
+
+// 반응형 구현안됨

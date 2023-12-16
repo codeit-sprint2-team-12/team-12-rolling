@@ -59,7 +59,7 @@ const Button = styled.button`
   }
 
   @media screen and (min-width: 1248px) {
-    width: 28rem;
+    width: 100%;
   }
 `;
 
@@ -77,8 +77,7 @@ export default function PrimaryBtn({
       size={size}
       disabled={disabled}
       width={width}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {children}
     </Button>
   );

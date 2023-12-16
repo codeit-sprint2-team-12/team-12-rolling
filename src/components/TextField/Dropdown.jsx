@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+
 import ArrowDown from '../../assets/arrow_down.png';
 import ArrowUp from '../../assets/arrow_top.png';
 
@@ -39,20 +40,13 @@ const BtnDropdown = styled.button`
     color: var(--gray-900, #181818);
   }
 
-  /* @media (min-width: 375px) {
+  @media (max-width: 767px) {
     display: flex;
-    width: 72rem;
+    width: 32rem;
     padding: 1.2rem 1.6rem;
     align-items: center;
     gap: 1rem;
   }
-
-  @media (min-width: 1248px) {
-    > div {
-      padding: 1.1rem 0rem;
-      max-width: 120.7rem;
-    }
-  } */
 `;
 
 export const DropdownUl = styled.ul`
@@ -112,6 +106,7 @@ function DropdownBox({ children, nav = false }) {
     setOpen(false);
     setIsError(true);
   };
+
   return (
     <div>
       <BtnDropdown
@@ -121,8 +116,11 @@ function DropdownBox({ children, nav = false }) {
         onBlur={onBlur}
       >
         <span>{children}</span>
-
-        <DropdownIcon src={open ? ArrowDown : ArrowUp} />
+        {open ? (
+          <DropdownIcon src={ArrowDown} />
+        ) : (
+          <DropdownIcon src={ArrowUp} />
+        )}
       </BtnDropdown>
       {isError ? <Span>Error Message</Span> : null}
       {open ? (
