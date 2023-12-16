@@ -50,8 +50,6 @@ export default function ToggleButton({ className, onClick, isActive }) {
       <button
         className={isActive ? 'toggle-selected' : ''}
         onClick={handleClick}
-        value="image"
-        type="button">
         이미지
       </button>
     </ToggleStyle>
