@@ -56,9 +56,12 @@ export default function UsersRollingPage({ name = 'recipient' }) {
           {name}
         </HeaderBottom>
       </Header>
-      {emojiPickerOpen ? <EmojiPicker /> : ''}
+
       <Main>
+        {emojiPickerOpen ? <EmojiPicker /> : ''}
         <CardListForRollingPage items={items}></CardListForRollingPage>
+
+        <CardList></CardList>
       </Main>
     </>
   );

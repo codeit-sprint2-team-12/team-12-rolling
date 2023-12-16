@@ -26,6 +26,7 @@ const CountImg = styled.div`
   padding: 0.5rem 0.6rem;
   text-align: center;
   margin-left: -1.2rem;
+  /* margin-left: -1.2rem; */
   height: 2.8rem;
 
   border: ${({ nav }) => (nav ? '0.1rem solid #e3e3e3' : 'none')};
@@ -60,6 +61,11 @@ const CountText = styled.p`
   }
 `;
 
+const ImgList = styled.div`
+  display: flex;
+  gap: -1.2rem;
+`;
+
 // 미디어쿼리 부분적용 이슈
 
 export default function ProfileImgList({
@@ -69,10 +75,12 @@ export default function ProfileImgList({
 }) {
   return (
     <>
-      <ImgItems src={profileImageURL || noneImg} />
-      <ImgItems src={profileImageURL || noneImg} />
-      <ImgItems src={profileImageURL || noneImg} />
-      <CountImg nav={nav}> +{count - 3}</CountImg>
+      <ImgList>
+        <ImgItems src={profileImageURL || noneImg} />
+        <ImgItems src={profileImageURL || noneImg} />
+        <ImgItems src={profileImageURL || noneImg} />
+        <CountImg nav={nav}> +{count - 3}</CountImg>
+      </ImgList>
       <CountText>
         <span>{count}</span>명이 작성했어요!
       </CountText>
