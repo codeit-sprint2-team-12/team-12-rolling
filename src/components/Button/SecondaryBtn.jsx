@@ -15,6 +15,7 @@ const CommonButtonStyle = styled.button`
   color: var(--purple-600, #9935ff);
   background: var(--white, #fff);
   border: 0.1rem solid var(--purple-600, #9935ff);
+  cursor: pointer;
 
   &:hover {
     border: 0.1rem solid var(--purple-700, #861dee);

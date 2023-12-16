@@ -53,6 +53,7 @@ export const Button = styled.button`
   background: var(--white, #fff);
   color: var(--gray-900, #181818);
   text-align: center;
+  cursor: pointer;
 
   border-radius: ${({ size }) => (size ? SIZES[size].borderRadius : `auto`)};
   padding: ${({ size }) => (size ? SIZES[size].padding : `auto`)};

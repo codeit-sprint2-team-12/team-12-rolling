@@ -24,6 +24,7 @@ export const PlusButtonStyle = styled.button`
   border: none;
   color: var(--white);
   background: var(--gray-500, #555);
+  cursor: pointer;
 
   &:hover {
     background: var(--gray-600, #4a4a4a);
