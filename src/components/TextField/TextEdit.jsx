@@ -1,4 +1,4 @@
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
@@ -6,7 +6,13 @@ const StyledEditorContainer = styled.div`
   border-radius: 10px;
   border: 2 solid red;
   overflow: hidden;
-  width: 72rem;
+
+  @media screen and (min-width: 375px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 767px) {
+    width: 72rem;
+  }
 `;
 
 const StyledReactQuill = styled(ReactQuill)`
@@ -24,8 +30,8 @@ const StyledReactQuill = styled(ReactQuill)`
     border-top-right-radius: 1.5em;
   }
 
-  @media (max-width: 767px) {
-    width: 32rem;
+  @media (min-width: 375px) {
+    width: 100%;
 
     .ql-toolbar.ql-snow .ql-formats {
       margin-right: 0;

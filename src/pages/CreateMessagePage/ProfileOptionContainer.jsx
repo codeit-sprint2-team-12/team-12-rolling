@@ -9,6 +9,8 @@ const OptionContainerStyle = styled.div`
 
 const ProfileOptionList = styled.ul`
   display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
   gap: 0.4rem;
 `;
 
