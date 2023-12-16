@@ -19,6 +19,7 @@ const ArrowStyle = styled.button`
   backdrop-filter: blur(2px);
   border-radius: 100px;
   border: none;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--gray-300);

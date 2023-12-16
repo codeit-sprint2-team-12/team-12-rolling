@@ -44,12 +44,14 @@ export default function ToggleButton({ className }) {
     <ToggleStyle className={className}>
       <button
         className={isActive ? '' : 'toggle-selected'}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         컬러
       </button>
       <button
         className={isActive ? 'toggle-selected' : ''}
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         이미지
       </button>
     </ToggleStyle>

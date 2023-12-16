@@ -93,7 +93,7 @@ const ShareList = styled(DropdownUl)`
   }
 `;
 
-export default function HeaderBottumRight() {
+export default function HeaderBottomRight() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
 

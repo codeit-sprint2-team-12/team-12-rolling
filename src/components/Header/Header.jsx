@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import HeaderTop from './HeaderTop';
+
 
 const Nav = styled.nav`
   width: 100%;
@@ -31,9 +31,9 @@ const Nav = styled.nav`
   }
 `;
 
-export default function Header({ children }) {
+export default function Header({ children, onClick }) {
   return (
-    <Nav>
+    <Nav onClick={onClick}>
       <div>{children}</div>
     </Nav>
   );
