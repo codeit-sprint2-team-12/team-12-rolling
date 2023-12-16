@@ -1,4 +1,4 @@
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ const StyledReactQuill = styled(ReactQuill)`
   width: 72rem;
 
   .ql-editor {
-    height: 40rem;
+    height: 26rem;
   }
   .ql-container {
     border-bottom-left-radius: 1.5em;
@@ -33,8 +33,7 @@ const StyledReactQuill = styled(ReactQuill)`
   }
 `;
 
-function TextEdit() {
-  // const [value, setValue] = useState('');
+function TextEdit({ onChange }) {
   const modules = {
     toolbar: {
       container: [
@@ -47,9 +46,19 @@ function TextEdit() {
     },
   };
 
+  const handleChange = (e) => {
+    const slicedText = e.slice(3, -4);
+    onChange('content', slicedText);
+  };
+
   return (
     <StyledEditorContainer>
-      <StyledReactQuill className="ql-editor ql-toolbar" modules={modules} />
+      <StyledReactQuill
+        className="ql-editor ql-toolbar"
+        modules={modules}
+        style={{ padding: '0' }}
+        onChange={handleChange}
+      />
     </StyledEditorContainer>
   );
 }
