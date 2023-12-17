@@ -12,15 +12,11 @@ const ToRecipient = styled.h1`
   letter-spacing: -0.028rem;
 `;
 
-export default function HeaderBottom({
-  onClick,
-  children,
-  profileImageURL = null,
-}) {
+export default function HeaderBottom({ children, profileImageURL = null }) {
   return (
     <>
       <ToRecipient>To. {children}</ToRecipient>
-      <HeaderBottumRight onClick={onClick}></HeaderBottumRight>
+      <HeaderBottumRight></HeaderBottumRight>
     </>
   );
 }

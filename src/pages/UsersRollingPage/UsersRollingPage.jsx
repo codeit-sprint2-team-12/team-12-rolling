@@ -28,14 +28,13 @@ export default function UsersRollingPage({ name = 'recipient' }) {
   const [deletePage, setDeletePage] = useState(true);
   const [add, setAdd] = useState(true);
   const [items, setItems] = useState();
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
-
-  const handleClickEmojiPickerOpenList = (e) => {
-    setEmojiPickerOpen((prev) => !prev);
-  };
 
   const isDelete = () => {
     setDeletePage((prev) => !prev);
+  };
+
+  const ha = (e) => {
+    console.log(e);
   };
 
   const handleLoad = async () => {
@@ -52,16 +51,11 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         <HeaderTop />
       </Header>
       <Header>
-        <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
-          {name}
-        </HeaderBottom>
+        <HeaderBottom>{name}</HeaderBottom>
       </Header>
 
       <Main>
-        {emojiPickerOpen ? <EmojiPicker /> : ''}
         <CardListForRollingPage items={items}></CardListForRollingPage>
-
-        <CardList></CardList>
       </Main>
     </>
   );

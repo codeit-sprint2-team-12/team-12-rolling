@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { children, useState } from 'react';
+import { children, useEffect, useState } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import EmojiBadge from '../Badge/EmojiBadge';
 import goShare from '../../assets/share-24.svg';
@@ -8,6 +8,7 @@ import upImg from '../../assets/arrow_top.png';
 import downImg from '../../assets/arrow_down.png';
 import ProfileImgList from './ProfieImgList';
 import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
+import EmojiPick from '../../components/Header/EmojiInput';
 
 const RightSection = styled.div`
   position: relative;
@@ -24,7 +25,7 @@ const EmojiSelectBox = styled.ul`
     border-right: 0.1rem solid var(--gray-200, #eee);
   }
 `;
-const HandleEmojiSelect = styled.ul`
+const EmojiSelect = styled.ul`
   display: flex;
   gap: 0.8rem;
   margin: 0 1.4rem;
@@ -69,7 +70,7 @@ const DropDownBtn = styled.button`
   cursor: pointer;
 `;
 
-const EmojiList = styled.ul`
+const AllEmojiList = styled.ul`
   position: absolute;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -101,9 +102,37 @@ const ShareList = styled(DropdownUl)`
   }
 `;
 
+const AddEmojiText = styled.p`
+  display: block;
+  white-space: nowrap;
+`;
+
 export default function HeaderBottumRight({ onClick }) {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [shareOpen, setShareOpen] = useState(false);
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const [emojiList, setEmojiList] = useState([{ emoji: '', count: 0 }]);
+
+  const handleEmojiClick = (emojiData, click) => {
+    const realEmoji = emojiData.emoji;
+    const existingEmoji = emojiList.find((item) => item.emoji === realEmoji);
+
+    if (existingEmoji) {
+      setEmojiList((prev) =>
+        prev.map((emojis) =>
+          emojis.emoji === realEmoji
+            ? { ...emojis, count: emojis.count + 1 }
+            : emojis
+        )
+      );
+    } else {
+      setEmojiList((prev) => [...prev, { emoji: realEmoji, count: 1 }]);
+    }
+  };
+
+  const handleClickEmojiPickerOpenList = (e) => {
+    setEmojiPickerOpen((prev) => !prev);
+  };
 
   const handleClickShareOpenList = (e) => {
     setShareOpen((prev) => !prev);
@@ -113,57 +142,53 @@ export default function HeaderBottumRight({ onClick }) {
     setEmojiOpen((prev) => !prev);
   };
 
+  // useEffect(() => {
+  //   handleEmojiClick();
+  // }, [emojiList.emoji]);
+
   return (
     <RightSection>
       <ProfileImgList nav={true} />
       <SplitLine first={true} />
       <EmojiSelectBox>
-        <HandleEmojiSelect>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <DropDownBtn onClick={handleClickEmojiList}>
-            {emojiOpen ? (
-              <>
-                <DropDown src={upImg} />
-                <EmojiList>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                  <li>
-                    <EmojiBadge></EmojiBadge>
-                  </li>
-                </EmojiList>
-              </>
-            ) : (
-              <DropDown src={downImg} />
-            )}
-          </DropDownBtn>
-        </HandleEmojiSelect>
-        <AddBtn size="sm" onClick={onClick}>
+        <EmojiSelect>
+          {emojiList.emoji
+            ? emojiList.map((emoji, index) => (
+                <li key={index}>
+                  <EmojiBadge emojiList={emoji}></EmojiBadge>
+                </li>
+              ))
+            : ''
+              // <AddEmojiText>이모티콘을 추가해 보세요!</AddEmojiText>
+          }
+        </EmojiSelect>
+        <DropDownBtn onClick={handleClickEmojiList}>
+          {emojiOpen ? (
+            <>
+              <DropDown src={upImg} />
+              <AllEmojiList>
+                {emojiList.emoji
+                  ? emojiList.count === 0
+                    ? ''
+                    : emojiList.map((emoji, index) => (
+                        <li key={index}>
+                          <EmojiBadge emojiList={emoji}></EmojiBadge>
+                        </li>
+                      ))
+                  : ''
+                    // <AddEmojiText>이모티콘을 추가해 보세요!</AddEmojiText>
+                }
+              </AllEmojiList>
+            </>
+          ) : (
+            <DropDown src={downImg} />
+          )}
+        </DropDownBtn>
+
+        <AddBtn size="sm" onClick={handleClickEmojiPickerOpenList}>
           <img src={addFace} alt="추가하기" />
           추가
+          {emojiPickerOpen ? <EmojiPick onClick={handleEmojiClick} /> : ''}
         </AddBtn>
         <SplitLine />
         <OutlinedBtn size="sm" nav={true} onClick={handleClickShareOpenList}>
@@ -182,4 +207,4 @@ export default function HeaderBottumRight({ onClick }) {
   );
 }
 
-// 반응형 구현안됨
+// 반응형 구현안

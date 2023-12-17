@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const BadgeContainer = styled.span`
+const BadgeContainer = styled.button`
+  border: none;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -15,11 +16,17 @@ const BadgeContainer = styled.span`
   line-height: 2rem; /* 125% */
 `;
 
-function EmojiBadge({ className, emoji = '😍', likes = 0 }) {
+function EmojiBadge({
+  className,
+  onClick,
+  emojiList = { emoji: '', count: 0 },
+}) {
+  const { emoji, count } = emojiList;
+
   return (
-    <BadgeContainer className={className}>
+    <BadgeContainer className={className} onClick={onClick}>
       <div>{emoji}</div>
-      <div>{likes}</div>
+      <div>{count}</div>
     </BadgeContainer>
   );
 }
