@@ -9,7 +9,7 @@ const BtnDropdown = styled.button`
   position: relative;
   justify-content: space-between;
   font-size: 1.6rem;
-  width: '32rem';
+  width: 32rem;
   padding: 1.2rem 1.6rem;
   align-items: center;
   border-radius: 0.8rem;
@@ -51,6 +51,7 @@ const BtnDropdown = styled.button`
 
 export const DropdownUl = styled.ul`
   position: absolute;
+  z-index: 1;
   display: inline-flex;
   padding: 1rem 0.1rem;
   flex-direction: column;
@@ -81,40 +82,32 @@ const DropdownIcon = styled.img`
   flex-shrink: 0;
 `;
 
-const Span = styled.span`
-  color: var(--Error, #dc3a3a);
-`;
-
-export const DropdownItems = ({ children }) => {
+export const DropdownItems = ({ children, onClick }) => {
   return (
     <div>
-      <DropdownList>{children}</DropdownList>
+      <DropdownList onClick={onClick}>{children}</DropdownList>
     </div>
   );
 };
 
-function DropdownBox({ children, nav = false }) {
+function DropdownBox({ children, nav = false, listItems, onChange, target }) {
   const [open, setOpen] = useState(false);
-  const [isError, setIsError] = useState(false);
 
   const handleOpen = () => {
     setOpen(!open);
-    setIsError(false);
   };
 
-  const onBlur = () => {
+  const handleBlur = () => {
     setOpen(false);
-    setIsError(true);
+  };
+
+  const handleChange = (e) => {
+    onChange(target, e.target.dataset['value']);
   };
 
   return (
-    <div>
-      <BtnDropdown
-        nav={nav}
-        onClick={handleOpen}
-        isError={isError}
-        onBlur={onBlur}
-      >
+    <div onBlur={handleBlur}>
+      <BtnDropdown nav={nav} onClick={handleOpen} type="button">
         <span>{children}</span>
         {open ? (
           <DropdownIcon src={ArrowDown} />
@@ -122,13 +115,18 @@ function DropdownBox({ children, nav = false }) {
           <DropdownIcon src={ArrowUp} />
         )}
       </BtnDropdown>
-      {isError ? <Span>Error Message</Span> : null}
       {open ? (
         <DropdownUl>
-          <DropdownItems>Text</DropdownItems>
-          <DropdownItems>Text</DropdownItems>
-          <DropdownItems>Text</DropdownItems>
-          <DropdownItems>Text</DropdownItems>
+          {listItems.map((item) => {
+            return (
+              <DropdownList
+                key={item}
+                onMouseOver={handleChange}
+                data-value={item}>
+                {item}
+              </DropdownList>
+            );
+          })}
         </DropdownUl>
       ) : null}
     </div>

@@ -62,6 +62,26 @@ async function postRecipients(data) {
   return body;
 }
 
+async function postMessages(data) {
+  const { recipientId } = data;
+  const response = await fetch(
+    `${ROOT_URL}/recipients/${recipientId}/messages/`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  if (!response.ok) {
+    throw new Error('메세지 생성을 하는데 실패했습니다.');
+  }
+  const body = await response.json();
+
+  return body;
+}
+
 /* ==================== */
 // DELETE
 /* ==================== */
@@ -82,4 +102,5 @@ export {
   getRecipientMessages,
   getRecipientReactions,
   postRecipients,
+  postMessages,
 };

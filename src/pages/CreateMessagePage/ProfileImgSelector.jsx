@@ -3,10 +3,17 @@ import ProfileDefaultImg from '../../assets/noneProfileImg.png';
 import ProfileOptionContainer from './ProfileOptionContainer';
 
 const SelectorContainer = styled.div`
-  width: 71.7rem;
   display: flex;
   gap: 3.2rem;
   align-items: center;
+
+  @media screen and (min-width: 375px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 71.7rem;
+  }
 `;
 
 const ProfileStatusIcon = styled.span`
@@ -17,16 +24,19 @@ const ProfileStatusIcon = styled.span`
   align-items: flex-start;
   gap: 1rem;
   border-radius: 10rem;
-  background: url(${ProfileDefaultImg});
+  background: ${({ $selectedProfileImg }) =>
+    $selectedProfileImg
+      ? `url(${$selectedProfileImg})`
+      : `url(${ProfileDefaultImg})`};
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 `;
 
-function ProfileImgSelector({ profileImages, onChange }) {
+function ProfileImgSelector({ profileImages, onChange, selectedProfileImg }) {
   return (
     <SelectorContainer>
-      <ProfileStatusIcon />
+      <ProfileStatusIcon $selectedProfileImg={selectedProfileImg} />
       <ProfileOptionContainer
         profileImages={profileImages}
         onChange={onChange}

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import HeaderTop from '../../components/Header/HeaderTop';
 import RecipientForm from '../CreateRecipientPage/RecipientForm';
@@ -11,19 +11,25 @@ import { getProfileImages } from '../../apis/apiImages';
 import { useEffect, useState } from 'react';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import DropdownBox from '../../components/TextField/Dropdown';
+import { postMessages } from '../../apis/apiRecipients';
 
+const RELATIONSHIP = ['지인', '친구', '동료', '가족'];
+const FONTS = ['Noto Sans', 'Pretendard', '나눔명조', '나눔손글씨 손편지체'];
 function CreateMessagePage() {
   const { createdId } = useParams();
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const [profileImages, setProfileImages] = useState([]);
   const [postData, setPostData] = useState({
     team: '2-12',
     recipientId: createdId,
     sender: '',
     profileImageURL: ProfileDefaultImg,
-    relationship: '친구',
+    relationship: '지인',
     content: '',
     font: 'Noto Sans',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (target, value) => {
     setPostData({ ...postData, [target]: value });
@@ -39,14 +45,28 @@ function CreateMessagePage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('dkd');
+    let result;
+    try {
+      setIsSubmitSuccess(false);
+      result = await postMessages(postData);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+    setIsSubmitSuccess(true);
   };
 
   useEffect(() => {
     handleLoad();
   }, []);
+
+  useEffect(() => {
+    if (isSubmitSuccess) {
+      navigate(`/post/${createdId}`);
+    }
+  }, [isSubmitSuccess]);
 
   return (
     <>
@@ -66,12 +86,26 @@ function CreateMessagePage() {
         <ProfileImgSelector
           profileImages={profileImages}
           onChange={handleChange}
+          selectedProfileImg={postData.profileImageURL}
         />
         <Title>상대와의 관계</Title>
+        <DropdownBox
+          listItems={RELATIONSHIP}
+          onChange={handleChange}
+          target="relationship">
+          {postData.relationship}
+        </DropdownBox>
         <Title>내용을 입력해주세요</Title>
         <TextEdit onChange={handleChange} />
         <Title>폰트선택</Title>
-        <PrimaryBtn onClick={handleSubmit}>생성하기</PrimaryBtn>
+        <DropdownBox listItems={FONTS} onChange={handleChange} target="font">
+          {postData.font}
+        </DropdownBox>
+        <PrimaryBtn
+          disabled={!postData.sender || !postData.content}
+          onClick={handleSubmit}>
+          생성하기
+        </PrimaryBtn>
       </RecipientForm>
     </>
   );
