@@ -6,6 +6,7 @@ import downImg from '../../assets/arrow_down.png';
 import EmojiPick from './EmojiInput';
 import { children, useState } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
+import EmojiBestList, { AddEmojiText } from '../Badge/EmojiList';
 
 const EmojiSelectContainer = styled.ul`
   list-style-type: none;
@@ -15,14 +16,6 @@ const EmojiSelectContainer = styled.ul`
     padding-right: 2.8rem;
     border-right: 0.1rem solid var(--gray-200, #eee);
   }
-`;
-
-const EmojiSelect = styled.ul`
-  display: flex;
-  gap: 0.8rem;
-  margin: 0 1.4rem;
-  border: none;
-  list-style-type: none;
 `;
 
 const AddBtn = styled(OutlinedBtn)`
@@ -71,16 +64,10 @@ const AllEmojiList = styled.ul`
   z-index: 1;
 `;
 
-const AddEmojiText = styled.p`
-  display: block;
-  white-space: nowrap;
-  font-size: 1.4rem;
-`;
-
 export default function EmojiSelectBox() {
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [emojiList, setEmojiList] = useState([]);
-  const [orderEmoji, setOrderEmoji] = useState('count');
+
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
   const handleEmojiClick = (emojiData, click) => {
@@ -100,8 +87,6 @@ export default function EmojiSelectBox() {
     }
   };
 
-  emojiList.sort((a, b) => b[orderEmoji] - a[orderEmoji]);
-
   const handleClickEmojiPickerOpenList = (e) => {
     setEmojiPickerOpen((prev) => !prev);
   };
@@ -112,17 +97,7 @@ export default function EmojiSelectBox() {
 
   return (
     <EmojiSelectContainer>
-      <EmojiSelect>
-        {emojiList.length !== 0 ? (
-          emojiList.slice(0, 3).map((emoji, index) => (
-            <li key={index}>
-              <EmojiBadge emojiList={emoji}></EmojiBadge>
-            </li>
-          ))
-        ) : (
-          <AddEmojiText>이모티콘을 추가해 보세요! 😃</AddEmojiText>
-        )}
-      </EmojiSelect>
+      <EmojiBestList emojiList={emojiList}></EmojiBestList>
       <DropDownBtn onClick={handleClickEmojiList}>
         {emojiOpen ? (
           <>
