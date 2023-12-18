@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Card from './Card';
 import { PlusButtonStyle } from '../Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
+import { useState } from 'react';
 
 const CardListup = styled.article`
   max-width: 120rem;
@@ -28,6 +29,7 @@ export const CardBox = styled.section`
   border-radius: 1.6rem;
   background: var(--white, #fff);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 
   @media screen and (max-width: 1247px) {
     width: 100%;
@@ -43,13 +45,16 @@ const AddCardsBtn = styled(PlusButtonStyle)`
 
 export default function RollingPageCardList({
   deletePage = false,
-  modal,
-
   items, // 이 {}는 프롭. =는 디폴트값
 }) {
+  const [openModal, setOpenModal] = useState(false);
+
+  const openClickModal = () => {
+    setOpenModal(true);
+  };
   return (
     <CardListup>
-      <CardBox modal={modal} deletePage={deletePage}>
+      <CardBox deletePage={deletePage}>
         <AddCardsBtn>
           <FaPlus />
         </AddCardsBtn>
@@ -57,7 +62,7 @@ export default function RollingPageCardList({
       {items?.map((item) => {
         //여기서 item은 파라미터
         return (
-          <CardBox modal={modal} deletePage={deletePage}>
+          <CardBox onClick={openClickModal} deletePage={deletePage}>
             <Card item={item} />
           </CardBox>
         );
