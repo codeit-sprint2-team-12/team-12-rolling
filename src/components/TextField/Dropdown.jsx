@@ -53,6 +53,7 @@ export const DropdownUl = styled.ul`
   position: absolute;
   z-index: 1;
   display: inline-flex;
+  width: ${({ nav }) => (nav ? 'auto' : '32rem')};
   padding: 1rem 0.1rem;
   flex-direction: column;
   align-items: flex-start;
@@ -64,8 +65,7 @@ export const DropdownUl = styled.ul`
 
 const DropdownList = styled.li`
   display: flex;
-  width: 31.6rem;
-  padding: 1.2rem 1.6rem;
+  width: 100%;
   align-items: center;
   gap: 1rem;
   font-size: 1.6rem;
@@ -82,11 +82,27 @@ const DropdownIcon = styled.img`
   flex-shrink: 0;
 `;
 
+const ListButton = styled.button`
+  border: none;
+  padding: 1.2rem 1.6rem;
+  width: 100%;
+  height: 100%;
+  background: none;
+  text-align: start;
+  font-size: 1.6rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--gray-100, #f6f6f6);
+    outline: none;
+  }
+`;
+
 export const DropdownItems = ({ children, onClick }) => {
   return (
-    <div>
-      <DropdownList onClick={onClick}>{children}</DropdownList>
-    </div>
+    <DropdownList>
+      <ListButton onClick={onClick}>{children}</ListButton>
+    </DropdownList>
   );
 };
 
@@ -119,12 +135,13 @@ function DropdownBox({ children, nav = false, listItems, onChange, target }) {
         <DropdownUl>
           {listItems.map((item) => {
             return (
-              <DropdownList
+              <DropdownItems
                 key={item}
                 onMouseOver={handleChange}
-                data-value={item}>
+                data-value={item}
+              >
                 {item}
-              </DropdownList>
+              </DropdownItems>
             );
           })}
         </DropdownUl>

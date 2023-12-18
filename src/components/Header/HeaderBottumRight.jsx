@@ -24,7 +24,6 @@ const SplitLine = styled.div`
 `;
 
 const ShareList = styled(DropdownUl)`
-  width: 13.8rem;
   top: 4.5rem;
   right: -8rem;
   overflow: hidden;
@@ -35,7 +34,7 @@ const ShareList = styled(DropdownUl)`
   }
 `;
 
-export default function HeaderBottumRight({ onShareURLClick }) {
+export default function HeaderBottumRight({ nav, onShareURLClick }) {
   const [shareOpen, setShareOpen] = useState(false);
 
   const handleClickShareOpenList = () => {
@@ -44,15 +43,15 @@ export default function HeaderBottumRight({ onShareURLClick }) {
 
   return (
     <RightSection>
-      <ProfileImgList nav={true} />
+      <ProfileImgList nav={nav} />
       <SplitLine first={true} />
       <EmojiSelectBox />
       <SplitLine />
-      <OutlinedBtn size="sm" nav={true} onClick={handleClickShareOpenList}>
+      <OutlinedBtn size="sm" nav={nav} onClick={handleClickShareOpenList}>
         <img src={goShare} alt="공유하기" />
       </OutlinedBtn>
       {shareOpen ? (
-        <ShareList>
+        <ShareList nav={nav}>
           <DropdownItems>카카오톡 공유</DropdownItems>
           <DropdownItems onClick={onShareURLClick}>URL 공유</DropdownItems>
         </ShareList>

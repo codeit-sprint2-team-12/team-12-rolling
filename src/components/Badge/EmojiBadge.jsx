@@ -6,6 +6,7 @@ const BadgeContainer = styled.button`
   flex-direction: row;
   align-items: center;
   gap: 0.2rem;
+  cursor: pointer;
 
   padding: 0.8rem 1.2rem;
   border-radius: 3.2rem;

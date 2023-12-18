@@ -86,12 +86,13 @@ export default function Card({ item }) {
     content,
     profileImageURL = '',
     relationship = '',
+    onClick,
     deletePage = false,
   } = item;
 
   return (
     <div>
-      <ProfileBox>
+      <ProfileBox onClick={onClick}>
         <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
         <ProfileText>
           <h1>

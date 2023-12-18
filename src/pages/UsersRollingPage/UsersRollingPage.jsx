@@ -24,9 +24,6 @@ const Main = styled.main`
 
 const StyledToast = styled(Toast)`
   position: absolute;
-
-  left: 50%;
-  transform: translate(0, -50%);
 `;
 
 export default function UsersRollingPage({ name = 'recipient' }) {

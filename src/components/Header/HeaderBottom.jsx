@@ -16,7 +16,7 @@ export default function HeaderBottom({ children, profileImageURL = null }) {
   return (
     <>
       <ToRecipient>To. {children}</ToRecipient>
-      <HeaderBottumRight></HeaderBottumRight>
+      <HeaderBottumRight nav={true}></HeaderBottumRight>
     </>
   );
 }
