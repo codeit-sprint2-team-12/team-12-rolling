@@ -82,6 +82,26 @@ async function postMessages(data) {
   return body;
 }
 
+async function postRecipientReactions(data) {
+  const { recipient_id } = data;
+  const response = await fetch(
+    `${ROOT_URL}/recipients/${recipient_id}/reactions/`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  if (!response.ok) {
+    throw new Error('리액션을 생성하는데 실패했습니다.');
+  }
+  const body = await response.json();
+
+  return body;
+}
+
 /* ==================== */
 // DELETE
 /* ==================== */
@@ -103,4 +123,5 @@ export {
   getRecipientReactions,
   postRecipients,
   postMessages,
+  postRecipientReactions,
 };
