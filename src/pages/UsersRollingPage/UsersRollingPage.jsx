@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { getRecipientMessages } from '../../apis/apiRecipients';
 import RollingPageCardList from '../../components/Card/RollingPageCardList';
 import Toast from '../../components/Toast/Toast';
-import Modal from '../../components/Modal';
 
 const Main = styled.main`
   background-color: var(--Orange-200, #ffe2ad);
