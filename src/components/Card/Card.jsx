@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
-
 import OutlinedBtn from '../Button/OutlinedBtn';
 
 const ProfileBox = styled.div`
@@ -95,7 +94,7 @@ export default function Card({ item }) {
         <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
         <ProfileText>
           <h1>
-            <span>From. </span>
+            <span>From.{sender} </span>
             {sender}
           </h1>
           <Badge relationship={relationship} />

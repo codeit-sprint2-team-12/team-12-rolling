@@ -4,7 +4,7 @@ const ROOT_URL = 'https://rolling-api.vercel.app/2-12';
 // GET
 /* ==================== */
 
-async function getRecipients(id = '') {
+async function getRecipients(id) {
   const path = id ? `recipients/${id}/` : `recipients/`;
   const response = await fetch(`${ROOT_URL}/${path}`);
   if (!response.ok) {
@@ -15,7 +15,7 @@ async function getRecipients(id = '') {
   return body;
 }
 
-async function getRecipientMessages(recipientId = '1099') {
+async function getRecipientMessages(recipientId) {
   if (!recipientId) {
     throw new Error('불러올 대상을 지정해주세요.');
   }

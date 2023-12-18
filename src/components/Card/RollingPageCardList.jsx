@@ -44,8 +44,8 @@ const AddCardsBtn = styled(PlusButtonStyle)`
 export default function RollingPageCardList({
   deletePage = false,
   modal,
-
-  items, // 이 {}는 프롭. =는 디폴트값
+  items,
+  index,
 }) {
   return (
     <CardListup>
@@ -54,10 +54,9 @@ export default function RollingPageCardList({
           <FaPlus />
         </AddCardsBtn>
       </CardBox>
-      {items?.map((item) => {
-        //여기서 item은 파라미터
+      {items?.map((item, index) => {
         return (
-          <CardBox modal={modal} deletePage={deletePage}>
+          <CardBox modal={modal} deletePage={deletePage} key={index}>
             <Card item={item} />
           </CardBox>
         );
