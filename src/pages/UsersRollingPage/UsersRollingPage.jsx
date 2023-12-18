@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom from '../../components/Header/HeaderBottom';
 import HeaderTop from '../../components/Header/HeaderTop';
-import Card from '../../components/Card/Card';
-import { children, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getRecipientMessages } from '../../apis/apiRecipients';
-import CardListForRollingPage from '../../components/Card/RollingPageCardList';
-import EmojiPicker from 'emoji-picker-react';
-import CardList from '../../components/CardList/CardList';
+import RollingPageCardList from '../../components/Card/RollingPageCardList';
+import Toast from '../../components/Toast/Toast';
+import Modal from '../../components/Modal';
 
 const Main = styled.main`
   background-color: var(--Orange-200, #ffe2ad);
@@ -24,17 +23,20 @@ const Main = styled.main`
   }
 `;
 
+const StyledToast = styled(Toast)`
+  position: absolute;
+
+  left: 50%;
+  transform: translate(0, -50%);
+`;
+
 export default function UsersRollingPage({ name = 'recipient' }) {
   const [deletePage, setDeletePage] = useState(true);
-  const [add, setAdd] = useState(true);
   const [items, setItems] = useState();
+  const [copyURL, setCopyURL] = useState(false);
 
   const isDelete = () => {
     setDeletePage((prev) => !prev);
-  };
-
-  const ha = (e) => {
-    console.log(e);
   };
 
   const handleLoad = async () => {
@@ -42,21 +44,32 @@ export default function UsersRollingPage({ name = 'recipient' }) {
     return setItems(results);
   };
 
+  const handleSumbitAdressShare = () => {
+    setCopyURL((prev) => !prev);
+  };
+
   useEffect(() => {
     handleLoad();
   }, []);
+
   return (
     <>
       <Header>
         <HeaderTop />
       </Header>
       <Header>
-        <HeaderBottom>{name}</HeaderBottom>
+        <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
+          {name}
+        </HeaderBottom>
       </Header>
 
       <Main>
-        <CardListForRollingPage items={items}></CardListForRollingPage>
+        <RollingPageCardList items={items}></RollingPageCardList>
+
+        {copyURL && <StyledToast />}
       </Main>
     </>
   );
 }
+
+//드롭다운 버튼으로 감싸기?
