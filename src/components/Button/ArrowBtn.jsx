@@ -3,15 +3,13 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import styled from 'styled-components';
 
 const ArrowSize = {
-  width: '16px',
-  height: '16px',
-  'flex-shrink': '0',
+  width: '2.5rem',
+  height: '2.5rem',
 };
 
 const ArrowStyle = styled.button`
   width: 40px;
   height: 40px;
-  flex-shrink: 0;
   fill: rgba(255, 255, 255, 0.9);
   stroke-width: 1px;
   stroke: var(--gray-300, #ccc);
@@ -26,9 +24,9 @@ const ArrowStyle = styled.button`
   }
 `;
 
-function ArrowBtn({ className, isLeft }) {
+function ArrowBtn({ className, isLeft, onClick }) {
   return (
-    <ArrowStyle className={className}>
+    <ArrowStyle className={className} onClick={onClick}>
       {isLeft ? (
         <MdKeyboardArrowLeft style={ArrowSize} />
       ) : (

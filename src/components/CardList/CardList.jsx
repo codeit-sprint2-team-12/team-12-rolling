@@ -52,6 +52,7 @@ const Card = styled.li`
   position: relative;
   width: 27.4rem;
   height: 26rem;
+  cursor: pointer;
 
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -74,6 +75,10 @@ const EmojiBox = styled.ul`
   }
 `;
 
+const handlePostClick = (id) => {
+  window.location.href = `/post/${id}`;
+};
+
 export default function CardList({
   backgroundcolor = 'orange',
   name,
@@ -81,7 +86,7 @@ export default function CardList({
 }) {
   return (
     <CardListBox>
-      <Card backgroundcolor={backgroundcolor}>
+      <Card backgroundcolor={backgroundcolor} onClick={handlePostClick}>
         <TextBox>
           <ToRecipient>To.{name}</ToRecipient>
 
