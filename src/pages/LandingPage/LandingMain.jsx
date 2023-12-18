@@ -26,8 +26,12 @@ const Article = styled.article`
   background: var(--Surface, #f6f8ff);
 
   > section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 60%;
     flex-shrink: 0;
+    justify-content: center;
 
     > img {
       width: 100%;
@@ -64,7 +68,7 @@ const Article = styled.article`
     height: 32.4rem;
     padding: ${({ type }) =>
       type ? TYPE[type].padding : '6rem 19.2rem 6rem 0'};
-    gap: ${({ type }) => (type ? TYPE[type].gap : '0')};
+    gap: ${({ type }) => (type ? TYPE[type].gap : '12.5rem')};
   }
 
   @media screen and (max-width: 1248px) {
@@ -97,16 +101,15 @@ const TextBox = styled.div`
     letter-spacing: -0.01125rem;
   }
 
-  @media screen and(min-width: 375px) {
-  }
-
-  @media screen and (max-width: 767px) {
-  }
-
   @media screen and (max-width: 1248px) {
     margin: 4rem;
     > h1 {
       white-space: nowrap;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    > h1 {
+      white-space: normal;
     }
   }
 `;
