@@ -57,12 +57,10 @@ export default function Option({ isImage, onClick, backgroundImages }) {
     const id = Number(e.target.id);
     if (isImage) {
       onClick('backgroundImageURL', BACKGROUND[id]);
-      setSelectedIndex(Number(id));
     } else {
       onClick('backgroundColor', COLOR[id].value);
-      onClick('backgroundImageURL', null);
-      setSelectedIndex(Number(id));
     }
+    setSelectedIndex(Number(id));
   };
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function Option({ isImage, onClick, backgroundImages }) {
     if (isImage) {
       onClick('backgroundImageURL', BACKGROUND[0]);
     } else {
-      onClick('backgroundColor', COLOR[0].value);
+      onClick('backgroundColor', 'beige');
       onClick('backgroundImageURL', null);
     }
   }, [isImage]);

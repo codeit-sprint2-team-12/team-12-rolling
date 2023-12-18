@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import HeaderTop from '../../components/Header/HeaderTop';
 import RecipientForm from './RecipientForm';
@@ -10,7 +11,7 @@ import Title from './Title';
 import Subtitle from './Subtitle';
 import { getBackgroundImages } from '../../apis/apiImages';
 import { postRecipients } from '../../apis/apiRecipients';
-import { useNavigate } from 'react-router-dom';
+
 function CreateRecipientPage() {
   const [isActive, setIsActive] = useState(false);
   const [backgroundImages, setBackgroundImages] = useState([]);
@@ -27,22 +28,21 @@ function CreateRecipientPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let result;
+
     try {
       setIsSubmitSuccess(false);
-      result = await postRecipients(postData);
+      const result = await postRecipients(postData);
       setCreatedId(result.id);
     } catch (error) {
       return;
     }
-    console.log(result);
+
     setIsSubmitSuccess(true);
   };
 
   const handleLoad = async () => {
-    let result;
     try {
-      result = await getBackgroundImages();
+      const result = await getBackgroundImages();
       setBackgroundImages([...result]);
     } catch (error) {
       return;
@@ -50,22 +50,23 @@ function CreateRecipientPage() {
   };
 
   const handleChange = (target, value) => {
-    setPostData({ ...postData, [target]: value });
+    setPostData((prevData) => ({ ...prevData, [target]: value }));
   };
 
+  // 최초 로딩
   useEffect(() => {
     handleLoad();
   }, []);
 
+  // 제출 성공시 페이지 이동
   useEffect(() => {
     if (isSubmitSuccess) {
-      console.log(createdId);
       navigate(`./${createdId}`);
     }
-  }, [isSubmitSuccess]);
+  }, [isSubmitSuccess, createdId, navigate]);
 
   return (
-    <div>
+    <>
       <Header>
         <HeaderTop />
       </Header>
@@ -96,7 +97,7 @@ function CreateRecipientPage() {
           </SubmitBtn>
         </div>
       </RecipientForm>
-    </div>
+    </>
   );
 }
 
