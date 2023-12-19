@@ -1,4 +1,10 @@
 import styled from 'styled-components';
+import {
+  postRecipientReactions,
+  getRecipientReactions,
+} from '../../apis/apiRecipients';
+
+import { useEffect } from 'react';
 
 const BadgeContainer = styled.button`
   border: none;

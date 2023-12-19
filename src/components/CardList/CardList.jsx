@@ -81,7 +81,7 @@ const handlePostClick = (id) => {
 
 export default function CardList({
   backgroundcolor = 'orange',
-  name = 'ddd',
+  name,
   count = '21',
 }) {
   return (

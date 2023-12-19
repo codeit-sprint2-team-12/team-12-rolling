@@ -1,18 +1,42 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getRecipientMessages, getRecipients } from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom from '../../components/Header/HeaderBottom';
 import HeaderTop from '../../components/Header/HeaderTop';
-import { useEffect, useState } from 'react';
-import { getRecipientMessages } from '../../apis/apiRecipients';
 import RollingPageCardList from '../../components/Card/RollingPageCardList';
-import Toast from '../../components/Toast/Toast';
+import CardList from '../../components/CardList/CardList';
+
+const COLOR = {
+  beige: 'var(--orange-200, #FFE2AD)',
+  blue: 'var(--blue-200, #B1E4FF)',
+  green: 'var(--green-200, #d0f5c3)',
+  purple: 'var(--purple-200, #ECD9FF)',
+};
 import { useLocation } from 'react-router-dom';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 
 const Main = styled.main`
-  background-color: var(--Orange-200, #ffe2ad);
-  position: relative;
-  padding: 11.3rem 0;
+  ${({ backgroundColor, backgroundImageURL }) => {
+    if (backgroundImageURL) {
+      return `
+        background-image: url(${backgroundImageURL});
+        background-size: cover;
+        background-position: center;
+      `;
+    } else if (backgroundColor) {
+      return `
+        background-color: ${COLOR[backgroundColor]};
+      `;
+    } else {
+      return `
+        background-color: var(--Orange-200, #ffe2ad);
+      `;
+    }
+  }};
+
+  padding: 12.7rem 0 24.6rem;
   height: 100vh;
   overflow: scroll;
 
@@ -51,17 +75,25 @@ const StyledToast = styled(Toast)`
 export default function UsersRollingPage({ name = 'recipient' }) {
   const location = useLocation();
 
+  const params = useParams();
   const [goDeletePage, setGoDeletePage] = useState(false);
+
   const [items, setItems] = useState();
-  const [copyURL, setCopyURL] = useState(false);
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const [response, setResponse] = useState({});
+
+  const handleClickEmojiPickerOpenList = (e) => {
+    setEmojiPickerOpen((prev) => !prev);
+  };
 
   const isDelete = () => {
     setGoDeletePage((prev) => !prev);
   };
 
   const handleLoad = async () => {
-    const { results } = await getRecipientMessages();
-    return setItems(results);
+    const { results } = await getRecipientMessages(params.createdId);
+
+    setItems(results);
   };
 
   const handleSumbitAdressShare = async () => {
@@ -74,11 +106,17 @@ export default function UsersRollingPage({ name = 'recipient' }) {
       setTimeout(() => setCopyURL(false), 5000);
     }
   };
-
   // location.pathname앞에 baseUrl 필요
+
+  const handleGetInfo = async () => {
+    const result = await getRecipients(params.createdId);
+
+    setResponse(result);
+  };
 
   useEffect(() => {
     handleLoad();
+    handleGetInfo();
   }, []);
 
   return (
@@ -87,26 +125,18 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         <HeaderTop />
       </Header>
       <Header>
-        <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
-          {name}
+        <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
+          {response.name}
         </HeaderBottom>
       </Header>
 
-      <Main>
-        <AlignButton>
-          <DeleteButton onClick={isDelete} size="small">
-            {goDeletePage ? '취소하기' : '삭제하기'}
-          </DeleteButton>
-        </AlignButton>
-        <RollingPageCardList
-          goDeletePage={goDeletePage}
-          items={items}
-        ></RollingPageCardList>
-
-        {copyURL && <StyledToast />}
+      <Main
+        backgroundColor={response.backgroundColor}
+        backgroundImageURL={response.backgroundImageURL}
+      >
+        {emojiPickerOpen ? <EmojiPicker /> : ''}
+        <CardListForRollingPage items={items}></CardListForRollingPage>
       </Main>
     </>
   );
 }
-
-//드롭다운 버튼으로 감싸기?

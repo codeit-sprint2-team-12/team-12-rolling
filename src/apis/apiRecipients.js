@@ -4,7 +4,7 @@ const ROOT_URL = 'https://rolling-api.vercel.app/2-12';
 // GET
 /* ==================== */
 
-async function getRecipients(id = '') {
+async function getRecipients(id) {
   const path = id ? `recipients/${id}/` : `recipients/`;
   const response = await fetch(`${ROOT_URL}/${path}`);
   if (!response.ok) {
@@ -15,7 +15,7 @@ async function getRecipients(id = '') {
   return body;
 }
 
-async function getRecipientMessages(recipientId = '1099') {
+async function getRecipientMessages(recipientId) {
   if (!recipientId) {
     throw new Error('불러올 대상을 지정해주세요.');
   }
@@ -82,6 +82,25 @@ async function postMessages(data) {
   return body;
 }
 
+async function postRecipientReactions(data, recipient_id) {
+  const response = await fetch(
+    `${ROOT_URL}/recipients/${recipient_id}/reactions/`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }
+  );
+  if (!response.ok) {
+    throw new Error('리액션을 생성하는데 실패했습니다.');
+  }
+  const body = await response.json();
+
+  return body;
+}
+
 /* ==================== */
 // DELETE
 /* ==================== */
@@ -103,4 +122,5 @@ export {
   getRecipientReactions,
   postRecipients,
   postMessages,
+  postRecipientReactions,
 };

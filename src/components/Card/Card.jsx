@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
-
 import OutlinedBtn from '../Button/OutlinedBtn';
 import Modal from '../Modal/Modal';
 
@@ -91,7 +90,8 @@ export default function Card({ onClick, openModal, goDeletePage, item }) {
     createdAt,
     content,
     profileImageURL = '',
-    relationship = '',
+    relationship,
+    deletePage = false,
   } = item;
 
   console.log(id);
