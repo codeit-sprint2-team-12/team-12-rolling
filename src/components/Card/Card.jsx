@@ -4,6 +4,7 @@ import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import Modal from '../Modal/Modal';
+import { useEffect, useState } from 'react';
 
 export const ProfileBox = styled.div`
   display: flex;
@@ -80,21 +81,23 @@ const DeleteBtn = styled(OutlinedBtn)`
   position: absolute;
   padding: 0.8rem !important;
   right: 3rem;
-  display: ${({ goDeletePage }) => (goDeletePage ? 'inline-flex' : 'none')};
+  display: ${({ deletePage }) => (deletePage ? 'inline-flex' : 'none')};
 `;
 
-export default function Card({ onClick, openModal, goDeletePage, item }) {
+export default function Card({
+  deletePage,
+  item,
+  onCloseModal,
+  openModal,
+  isModalOpen,
+}) {
   const {
-    id,
     sender,
     createdAt,
     content,
     profileImageURL = '',
     relationship,
-    deletePage = false,
   } = item;
-
-  console.log(id);
 
   return (
     <>
@@ -109,14 +112,16 @@ export default function Card({ onClick, openModal, goDeletePage, item }) {
             <Badge relationship={relationship} />
           </ProfileText>
 
-          <DeleteBtn size="md" goDeletePage={goDeletePage}>
+          <DeleteBtn size="md" deletePage={deletePage}>
             <img src={deleteBtn} alt="삭제하기" />
           </DeleteBtn>
         </ProfileBox>
         <TextBox>{content}</TextBox>
         <MakeDate>{formatDate(createdAt)}</MakeDate>
       </div>
-      {openModal && <Modal item={item} messageId={id} />}
+      {isModalOpen && (
+        <Modal item={item} openModal={openModal} onCloseModal={onCloseModal} />
+      )}
     </>
   );
 }

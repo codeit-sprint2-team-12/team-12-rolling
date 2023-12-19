@@ -19,7 +19,7 @@ const SplitLine = styled.div`
   margin: 0 1.3rem;
 
   @media screen and (max-width: 767px) {
-    display: ${({ first }) => first && 'none'};
+    display: ${({ first }) => 'flex' && 'none'};
   }
 `;
 

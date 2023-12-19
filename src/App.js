@@ -6,6 +6,7 @@ import CreateRecipientPage from './pages/CreateRecipientPage/CreateRecipientPage
 import UsersRollingPage from './pages/UsersRollingPage/UsersRollingPage';
 import CreateMessagePage from './pages/CreateMessagePage/CreateMessagePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import EditPage from './pages/UsersRollingPage/EditPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/post">
             <Route index element={<CreateRecipientPage />} />
             <Route path=":createdId" element={<UsersRollingPage />} />
+            <Route path=":createdId/edit" element={<EditPage />} />
             <Route path=":createdId/message" element={<CreateMessagePage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />

@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getRecipientMessages, getRecipients } from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom from '../../components/Header/HeaderBottom';
 import HeaderTop from '../../components/Header/HeaderTop';
+import Toast from '../../components/Toast/Toast';
 import RollingPageCardList from '../../components/Card/RollingPageCardList';
-import CardList from '../../components/CardList/CardList';
+import PrimaryBtn from '../../components/Button/PrimaryBtn';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -14,8 +15,6 @@ const COLOR = {
   green: 'var(--green-200, #d0f5c3)',
   purple: 'var(--purple-200, #ECD9FF)',
 };
-import { useLocation } from 'react-router-dom';
-import PrimaryBtn from '../../components/Button/PrimaryBtn';
 
 const Main = styled.main`
   ${({ backgroundColor, backgroundImageURL }) => {
@@ -36,7 +35,7 @@ const Main = styled.main`
     }
   }};
 
-  padding: 12.7rem 0 24.6rem;
+  padding: 6.3rem 0;
   height: 100vh;
   overflow: scroll;
 
@@ -51,16 +50,16 @@ const Main = styled.main`
 
 const AlignButton = styled.div`
   max-width: 120rem;
-  margin: 0 auto;
+  margin: 0 auto 1.1rem;
   display: flex;
   justify-content: flex-end;
+  gap: 1rem;
 
   align-items: center;
 `;
 
 const DeleteButton = styled(PrimaryBtn)`
-  margin-bottom: 1.1rem;
-  width: 9.2rem;
+  width: auto;
   text-align: start;
   white-space: nowrap;
   display: block;
@@ -72,22 +71,23 @@ const StyledToast = styled(Toast)`
   position: fixed;
 `;
 
-export default function UsersRollingPage({ name = 'recipient' }) {
+export default function UsersRollingPage({ deletePage = false }) {
   const location = useLocation();
-
   const params = useParams();
-  const [goDeletePage, setGoDeletePage] = useState(false);
-
+  const [copyURL, setCopyURL] = useState(false);
   const [items, setItems] = useState();
-  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [response, setResponse] = useState({});
+  const [selectedCardId, setSelectedCardId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleClickEmojiPickerOpenList = (e) => {
-    setEmojiPickerOpen((prev) => !prev);
+  const openModal = (cardId) => {
+    setSelectedCardId(cardId);
+    setIsModalOpen(true);
   };
 
-  const isDelete = () => {
-    setGoDeletePage((prev) => !prev);
+  const closeModal = () => {
+    setSelectedCardId(null);
+    setIsModalOpen(false);
   };
 
   const handleLoad = async () => {
@@ -97,6 +97,10 @@ export default function UsersRollingPage({ name = 'recipient' }) {
   };
 
   const handleSumbitAdressShare = async () => {
+    if (deletePage) {
+      return alert('편집 페이지는 공유할 수 없습니다');
+    }
+
     try {
       await navigator.clipboard.writeText(location.pathname);
       setCopyURL(true);
@@ -125,7 +129,7 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         <HeaderTop />
       </Header>
       <Header>
-        <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
+        <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
           {response.name}
         </HeaderBottom>
       </Header>
@@ -134,8 +138,26 @@ export default function UsersRollingPage({ name = 'recipient' }) {
         backgroundColor={response.backgroundColor}
         backgroundImageURL={response.backgroundImageURL}
       >
-        {emojiPickerOpen ? <EmojiPicker /> : ''}
-        <CardListForRollingPage items={items}></CardListForRollingPage>
+        <AlignButton>
+          {deletePage && (
+            <DeleteButton size="small">페이지 삭제하기</DeleteButton>
+          )}
+          <Link
+            to={deletePage ? `/post/${params.createdId}` : 'edit'}
+            style={{ textDecoration: 'none' }}
+          >
+            <DeleteButton size="small">
+              {deletePage ? '취소하기' : '삭제하기'}
+            </DeleteButton>
+          </Link>
+        </AlignButton>
+        <RollingPageCardList
+          items={items}
+          deletePage={deletePage}
+          // onClick={openModal()}
+        ></RollingPageCardList>
+
+        {copyURL && <StyledToast></StyledToast>}
       </Main>
     </>
   );
