@@ -4,9 +4,10 @@ const ROOT_URL = 'https://rolling-api.vercel.app/2-12';
 // GET
 /* ==================== */
 
-async function getRecipients(id) {
+async function getRecipients(id = '', queryType = '') {
   const path = id ? `recipients/${id}/` : `recipients/`;
-  const response = await fetch(`${ROOT_URL}/${path}`);
+  const query = queryType === 'like' ? `?limit=16&sort=like` : `?limit=16`;
+  const response = await fetch(`${ROOT_URL}/${path}${query}`);
   if (!response.ok) {
     throw new Error('대상을 불러오는데 실패했습니다.');
   }

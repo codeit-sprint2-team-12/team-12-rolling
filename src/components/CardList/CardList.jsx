@@ -5,12 +5,13 @@ import blueBackground from '../../assets/cardListblue.png';
 import orangeBackground from '../../assets/cardListOrange.png';
 import purpleBackground from '../../assets/cardListPurple.png';
 import ProfileImgList from '../Header/ProfieImgList';
+import { useNavigate } from 'react-router-dom';
 
 const COLOR = {
-  green: `url(${greenBackground})`,
-  blue: `url(${blueBackground})`,
-  orange: `url(${orangeBackground})`,
-  purple: `url(${purpleBackground})`,
+  green: greenBackground,
+  blue: blueBackground,
+  beige: orangeBackground,
+  purple: purpleBackground,
 };
 
 /* Font/24 Bold */
@@ -57,7 +58,8 @@ const Card = styled.li`
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-  background: ${({ backgroundcolor }) => COLOR[backgroundcolor]};
+  background: ${({ $background }) =>
+    $background ? `url(${$background})` : `url(${COLOR['beige']})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -75,38 +77,48 @@ const EmojiBox = styled.ul`
   }
 `;
 
-const handlePostClick = (id) => {
-  window.location.href = `/post/1099`;
-};
+export default function CardList({ cardData }) {
+  const navigate = useNavigate();
+  const {
+    id,
+    backgroundColor,
+    backgroundImageURL,
+    recentMessages,
+    name,
+    messageCount,
+    topReactions,
+  } = cardData;
 
-export default function CardList({
-  backgroundcolor = 'orange',
-  name,
-  count = '21',
-}) {
+  const background = backgroundImageURL
+    ? backgroundImageURL
+    : COLOR[backgroundColor];
+
+  const handlePostClick = () => {
+    navigate(`/post/${id}`);
+  };
+
   return (
     <CardListBox>
-      <Card backgroundcolor={backgroundcolor} onClick={handlePostClick}>
+      <Card $background={background} onClick={handlePostClick}>
         <TextBox>
           <ToRecipient>To.{name}</ToRecipient>
 
-          <ProfileImgList></ProfileImgList>
-          {/* <div>프로필 이미지 나열</div>
-          <CountWritePeople>
-            <span>{count}</span>명이 작성했어요!
-          </CountWritePeople>  */}
+          <ProfileImgList
+            recentMessages={recentMessages}
+            messageCount={messageCount}
+          />
         </TextBox>
 
         <EmojiBox>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
+          {topReactions.map((item) => {
+            return (
+              <li>
+                <EmojiBadge
+                  emojiList={{ emoji: item.emoji, count: item.count }}
+                />
+              </li>
+            );
+          })}
         </EmojiBox>
       </Card>
     </CardListBox>

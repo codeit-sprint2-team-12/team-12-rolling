@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import goShare from '../../assets/share-24.svg';
 import ProfileImgList from './ProfieImgList';
 import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
 import EmojiSelectBox from './EmojiSelectBox';
+import RecipientContext from '../../contexts/RecipientContext';
 
 const RightSection = styled.div`
   position: relative;
@@ -41,9 +42,16 @@ export default function HeaderBottumRight({ nav, onShareURLClick }) {
     setShareOpen((prev) => !prev);
   };
 
+  const recipientData = useContext(RecipientContext);
+  const { recentMessages, messageCount } = recipientData;
+
   return (
     <RightSection>
-      <ProfileImgList nav={nav} />
+      <ProfileImgList
+        nav={nav}
+        recentMessages={recentMessages}
+        messageCount={messageCount}
+      />
       <SplitLine first={true} />
       <EmojiSelectBox />
       <SplitLine />
