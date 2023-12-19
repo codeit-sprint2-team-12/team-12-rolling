@@ -1,4 +1,3 @@
-import { children, useState } from 'react';
 import styled from 'styled-components';
 
 import HeaderBottumRight from './HeaderBottumRight';
