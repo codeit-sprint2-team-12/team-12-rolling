@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import styled from 'styled-components';
 import CardList from '../../components/CardList/CardList';
 import ArrowBtn from '../../components/Button/ArrowBtn';
-
+import { getRecipients } from '../../apis/apiRecipients';
+import { useNavigate } from 'react-router-dom';
 const CardMain = styled.main`
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
 `;
-
 const CardListContainer = styled.ul`
   position: relative;
   display: flex;
@@ -45,11 +45,11 @@ const CardArrowLeftStyle = styled.div`
   z-index: 1;
 
   @media screen and (max-width: 1334px) {
-    display: none !important;
+    display: none;
   }
 
   @media screen and (max-width: 767px) {
-    display: none !important;
+    display: none;
   }
 `;
 
@@ -60,11 +60,11 @@ const CardArrowRightStyle = styled.div`
   z-index: 1;
 
   @media screen and (max-width: 1333px) {
-    display: none !important;
+    display: none;
   }
 
   @media screen and (max-width: 767px) {
-    display: none !important;
+    display: none;
   }
 `;
 
@@ -106,41 +106,62 @@ const Footer = styled.footer`
   }
 `;
 
-function handleListClick() {
-  window.location.href = '/post';
+function CardListSection({
+  id,
+  title,
+  data,
+  scrollPosition,
+  handleArrowClick,
+}) {
+  const { results } = data;
+  const isLeftArrowVisible = scrollPosition > 0;
+  const isRightArrowVisible = scrollPosition < results.length;
+  return (
+    <CardMain>
+      <CardListTitle>{title}</CardListTitle>
+      <CardArrowLeftStyle
+        style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
+        onClick={() => handleArrowClick(true, id)}>
+        <ArrowBtn isLeft={true} />
+      </CardArrowLeftStyle>
+      <CardListContainer>
+        <CardListView id={`${id}CardListView`}>
+          <CardListBox>
+            {results.map((item, index) => (
+              <CardList key={index} cardData={item} />
+            ))}
+          </CardListBox>
+        </CardListView>
+      </CardListContainer>
+      <CardArrowRightStyle
+        style={{
+          display:
+            results.length > 4
+              ? isRightArrowVisible
+                ? 'flex'
+                : 'none'
+              : 'none',
+        }}
+        onClick={() => handleArrowClick(false, id)}>
+        <ArrowBtn isLeft={false} />
+      </CardArrowRightStyle>
+    </CardMain>
+  );
 }
 
-const CardListSection = ({ id, title, handleArrowClick }) => {
+export default function ListMain() {
   const [scrollPositions, setScrollPositions] = useState({
     favorite: 0,
     new: 0,
   });
-  const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `https://rolling-api.vercel.app/2-12/recipients/?limit=48`
-        );
-        if (!response.ok) {
-          throw new Error('에러 발생');
-        }
-        const result = await response.json();
-        const dataArray = result.data || [];
-        setData(dataArray);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const [receivedHottestData, setReceivedHottestData] = useState({});
+  const [receivedNewestData, setReceivedNewestData] = useState({});
+  const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
 
-    fetchData();
-  }, [id]);
+  const navigate = useNavigate();
 
-  const isLeftArrowVisible = scrollPositions[id] > 0;
-  const isRightArrowVisible = scrollPositions[id] < data.length;
-
-  const handleArrowClickLocal = (isLeft) => {
+  const handleArrowClick = (isLeft, id) => {
     const cardListView = document.getElementById(`${id}CardListView`);
     const cardWidth = cardListView.clientWidth;
     const currentPosition = scrollPositions[id];
@@ -155,64 +176,49 @@ const CardListSection = ({ id, title, handleArrowClick }) => {
     cardListView.scrollTo({ left: newPosition, behavior: 'smooth' });
   };
 
-  return (
-    <CardMain>
-      <CardListTitle>{title}</CardListTitle>
-      <CardArrowLeftStyle
-        style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
-        onClick={() => handleArrowClickLocal(true)}
-      >
-        <ArrowBtn isLeft={true} />
-      </CardArrowLeftStyle>
-      <CardListContainer>
-        <CardListView id={`${id}CardListView`}>
-          <CardListBox>
-            {data.map((item, index) => (
-              <CardList key={index} backgroundColor={item.backgroundColor} />
-            ))}
-          </CardListBox>
-        </CardListView>
-      </CardListContainer>
-      <CardArrowRightStyle
-        style={{
-          display: isRightArrowVisible ? 'flex' : 'none',
-        }}
-        onClick={() => handleArrowClickLocal(false)}
-      >
-        <ArrowBtn isLeft={false} />
-      </CardArrowRightStyle>
-    </CardMain>
-  );
-};
+  function handleListClick() {
+    navigate('/post');
+  }
 
-const ListMain = () => {
-  const handleArrowClick = (isLeft, id) => {
-    console.log(
-      `Arrow clicked: ${isLeft ? 'Left' : 'Right'} for section ${id}`
-    );
+  const handleLoad = async () => {
+    try {
+      const resultLike = await getRecipients('', 'like');
+      const resultNew = await getRecipients('', 'new');
+
+      setReceivedHottestData({ ...receivedHottestData, ...resultLike });
+      setReceivedNewestData({ ...receivedNewestData, ...resultNew });
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoadingSuccess(true);
+    }
   };
 
-  const sections = [
-    {
-      id: 'favorite',
-      title: '인기 롤링 페이퍼 🔥',
-    },
-    {
-      id: 'new',
-      title: '최근에 만든 롤링 페이퍼 ⭐️️',
-    },
-  ];
+  useState(() => {
+    handleLoad();
+  }, []);
 
   return (
     <main>
-      {sections.map((section) => (
+      {isLoadingSuccess && (
         <CardListSection
-          key={section.id}
-          id={section.id}
-          title={section.title}
+          id="favorite"
+          title="인기 롤링 페이퍼 🔥"
+          data={receivedHottestData}
+          scrollPosition={scrollPositions['favorite']}
           handleArrowClick={handleArrowClick}
         />
-      ))}
+      )}
+      {isLoadingSuccess && (
+        <CardListSection
+          id="new"
+          title="최근에 만든 롤링 페이퍼 ⭐️️"
+          data={receivedNewestData}
+          scrollPosition={scrollPositions['new']}
+          handleArrowClick={handleArrowClick}
+        />
+      )}
+
       <Footer>
         <PrimaryBtn size="regular" onClick={handleListClick}>
           나도 만들어보기
@@ -220,6 +226,4 @@ const ListMain = () => {
       </Footer>
     </main>
   );
-};
-
-export default ListMain;
+}
