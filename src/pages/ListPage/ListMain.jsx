@@ -120,12 +120,15 @@ const CardListSection = ({ id, title, handleArrowClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://rolling-api.vercel.app/2-12/recipients/`);
+        const response = await fetch(
+          `https://rolling-api.vercel.app/2-12/recipients/?limit=48`
+        );
         if (!response.ok) {
           throw new Error('에러 발생');
         }
         const result = await response.json();
-        setData(result.data); 
+        const dataArray = result.data || [];
+        setData(dataArray);
       } catch (error) {
         console.error(error);
       }
@@ -170,9 +173,9 @@ const CardListSection = ({ id, title, handleArrowClick }) => {
           </CardListBox>
         </CardListView>
       </CardListContainer>
-      <CardArrowRightStyle style={{
-          display:
-            data.length > 4 ? (isRightArrowVisible ? 'flex' : 'none') : 'none',
+      <CardArrowRightStyle
+        style={{
+          display: isRightArrowVisible ? 'flex' : 'none',
         }}
         onClick={() => handleArrowClickLocal(false)}
       >
@@ -184,7 +187,9 @@ const CardListSection = ({ id, title, handleArrowClick }) => {
 
 const ListMain = () => {
   const handleArrowClick = (isLeft, id) => {
-    console.log(`Arrow clicked: ${isLeft ? 'Left' : 'Right'} for section ${id}`);
+    console.log(
+      `Arrow clicked: ${isLeft ? 'Left' : 'Right'} for section ${id}`
+    );
   };
 
   const sections = [
