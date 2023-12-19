@@ -30,17 +30,17 @@ const BadgeContainer = styled.span`
   letter-spacing: -0.007rem;
   border-radius: 0.4rem;
 
-  color: ${({ relation }) =>
-    relation ? STYLE[relation].color : 'transparent'};
+  color: ${({ relationship }) =>
+    relationship ? STYLE[relationship].color : 'transparent'};
 
-  background: ${({ relation }) =>
-    relation ? STYLE[relation].background : 'transparent'};
+  background: ${({ relationship }) =>
+    relationship ? STYLE[relationship].background : 'transparent'};
 `;
 
-function Badge({ className, relation = '지인' }) {
+function Badge({ className, relationship = '지인' }) {
   return (
-    <BadgeContainer className={className} relation={relation}>
-      {relation}
+    <BadgeContainer className={className} relationship={relationship}>
+      {relationship}
     </BadgeContainer>
   );
 }
