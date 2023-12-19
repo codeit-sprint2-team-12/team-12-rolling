@@ -1,5 +1,5 @@
 import { useParams, useLocation, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getRecipientMessages, getRecipients } from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
@@ -77,18 +77,7 @@ export default function UsersRollingPage({ deletePage = false }) {
   const [copyURL, setCopyURL] = useState(false);
   const [items, setItems] = useState();
   const [response, setResponse] = useState({});
-  const [selectedCardId, setSelectedCardId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = (cardId) => {
-    setSelectedCardId(cardId);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedCardId(null);
-    setIsModalOpen(false);
-  };
+  const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
 
   const handleLoad = async () => {
     const { results } = await getRecipientMessages(params.createdId);
@@ -113,9 +102,15 @@ export default function UsersRollingPage({ deletePage = false }) {
   // location.pathname앞에 baseUrl 필요
 
   const handleGetInfo = async () => {
-    const result = await getRecipients(params.createdId);
+    try {
+      const result = await getRecipients(params.createdId);
 
-    setResponse(result);
+      setResponse((prev) => ({ ...prev, ...result }));
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoadingSuccess(true);
+    }
   };
 
   useEffect(() => {
@@ -128,11 +123,18 @@ export default function UsersRollingPage({ deletePage = false }) {
       <Header>
         <HeaderTop />
       </Header>
-      <Header>
-        <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
-          {response.name}
-        </HeaderBottom>
-      </Header>
+      <RecipientContext.Provider value={response}>
+        <IdContext.Provider value={params.createdId}>
+          <Header>
+            {isLoadingSuccess ? (
+              <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
+                {response.name}
+              </HeaderBottom>
+            ) : null}
+            {emojiPickerOpen ? <EmojiPicker /> : ''}
+          </Header>
+        </IdContext.Provider>
+      </RecipientContext.Provider>
 
       <Main
         backgroundColor={response.backgroundColor}
@@ -154,7 +156,6 @@ export default function UsersRollingPage({ deletePage = false }) {
         <RollingPageCardList
           items={items}
           deletePage={deletePage}
-          // onClick={openModal()}
         ></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}

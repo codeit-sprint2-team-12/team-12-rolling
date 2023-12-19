@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import noneImg from '../../assets/noneProfileImg.png';
+import RecipientContext from '../../contexts/RecipientContext';
+import { useContext } from 'react';
 
 const ImgItems = styled.img`
   width: 2.8rem;
@@ -68,21 +69,22 @@ const ImgList = styled.div`
 
 // 미디어쿼리 부분적용 이슈
 
-export default function ProfileImgList({
-  profileImageURL = '',
-  count = '24',
-  nav = true,
-}) {
+export default function ProfileImgList({ nav = true }) {
+  const recipientData = useContext(RecipientContext);
+  const { recentMessages, messageCount } = recipientData;
+
   return (
     <>
       <ImgList>
-        <ImgItems src={profileImageURL || noneImg} />
-        <ImgItems src={profileImageURL || noneImg} />
-        <ImgItems src={profileImageURL || noneImg} />
-        <CountImg nav={nav}> +{count - 3}</CountImg>
+        {recentMessages.map((item) => {
+          return <ImgItems src={item.profileImageURL} alt="프로필" />;
+        })}
+        {messageCount > 3 && (
+          <CountImg nav={nav}> +{messageCount - 3}</CountImg>
+        )}
       </ImgList>
       <CountText>
-        <span>{count}</span>명이 작성했어요!
+        <span>{messageCount}</span>명이 작성했어요!
       </CountText>
     </>
   );

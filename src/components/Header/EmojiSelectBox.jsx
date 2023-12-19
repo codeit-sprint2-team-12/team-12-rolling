@@ -4,15 +4,14 @@ import addFace from '../../assets/add-24.svg';
 import upImg from '../../assets/arrow_top.png';
 import downImg from '../../assets/arrow_down.png';
 import EmojiPick from './EmojiInput';
-import { children, useState } from 'react';
+import React, { children, useState, useEffect, useContext } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import EmojiBestList, { AddEmojiText } from '../Badge/EmojiList';
 import {
   postRecipientReactions,
   getRecipientReactions,
 } from '../../apis/apiRecipients';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import RecipientContext from '../../contexts/RecipientContext';
 
 const EmojiSelectContainer = styled.ul`
   list-style-type: none;
@@ -70,7 +69,7 @@ const AllEmojiList = styled.ul`
 `;
 
 export default function EmojiSelectBox() {
-  const params = useParams();
+  const recipientData = useContext(RecipientContext);
   const [emojiList, setEmojiList] = useState([]);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
@@ -78,7 +77,7 @@ export default function EmojiSelectBox() {
 
   const handleLoad = async () => {
     try {
-      const response = await getRecipientReactions('1099');
+      const response = await getRecipientReactions(recipientData.id);
       const { results } = response;
 
       setEmojiList([...results]);
@@ -100,7 +99,7 @@ export default function EmojiSelectBox() {
         emoji,
         type: 'increase',
       };
-      await postRecipientReactions(postData, params.createdId);
+      await postRecipientReactions(postData, recipientData.id);
     } catch (error) {
       return;
     } finally {

@@ -3,8 +3,6 @@ import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
-import Modal from '../Modal/Modal';
-import { useEffect, useState } from 'react';
 
 export const ProfileBox = styled.div`
   display: flex;
@@ -84,13 +82,7 @@ const DeleteBtn = styled(OutlinedBtn)`
   display: ${({ deletePage }) => (deletePage ? 'inline-flex' : 'none')};
 `;
 
-export default function Card({
-  deletePage,
-  item,
-  onCloseModal,
-  openModal,
-  isModalOpen,
-}) {
+export default function Card({ deletePage, item }) {
   const {
     sender,
     createdAt,
@@ -119,9 +111,6 @@ export default function Card({
         <TextBox>{content}</TextBox>
         <MakeDate>{formatDate(createdAt)}</MakeDate>
       </div>
-      {isModalOpen && (
-        <Modal item={item} openModal={openModal} onCloseModal={onCloseModal} />
-      )}
     </>
   );
 }

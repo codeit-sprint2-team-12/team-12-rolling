@@ -3,7 +3,6 @@ import PrimaryBtn from '../Button/PrimaryBtn';
 import noneImg from '../../assets/noneProfileImg.png';
 import { ProfileBox, ProfileImg, ProfileText } from '../Card/Card';
 import Badge from '../Badge/Badge';
-import React, { useState, useEffect } from 'react';
 
 const ModalBackground = styled.div`
   /* position: fixed;
@@ -72,7 +71,7 @@ const formatDate = (value) => {
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
 
-export default function Modal({ item, messageId, openModal, onCloseModal }) {
+export default function Modal({ item }) {
   const {
     id,
     sender,
@@ -81,12 +80,6 @@ export default function Modal({ item, messageId, openModal, onCloseModal }) {
     profileImageURL = '',
     relationship = '',
   } = item;
-
-  useEffect(() => {
-    if (id === messageId) {
-      openModal();
-    }
-  }, [id, messageId, openModal, onCloseModal]);
 
   return (
     <ModalBackground>

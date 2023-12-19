@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Card from './Card';
 import { PlusButtonStyle } from '../Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
-import { useState } from 'react';
 
 const CardListup = styled.article`
   max-width: 120rem;
