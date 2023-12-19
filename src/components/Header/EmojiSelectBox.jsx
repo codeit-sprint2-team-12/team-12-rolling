@@ -7,6 +7,12 @@ import EmojiPick from './EmojiInput';
 import { children, useState } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import EmojiBestList, { AddEmojiText } from '../Badge/EmojiList';
+import {
+  postRecipientReactions,
+  getRecipientReactions,
+} from '../../apis/apiRecipients';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const EmojiSelectContainer = styled.ul`
   list-style-type: none;
@@ -60,34 +66,49 @@ const AllEmojiList = styled.ul`
   border: 1px solid #b6b6b6;
   background: #fff;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-
   z-index: 1;
 `;
 
 export default function EmojiSelectBox() {
-  const [emojiOpen, setEmojiOpen] = useState(false);
+  const params = useParams();
   const [emojiList, setEmojiList] = useState([]);
-
+  const [emojiOpen, setEmojiOpen] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+  const [isReactionPostSuccess, setIsReactionPostSuccess] = useState(false);
 
-  const handleEmojiClick = (emojiData, click) => {
-    const realEmoji = emojiData.emoji;
-    const existingEmoji = emojiList.find((item) => item.emoji === realEmoji);
+  const handleLoad = async () => {
+    try {
+      const response = await getRecipientReactions('1099');
+      const { results } = response;
 
-    if (existingEmoji) {
-      setEmojiList((prev) =>
-        prev.map((emojis) =>
-          emojis.emoji === realEmoji
-            ? { ...emojis, count: emojis.count + 1 }
-            : emojis
-        )
-      );
-    } else {
-      setEmojiList((prev) => [...prev, { emoji: realEmoji, count: 1 }]);
+      setEmojiList([...results]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   };
 
-  const handleClickEmojiPickerOpenList = (e) => {
+  useEffect(() => {
+    handleLoad();
+  }, [isReactionPostSuccess]);
+
+  const handleClickCount = async (e) => {
+    try {
+      setIsReactionPostSuccess(false);
+      const { emoji } = e;
+
+      const postData = {
+        emoji,
+        type: 'increase',
+      };
+      await postRecipientReactions(postData, params.createdId);
+    } catch (error) {
+      return;
+    } finally {
+      setIsReactionPostSuccess(true);
+    }
+  };
+
+  const handleClickEmojiPickerOpenList = () => {
     setEmojiPickerOpen((prev) => !prev);
   };
 
@@ -123,7 +144,7 @@ export default function EmojiSelectBox() {
         <img src={addFace} alt="추가하기" />
         추가
       </AddBtn>
-      <EmojiPick onClick={handleEmojiClick} emojiPickerOpen={emojiPickerOpen} />
+      <EmojiPick onClick={handleClickCount} emojiPickerOpen={emojiPickerOpen} />
     </EmojiSelectContainer>
   );
 }

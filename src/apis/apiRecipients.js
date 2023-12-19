@@ -82,8 +82,7 @@ async function postMessages(data) {
   return body;
 }
 
-async function postRecipientReactions(data) {
-  const { recipient_id } = data;
+async function postRecipientReactions(data, recipient_id) {
   const response = await fetch(
     `${ROOT_URL}/recipients/${recipient_id}/reactions/`,
     {
