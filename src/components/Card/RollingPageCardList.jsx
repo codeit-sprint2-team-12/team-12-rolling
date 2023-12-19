@@ -44,27 +44,37 @@ const AddCardsBtn = styled(PlusButtonStyle)`
 `;
 
 export default function RollingPageCardList({
-  deletePage = false,
+  goDeletePage,
   items, // 이 {}는 프롭. =는 디폴트값
 }) {
   const [openModal, setOpenModal] = useState(false);
 
   const openClickModal = () => {
-    setOpenModal(true);
+    setOpenModal((prev) => !prev);
   };
+
   return (
     <CardListup>
-      <CardBox deletePage={deletePage}>
-        <AddCardsBtn>
-          <FaPlus />
-        </AddCardsBtn>
-      </CardBox>
+      {goDeletePage ? null : (
+        <CardBox>
+          <AddCardsBtn>
+            <FaPlus />
+          </AddCardsBtn>
+        </CardBox>
+      )}
       {items?.map((item) => {
         //여기서 item은 파라미터
         return (
-          <CardBox onClick={openClickModal} deletePage={deletePage}>
-            <Card item={item} />
-          </CardBox>
+          <>
+            <CardBox onClick={openClickModal}>
+              <Card
+                key={item.id}
+                openModal={openModal}
+                goDeletePage={goDeletePage}
+                item={item}
+              />
+            </CardBox>
+          </>
         );
       })}
     </CardListup>

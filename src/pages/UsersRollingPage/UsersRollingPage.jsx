@@ -6,10 +6,13 @@ import { useEffect, useState } from 'react';
 import { getRecipientMessages } from '../../apis/apiRecipients';
 import RollingPageCardList from '../../components/Card/RollingPageCardList';
 import Toast from '../../components/Toast/Toast';
+import { useLocation } from 'react-router-dom';
+import PrimaryBtn from '../../components/Button/PrimaryBtn';
 
 const Main = styled.main`
   background-color: var(--Orange-200, #ffe2ad);
-  padding: 12.7rem 0 24.6rem;
+  position: relative;
+  padding: 11.3rem 0;
   height: 100vh;
   overflow: scroll;
 
@@ -22,17 +25,38 @@ const Main = styled.main`
   }
 `;
 
+const AlignButton = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+
+  align-items: center;
+`;
+
+const DeleteButton = styled(PrimaryBtn)`
+  margin-bottom: 1.1rem;
+  width: 9.2rem;
+  text-align: start;
+  white-space: nowrap;
+  display: block;
+
+  justify-content: center;
+`;
+
 const StyledToast = styled(Toast)`
-  position: absolute;
+  position: fixed;
 `;
 
 export default function UsersRollingPage({ name = 'recipient' }) {
-  const [deletePage, setDeletePage] = useState(true);
+  const location = useLocation();
+
+  const [goDeletePage, setGoDeletePage] = useState(false);
   const [items, setItems] = useState();
   const [copyURL, setCopyURL] = useState(false);
 
   const isDelete = () => {
-    setDeletePage((prev) => !prev);
+    setGoDeletePage((prev) => !prev);
   };
 
   const handleLoad = async () => {
@@ -40,9 +64,18 @@ export default function UsersRollingPage({ name = 'recipient' }) {
     return setItems(results);
   };
 
-  const handleSumbitAdressShare = () => {
-    setCopyURL((prev) => !prev);
+  const handleSumbitAdressShare = async () => {
+    try {
+      await navigator.clipboard.writeText(location.pathname);
+      setCopyURL(true);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setTimeout(() => setCopyURL(false), 5000);
+    }
   };
+
+  // location.pathname앞에 baseUrl 필요
 
   useEffect(() => {
     handleLoad();
@@ -60,7 +93,15 @@ export default function UsersRollingPage({ name = 'recipient' }) {
       </Header>
 
       <Main>
-        <RollingPageCardList items={items}></RollingPageCardList>
+        <AlignButton>
+          <DeleteButton onClick={isDelete} size="small">
+            {goDeletePage ? '취소하기' : '삭제하기'}
+          </DeleteButton>
+        </AlignButton>
+        <RollingPageCardList
+          goDeletePage={goDeletePage}
+          items={items}
+        ></RollingPageCardList>
 
         {copyURL && <StyledToast />}
       </Main>

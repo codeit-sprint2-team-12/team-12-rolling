@@ -12,11 +12,18 @@ const ToRecipient = styled.h1`
   letter-spacing: -0.028rem;
 `;
 
-export default function HeaderBottom({ children, profileImageURL = null }) {
+export default function HeaderBottom({
+  onShareURLClick,
+  children,
+  profileImageURL = null,
+}) {
   return (
     <>
       <ToRecipient>To. {children}</ToRecipient>
-      <HeaderBottumRight nav={true}></HeaderBottumRight>
+      <HeaderBottumRight
+        onShareURLClick={onShareURLClick}
+        nav={true}
+      ></HeaderBottumRight>
     </>
   );
 }

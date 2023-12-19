@@ -4,15 +4,16 @@ import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
 
 import OutlinedBtn from '../Button/OutlinedBtn';
+import Modal from '../Modal/Modal';
 
-const ProfileBox = styled.div`
+export const ProfileBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 1.4rem;
 `;
 
-const ProfileText = styled.div`
+export const ProfileText = styled.div`
   > h1 {
     font-size: 2rem;
     font-weight: 700;
@@ -25,12 +26,12 @@ const ProfileText = styled.div`
   }
 `;
 
-const ProfileImg = styled.img`
+export const ProfileImg = styled.img`
   padding: 0;
   width: 5.6rem;
   height: 5.6rem;
   border-radius: 10rem;
-  border: 2px solid var(--gray-200, #eee);
+  border: 1.5px solid var(--gray-200, #eee);
   background: var(--white, #fff);
 `;
 
@@ -58,8 +59,8 @@ const TextBox = styled.p`
 `;
 
 const MakeDate = styled.span`
-  position: relative;
-  bottom: -2rem;
+  position: absolute;
+  bottom: 2rem;
   color: var(--gray-400, #999);
 
   /* Font/12 Regular */
@@ -70,47 +71,52 @@ const MakeDate = styled.span`
   letter-spacing: -0.006rem;
 `;
 
-const DeleteBtn = styled(OutlinedBtn)`
-  padding: 0.8rem !important;
-  margin-left: 11.7rem;
-`;
 const formatDate = (value) => {
   const date = new Date(value);
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
+// 함수 겹침 나중에 util로 합치기
 
-export default function Card({ item }) {
+const DeleteBtn = styled(OutlinedBtn)`
+  position: absolute;
+  padding: 0.8rem !important;
+  right: 3rem;
+  display: ${({ goDeletePage }) => (goDeletePage ? 'inline-flex' : 'none')};
+`;
+
+export default function Card({ onClick, openModal, goDeletePage, item }) {
   const {
+    id,
     sender,
     createdAt,
     content,
     profileImageURL = '',
     relationship = '',
-    onClick,
-    deletePage = false,
   } = item;
 
+  console.log(id);
+
   return (
-    <div>
-      <ProfileBox onClick={onClick}>
-        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-        <ProfileText>
-          <h1>
-            <span>From. </span>
-            {sender}
-          </h1>
-          <Badge relationship={relationship} />
-        </ProfileText>
-        {deletePage ? (
-          <DeleteBtn size="md">
+    <>
+      <div>
+        <ProfileBox>
+          <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+          <ProfileText>
+            <h1>
+              <span>From. </span>
+              {sender}
+            </h1>
+            <Badge relationship={relationship} />
+          </ProfileText>
+
+          <DeleteBtn size="md" goDeletePage={goDeletePage}>
             <img src={deleteBtn} alt="삭제하기" />
           </DeleteBtn>
-        ) : (
-          ''
-        )}
-      </ProfileBox>
-      <TextBox>{content}</TextBox>
-      <MakeDate>{formatDate(createdAt)}</MakeDate>
-    </div>
+        </ProfileBox>
+        <TextBox>{content}</TextBox>
+        <MakeDate>{formatDate(createdAt)}</MakeDate>
+      </div>
+      {openModal && <Modal item={item} messageId={id} />}
+    </>
   );
 }

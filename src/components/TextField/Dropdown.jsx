@@ -69,11 +69,6 @@ const DropdownList = styled.li`
   align-items: center;
   gap: 1rem;
   font-size: 1.6rem;
-
-  &:hover {
-    background: var(--gray-100, #f6f6f6);
-    outline: none;
-  }
 `;
 
 const DropdownIcon = styled.img`
