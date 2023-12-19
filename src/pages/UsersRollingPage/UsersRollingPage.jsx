@@ -8,6 +8,9 @@ import HeaderTop from '../../components/Header/HeaderTop';
 import Toast from '../../components/Toast/Toast';
 import RollingPageCardList from '../../components/Card/RollingPageCardList';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
+import EmojiPicker from 'emoji-picker-react';
+import IdContext from '../../contexts/IdContext';
+import RecipientContext from '../../contexts/RecipientContext';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -78,6 +81,11 @@ export default function UsersRollingPage({ deletePage = false }) {
   const [items, setItems] = useState();
   const [response, setResponse] = useState({});
   const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
+
+  const handleClickEmojiPickerOpenList = (e) => {
+    setEmojiPickerOpen((prev) => !prev);
+  };
 
   const handleLoad = async () => {
     const { results } = await getRecipientMessages(params.createdId);
@@ -127,7 +135,10 @@ export default function UsersRollingPage({ deletePage = false }) {
         <IdContext.Provider value={params.createdId}>
           <Header>
             {isLoadingSuccess ? (
-              <HeaderBottom onShareURLClick={handleSumbitAdressShare}>
+              <HeaderBottom
+                onShareURLClick={handleSumbitAdressShare}
+                onClick={handleClickEmojiPickerOpenList}
+              >
                 {response.name}
               </HeaderBottom>
             ) : null}

@@ -1,70 +1,87 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 👨🏻‍💻 **프로젝트 명 | 롤링**
 
-## Available Scripts
+  
+## 📝 프로젝트 설명 
 
-In the project directory, you can run:
+  
+### 🎯  왜 이 프로젝트를 택했는지
 
-### `npm start`
+  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🛠️ 왜 이 기술 스택을 사용했는지
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  
 
-### `npm test`
+### 🤔 프로젝트  진행 경과 및 발생 이슈
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  
+- 2023 / 12 / 08
+프로젝트 선정
+팀 규칙 설정
+스타일 적용 방식 선정 - styled components
 
-### `npm run build`
+-  2023 /  12 / 09 
+멘토링 반영
+페어 프로그래밍 협의
+prettier 설정
+깃 레포지토리 생성
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 12 / 11
+   - git push pull 테스트
+   - 랜딩 페이지 구현
+   - 버튼 컴포넌트 구현
+   - 페어 프로그래밍 활용- live share
+   `페이지 하나를 다같이 직접 만들어보는 경험을 함으로써 앞으로의 방향성을 예상해볼 수 있었다. 하지만 협의 없이 무작정 페어 프로그래밍을 시도하다보니 드라이버와 네비게이터 분리가 안되었고 심적으로 여유가 없어서 진행이 순차적으로 이루어지지 않는 등 수월하지 않았다. `
+   
+- 12 / 12
+ - 커밋 메세지 컨벤션 설정
+  - 정형화된 역할 분담 - 컴포넌트
+`전날 페어프로그래밍에서 좀 더 정형화된 역할 분담이 없으면, 진행 과정에 문제가 생길 것 같다는 의견을 팀원과 공유했다. 그러나 페어프로그래밍 경험자가 없었다는 문제가 있어, 페어프로그래밍을 함으로써 얻을 수 있는 장점을 살리기 힘들것 같다는 결론에 다다랐다. 업무의 효율성을 위해 각자의 역량을 최대한 발휘할 수 있도록, 정형화된 업무분담을 협의했다.`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 12/ 13
+ - 분담한 컴포넌트 결합
+`업무 분담을 통해 각자 컴포넌트를 제작하고 결합하였으나 해당 담당자가 필요로 하는 props 등 세부적인 기능을 고려하지 못한 문제가 발생하였다. 현재로써 완벽한 사용 방향을 알 수 없기 때문에, 사용 시 제작자와 협의 하면서 용도에 맞게 수정하는 방향으로 협의를 했다.`
+  - swagger api 분석
+`api를 곧 다루기 위해 swagger 문서를 모두 처음보다 보니 어떤 api가 어디에 쓰이고 어떤 값을 필요로 하는지 이해 할 필요가 있었다. 동작 테스트를 해보는 단계에서, 접근 방식을 찾지 못해 분석에 지장이 생기는 문제가 있었다. 이미 api 분석 및 테스트를 해본 경험이 있는 다른 팀의 동기들에게 조언을 구해봤다.`
 
-### `npm run eject`
+- 12 / 14
+ - 분담한 컴포넌트 결합
+ - api 합수 일부 작성 및 동작 테스트
+ - post 페이지 구조도 구상
+ - README.md 획일화
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ - 12 / 15
+ - 랜딩페이지 제작 (완료)
+- /post/{id} 페이지 제작 (진행중)
+- /post 페이지 제작 (완료)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 12 / 16
+- 모든 페이지 라우터 결합
+- post/id/message 페이지 완성
+- list 페이지 제작중
+- post/id 페이지 제작중
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- 12/ 17
+- 배달의민족 사옥투어 & 위워크에서 멘토님과 모각코 
+- 멘토님에게 프로젝트 진행 중 문제 질문 및 코드리뷰
+- 회고록 작성
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+ - 12/18
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - 12/19 
+ - 
+  
 
-### Code Splitting
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 프로젝트 사용 방법
 
-### Analyzing the Bundle Size
+  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 팀원 및 참고 자료
