@@ -84,7 +84,7 @@ export default function Card({ item }) {
     createdAt,
     content,
     profileImageURL = '',
-    relationship = '',
+    relationship,
     deletePage = false,
   } = item;
 
@@ -94,7 +94,7 @@ export default function Card({ item }) {
         <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
         <ProfileText>
           <h1>
-            <span>From.{sender} </span>
+            <span>From. </span>
             {sender}
           </h1>
           <Badge relationship={relationship} />
