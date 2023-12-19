@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getRecipientMessages, getRecipients } from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
@@ -8,6 +8,8 @@ import HeaderTop from '../../components/Header/HeaderTop';
 import CardListForRollingPage from '../../components/Card/RollingPageCardList';
 import EmojiPicker from 'emoji-picker-react';
 import CardList from '../../components/CardList/CardList';
+import IdContext from '../../contexts/IdContext';
+import RecipientContext from '../../contexts/RecipientContext';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -55,6 +57,7 @@ export default function UsersRollingPage({ name = 'recipient' }) {
   const [items, setItems] = useState();
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [response, setResponse] = useState({});
+  const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
 
   const handleClickEmojiPickerOpenList = (e) => {
     setEmojiPickerOpen((prev) => !prev);
@@ -71,9 +74,15 @@ export default function UsersRollingPage({ name = 'recipient' }) {
   };
 
   const handleGetInfo = async () => {
-    const result = await getRecipients(params.createdId);
+    try {
+      const result = await getRecipients(params.createdId);
 
-    setResponse(result);
+      setResponse((prev) => ({ ...prev, ...result }));
+    } catch (error) {
+      return;
+    } finally {
+      setIsLoadingSuccess(true);
+    }
   };
 
   useEffect(() => {
@@ -86,17 +95,22 @@ export default function UsersRollingPage({ name = 'recipient' }) {
       <Header>
         <HeaderTop />
       </Header>
-      <Header>
-        <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
-          {response.name}
-        </HeaderBottom>
-      </Header>
+      <RecipientContext.Provider value={response}>
+        <IdContext.Provider value={params.createdId}>
+          <Header>
+            {isLoadingSuccess ? (
+              <HeaderBottom onClick={handleClickEmojiPickerOpenList}>
+                {response.name}
+              </HeaderBottom>
+            ) : null}
+            {emojiPickerOpen ? <EmojiPicker /> : ''}
+          </Header>
+        </IdContext.Provider>
+      </RecipientContext.Provider>
 
       <Main
         backgroundColor={response.backgroundColor}
-        backgroundImageURL={response.backgroundImageURL}
-      >
-        {emojiPickerOpen ? <EmojiPicker /> : ''}
+        backgroundImageURL={response.backgroundImageURL}>
         <CardListForRollingPage items={items}></CardListForRollingPage>
       </Main>
     </>
