@@ -76,7 +76,7 @@ const EmojiBox = styled.ul`
 `;
 
 const handlePostClick = (id) => {
-  window.location.href = `/post/${id}`;
+  window.location.href = `/post/1099`;
 };
 
 export default function CardList({

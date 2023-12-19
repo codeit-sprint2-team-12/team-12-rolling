@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import styled from 'styled-components';
 import CardList from '../../components/CardList/CardList';
@@ -9,6 +9,7 @@ const CardMain = styled.main`
   max-width: 1440px;
   margin: 0 auto;
 `;
+
 const CardListContainer = styled.ul`
   position: relative;
   display: flex;
@@ -109,53 +110,34 @@ function handleListClick() {
   window.location.href = '/post';
 }
 
-const CardListSection = ({
-  id,
-  title,
-  data,
-  scrollPosition,
-  handleArrowClick,
-}) => {
-  const isLeftArrowVisible = scrollPosition > 0;
-  const isRightArrowVisible = scrollPosition < data.length;
-  return (
-    <CardMain>
-      <CardListTitle>{title}</CardListTitle>
-      <CardArrowLeftStyle
-        style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
-        onClick={() => handleArrowClick(true, id)}
-      >
-        <ArrowBtn isLeft={true} />
-      </CardArrowLeftStyle>
-      <CardListContainer>
-        <CardListView id={`${id}CardListView`}>
-          <CardListBox>
-            {data.map((item, index) => (
-              <CardList key={index} backgroundcolor={item.backgroundColor} />
-            ))}
-          </CardListBox>
-        </CardListView>
-      </CardListContainer>
-      <CardArrowRightStyle
-        style={{
-          display:
-            data.length > 4 ? (isRightArrowVisible ? 'flex' : 'none') : 'none',
-        }}
-        onClick={() => handleArrowClick(false, id)}
-      >
-        <ArrowBtn isLeft={false} />
-      </CardArrowRightStyle>
-    </CardMain>
-  );
-};
-
-export default function ListMain() {
+const CardListSection = ({ id, title, handleArrowClick }) => {
   const [scrollPositions, setScrollPositions] = useState({
     favorite: 0,
     new: 0,
   });
+  const [data, setData] = useState([]);
 
-  const handleArrowClick = (isLeft, id) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://rolling-api.vercel.app/2-12/recipients/`);
+        if (!response.ok) {
+          throw new Error('에러 발생');
+        }
+        const result = await response.json();
+        setData(result.data); 
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  const isLeftArrowVisible = scrollPositions[id] > 0;
+  const isRightArrowVisible = scrollPositions[id] < data.length;
+
+  const handleArrowClickLocal = (isLeft) => {
     const cardListView = document.getElementById(`${id}CardListView`);
     const cardWidth = cardListView.clientWidth;
     const currentPosition = scrollPositions[id];
@@ -170,30 +152,49 @@ export default function ListMain() {
     cardListView.scrollTo({ left: newPosition, behavior: 'smooth' });
   };
 
+  return (
+    <CardMain>
+      <CardListTitle>{title}</CardListTitle>
+      <CardArrowLeftStyle
+        style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
+        onClick={() => handleArrowClickLocal(true)}
+      >
+        <ArrowBtn isLeft={true} />
+      </CardArrowLeftStyle>
+      <CardListContainer>
+        <CardListView id={`${id}CardListView`}>
+          <CardListBox>
+            {data.map((item, index) => (
+              <CardList key={index} backgroundColor={item.backgroundColor} />
+            ))}
+          </CardListBox>
+        </CardListView>
+      </CardListContainer>
+      <CardArrowRightStyle style={{
+          display:
+            data.length > 4 ? (isRightArrowVisible ? 'flex' : 'none') : 'none',
+        }}
+        onClick={() => handleArrowClickLocal(false)}
+      >
+        <ArrowBtn isLeft={false} />
+      </CardArrowRightStyle>
+    </CardMain>
+  );
+};
+
+const ListMain = () => {
+  const handleArrowClick = (isLeft, id) => {
+    console.log(`Arrow clicked: ${isLeft ? 'Left' : 'Right'} for section ${id}`);
+  };
+
   const sections = [
     {
       id: 'favorite',
       title: '인기 롤링 페이퍼 🔥',
-      data: [
-        { backgroundColor: 'purple' },
-        { backgroundColor: 'green' },
-        { backgroundColor: 'blue' },
-        { backgroundColor: 'blue' },
-        { backgroundColor: 'blue' },
-      ],
     },
     {
       id: 'new',
       title: '최근에 만든 롤링 페이퍼 ⭐️️',
-      data: [
-        { backgroundColor: 'purple' },
-        { backgroundColor: 'green' },
-        { backgroundColor: 'blue' },
-        { backgroundColor: 'orange' },
-        { backgroundColor: 'purple' },
-        { backgroundColor: 'orange' },
-        { backgroundColor: 'blue' },
-      ],
     },
   ];
 
@@ -204,8 +205,6 @@ export default function ListMain() {
           key={section.id}
           id={section.id}
           title={section.title}
-          data={section.data}
-          scrollPosition={scrollPositions[section.id]}
           handleArrowClick={handleArrowClick}
         />
       ))}
@@ -216,4 +215,6 @@ export default function ListMain() {
       </Footer>
     </main>
   );
-}
+};
+
+export default ListMain;
