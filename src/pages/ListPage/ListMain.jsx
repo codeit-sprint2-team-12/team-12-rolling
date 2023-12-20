@@ -111,9 +111,9 @@ const Footer = styled.footer`
 
 const MemoizedCardListSection = React.memo(
   ({ id, title, data, scrollPosition, handleArrowClick }) => {
-    const { results } = data;
+    // const { results } = data;
     const isLeftArrowVisible = scrollPosition > 0;
-    const isRightArrowVisible = scrollPosition < results.length;
+    const isRightArrowVisible = scrollPosition < data.length;
 
     const handleLeftArrowClick = useCallback(
       () => handleArrowClick(true, id),
@@ -130,23 +130,21 @@ const MemoizedCardListSection = React.memo(
         <CardListTitle>{title}</CardListTitle>
         <CardArrowLeftStyle
           isVisible={isLeftArrowVisible}
-          onClick={handleLeftArrowClick}
-        >
+          onClick={handleLeftArrowClick}>
           <ArrowBtn isLeft={true} />
         </CardArrowLeftStyle>
         <CardListContainer>
           <CardListView id={`${id}CardListView`}>
             <CardListBox>
-              {results.map((item, index) => (
+              {data.map((item, index) => (
                 <CardList key={index} cardData={item} />
               ))}
             </CardListBox>
           </CardListView>
         </CardListContainer>
         <CardArrowRightStyle
-          isVisible={results.length > 4 && isRightArrowVisible}
-          onClick={handleRightArrowClick}
-        >
+          isVisible={data.length > 4 && isRightArrowVisible}
+          onClick={handleRightArrowClick}>
           <ArrowBtn isLeft={false} />
         </CardArrowRightStyle>
       </CardMain>
@@ -162,7 +160,6 @@ export default function ListMain() {
 
   const [receivedHottestData, setReceivedHottestData] = useState({});
   const [receivedNewestData, setReceivedNewestData] = useState({});
-  const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
 
   const navigate = useNavigate();
 
@@ -199,8 +196,6 @@ export default function ListMain() {
       setReceivedNewestData((prev) => ({ ...prev, ...resultNew }));
     } catch (error) {
       console.error('Error loading data:', error);
-    } finally {
-      setIsLoadingSuccess(true);
     }
   };
 
@@ -210,25 +205,20 @@ export default function ListMain() {
 
   return (
     <main>
-      {isLoadingSuccess && (
-        <MemoizedCardListSection
-          id="favorite"
-          title="인기 롤링 페이퍼 🔥"
-          data={receivedHottestData}
-          scrollPosition={scrollPositions['favorite']}
-          handleArrowClick={handleArrowClick}
-        />
-      )}
-      {isLoadingSuccess && (
-        <MemoizedCardListSection
-          id="new"
-          title="최근에 만든 롤링 페이퍼 ⭐️️"
-          data={receivedNewestData}
-          scrollPosition={scrollPositions['new']}
-          handleArrowClick={handleArrowClick}
-        />
-      )}
-
+      <MemoizedCardListSection
+        id="favorite"
+        title="인기 롤링 페이퍼 🔥"
+        data={receivedHottestData?.results ?? []}
+        scrollPosition={scrollPositions['favorite']}
+        handleArrowClick={handleArrowClick}
+      />
+      <MemoizedCardListSection
+        id="new"
+        title="최근에 만든 롤링 페이퍼 ⭐️️"
+        data={receivedNewestData?.results ?? []}
+        scrollPosition={scrollPositions['new']}
+        handleArrowClick={handleArrowClick}
+      />
       <Footer>
         <PrimaryBtn size="regular" onClick={handleListClick}>
           나도 만들어보기
