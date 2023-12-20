@@ -72,6 +72,17 @@ const CardListTitle = styled.span`
 const CardListView = styled.div`
   width: 114rem;
   overflow: hidden;
+  @media screen and (min-width: 375px) {
+    ${commonCardStyle}
+  }
+
+  @media screen and (min-width: 767px) {
+    ${commonCardStyle}
+  }
+
+  @media screen and (min-width: 1200px) {
+    ${commonCardStyle}
+  }
 `;
 
 const CardListBox = styled.li`
