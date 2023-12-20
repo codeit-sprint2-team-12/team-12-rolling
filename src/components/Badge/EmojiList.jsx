@@ -8,6 +8,10 @@ const EmojiBest = styled.ul`
   margin: 0 1.4rem;
   border: none;
   list-style-type: none;
+
+  @media screen and (max-width: 767px) {
+    margin: 0;
+  }
 `;
 export const AddEmojiText = styled.p`
   display: block;

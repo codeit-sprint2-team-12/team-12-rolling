@@ -19,10 +19,6 @@ const SplitLine = styled.div`
   height: 2.8rem;
   background: var(--gray-200, #eee);
   margin: 0 1.3rem;
-
-  @media screen and (max-width: 767px) {
-    display: ${({ first }) => 'flex' && 'none'};
-  }
 `;
 
 const ShareList = styled(DropdownUl)`
@@ -36,7 +32,12 @@ const ShareList = styled(DropdownUl)`
   }
 `;
 
-export default function HeaderBottumRight({ nav, onShareURLClick, onShare }) {
+export default function HeaderBottomRight({
+  nav,
+  onShareURLClick,
+  width,
+  onShare,
+}) {
   const [shareOpen, setShareOpen] = useState(false);
 
   const handleClickShareOpenList = () => {
@@ -48,13 +49,17 @@ export default function HeaderBottumRight({ nav, onShareURLClick, onShare }) {
 
   return (
     <RightSection>
-      <ProfileImgList
-        nav={nav}
-        recentMessages={recentMessages}
-        messageCount={messageCount}
-      ></ProfileImgList>
-      <SplitLine first={true} />
-      <EmojiSelectBox />
+      {width > 1247 && (
+        <>
+          <ProfileImgList
+            nav={nav}
+            recentMessages={recentMessages}
+            messageCount={messageCount}
+          ></ProfileImgList>
+          <SplitLine />
+        </>
+      )}
+      <EmojiSelectBox>{width > 1247 && '추가'}</EmojiSelectBox>
       <SplitLine />
       <OutlinedBtn size="sm" nav={nav} onClick={handleClickShareOpenList}>
         <img src={goShare} alt="공유하기" />

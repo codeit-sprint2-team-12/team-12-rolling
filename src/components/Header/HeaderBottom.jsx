@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import HeaderBottumRight from './HeaderBottumRight';
+import HeaderBottomRight from './HeaderBottomRight';
 
-const ToRecipient = styled.h1`
+export const ToRecipient = styled.h1`
   padding: 0;
   color: var(--gray-800, #2b2b2b);
   font-size: 2.8rem;
@@ -12,6 +12,7 @@ const ToRecipient = styled.h1`
 `;
 
 export default function HeaderBottom({
+  width,
   onShare,
   onShareURLClick,
   children,
@@ -19,11 +20,13 @@ export default function HeaderBottom({
 }) {
   return (
     <>
-      <ToRecipient>To. {children}</ToRecipient>
-      <HeaderBottumRight
+      {width > 767 && <ToRecipient>To. {children}</ToRecipient>}
+      <HeaderBottomRight
+        width={width}
         onShareURLClick={onShareURLClick}
         onShare={onShare}
-        nav={true}></HeaderBottumRight>
+        nav={true}
+      ></HeaderBottomRight>
     </>
   );
 }

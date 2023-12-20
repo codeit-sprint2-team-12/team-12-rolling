@@ -17,6 +17,7 @@ const EmojiSelectContainer = styled.ul`
   list-style-type: none;
   display: flex;
   align-items: center;
+
   ${children} {
     padding-right: 2.8rem;
     border-right: 0.1rem solid var(--gray-200, #eee);
@@ -141,7 +142,7 @@ export default function EmojiSelectBox() {
 
       <AddBtn size="sm" onClick={handleClickEmojiPickerOpenList}>
         <img src={addFace} alt="추가하기" />
-        추가
+        {children}
       </AddBtn>
       <EmojiPick onClick={handleClickCount} emojiPickerOpen={emojiPickerOpen} />
     </EmojiSelectContainer>

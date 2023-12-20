@@ -30,6 +30,16 @@ const ModalContainer = styled.article`
   padding: 4.3rem;
   border-radius: 1.6rem;
   background: #fff;
+
+  @media screen and (max-width: 1247px) {
+    width: 60rem;
+    height: 47.6rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 90vw;
+    height: auto;
+  }
 `;
 
 /* Font/18 Regular */
