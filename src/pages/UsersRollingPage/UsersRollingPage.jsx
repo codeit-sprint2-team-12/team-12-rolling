@@ -42,6 +42,10 @@ const Main = styled.main`
   height: 100vh;
   overflow: scroll;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @media screen and (max-width: 1247px) {
     padding: 9.3rem 2.4rem;
   }
@@ -78,12 +82,19 @@ export default function UsersRollingPage({ deletePage = false }) {
   const location = useLocation();
   const params = useParams();
   const [copyURL, setCopyURL] = useState(false);
-  const [items, setItems] = useState();
-  const [response, setResponse] = useState({});
   const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
-  const handleClickEmojiPickerOpenList = (e) => {
+  const [items, setItems] = useState();
+  const [response, setResponse] = useState({});
+
+  const [isModal, setIsModal] = useState(null);
+
+  const openModal = (id) => {
+    setIsModal(id);
+  };
+
+  const handleClickEmojiPickerOpenList = () => {
     setEmojiPickerOpen((prev) => !prev);
   };
 
@@ -165,6 +176,9 @@ export default function UsersRollingPage({ deletePage = false }) {
           </Link>
         </AlignButton>
         <RollingPageCardList
+          onClick={openModal}
+          isModal={isModal}
+          setIsModal={setIsModal}
           items={items}
           deletePage={deletePage}
         ></RollingPageCardList>

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import Card from './Card';
+import Card, { CardBox } from './Card';
 import { PlusButtonStyle } from '../Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import Modal from '../Modal/Modal';
 
 const CardListup = styled.article`
   max-width: 120rem;
@@ -20,21 +22,6 @@ const CardListup = styled.article`
   }
 `;
 
-export const CardBox = styled.section`
-  position: relative;
-  width: 38.4rem;
-  height: 28rem;
-  padding: 2.4rem;
-  border-radius: 1.6rem;
-  background: var(--white, #fff);
-  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-
-  @media screen and (max-width: 1247px) {
-    width: 100%;
-  }
-`;
-
 const AddCardsBtn = styled(PlusButtonStyle)`
   position: absolute;
   top: 50%;
@@ -44,23 +31,50 @@ const AddCardsBtn = styled(PlusButtonStyle)`
 
 export default function RollingPageCardList({
   deletePage,
-  items, // 이 {}는 프롭. =는 디폴트값
+  onClick,
+  items,
+  isModal,
+  setIsModal,
 }) {
   return (
     <CardListup>
       {deletePage ? null : (
         <CardBox>
-          <AddCardsBtn>
-            <FaPlus />
-          </AddCardsBtn>
+          <Link to="message">
+            <AddCardsBtn>
+              <FaPlus />
+            </AddCardsBtn>
+          </Link>
         </CardBox>
       )}
       {items?.map((item) => {
-        //여기서 item은 파라미터
         return (
-          <CardBox key={item.id}>
-            <Card deletePage={deletePage} item={item} />
-          </CardBox>
+          <>
+            <Card
+              onClick={() => {
+                onClick(item.id);
+              }}
+              deletePage={deletePage}
+              key={item.id}
+              sender={item.sender}
+              createdAt={item.createdAt}
+              content={item.content}
+              profileImageURL={item.profileImageURL}
+              relationship={item.relationship}
+            />
+
+            {isModal === item.id && (
+              <Modal
+                setIsModal={setIsModal}
+                key={item.id}
+                sender={item.sender}
+                createdAt={item.createdAt}
+                content={item.content}
+                profileImageURL={item.profileImageURL}
+                relationship={item.relationship}
+              ></Modal>
+            )}
+          </>
         );
       })}
     </CardListup>

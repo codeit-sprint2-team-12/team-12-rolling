@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 import PrimaryBtn from '../Button/PrimaryBtn';
 import noneImg from '../../assets/noneProfileImg.png';
-import { ProfileBox, ProfileImg, ProfileText } from '../Card/Card';
+import {
+  ProfileBox,
+  ProfileImg,
+  ProfileText,
+  MakeDate,
+  formatDate,
+} from '../Card/Card';
 import Badge from '../Badge/Badge';
 
 const ModalBackground = styled.div`
-  /* position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  inset: 0;
   inset: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 6; */
+  z-index: 3;
 `;
 
 const ModalContainer = styled.article`
@@ -26,7 +30,6 @@ const ModalContainer = styled.article`
   padding: 4.3rem;
   border-radius: 1.6rem;
   background: #fff;
-  z-index: 3;
 `;
 
 /* Font/18 Regular */
@@ -45,18 +48,6 @@ const TextBox = styled.p`
   line-height: 2.8rem; /* 155.556% */
   letter-spacing: -0.018rem;
 `;
-/* Font/14 Regular */
-const ModalDate = styled.p`
-  position: absolute;
-  top: 5.6rem;
-  right: 4.5rem;
-  color: var(--gray-400, #999);
-
-  font-size: 1.4rem;
-  font-weight: 400;
-  line-height: 2rem;
-  letter-spacing: -0.007rem;
-`;
 
 const CheckButton = styled(PrimaryBtn)`
   position: absolute;
@@ -66,37 +57,28 @@ const CheckButton = styled(PrimaryBtn)`
   width: 12rem;
 `;
 
-const formatDate = (value) => {
-  const date = new Date(value);
-  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
-};
-
-export default function Modal({ item }) {
-  const {
-    id,
-    sender,
-    createdAt,
-    content,
-    profileImageURL = '',
-    relationship = '',
-  } = item;
-
+export default function Modal({ setIsModal, ...info }) {
   return (
     <ModalBackground>
       <ModalContainer>
         <ProfileBox>
-          <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+          <ProfileImg
+            src={info.profileImageURL || noneImg}
+            alt="프로필 이미지"
+          />
           <ProfileText>
             <h1>
               <span>From. </span>
-              {sender}
+              {info.sender}
             </h1>
-            <Badge relationship={relationship} />
+            <Badge relationship={info.relationship} />
           </ProfileText>
-          <ModalDate>{formatDate(createdAt)}</ModalDate>
+          <MakeDate>{formatDate(info.createdAt)}</MakeDate>
         </ProfileBox>
-        <TextBox>{content}</TextBox>
-        <CheckButton size="regular">확인</CheckButton>
+        <TextBox>{info.content}</TextBox>
+        <CheckButton onClick={() => setIsModal(null)} size="regular">
+          확인
+        </CheckButton>
       </ModalContainer>
     </ModalBackground>
   );
