@@ -130,13 +130,14 @@ function DropdownBox({ children, nav = false, listItems, onChange, target }) {
         <DropdownUl>
           {listItems.map((item) => {
             return (
-              <DropdownItems
-                key={item}
-                onMouseOver={handleChange}
-                data-value={item}
-              >
-                {item}
-              </DropdownItems>
+              <DropdownList>
+                <ListButton
+                  key={item}
+                  onMouseOver={handleChange}
+                  data-value={item}>
+                  {item}
+                </ListButton>
+              </DropdownList>
             );
           })}
         </DropdownUl>
