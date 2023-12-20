@@ -6,6 +6,7 @@ import ProfileImgList from './ProfieImgList';
 import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
 import EmojiSelectBox from './EmojiSelectBox';
 import RecipientContext from '../../contexts/RecipientContext';
+import shareMessage from '../../apis/apiKakao';
 
 const RightSection = styled.div`
   position: relative;
@@ -35,7 +36,7 @@ const ShareList = styled(DropdownUl)`
   }
 `;
 
-export default function HeaderBottumRight({ nav, onShareURLClick }) {
+export default function HeaderBottumRight({ nav, onShareURLClick, onShare }) {
   const [shareOpen, setShareOpen] = useState(false);
 
   const handleClickShareOpenList = () => {
@@ -60,7 +61,7 @@ export default function HeaderBottumRight({ nav, onShareURLClick }) {
       </OutlinedBtn>
       {shareOpen ? (
         <ShareList nav={nav}>
-          <DropdownItems>카카오톡 공유</DropdownItems>
+          <DropdownItems onClick={shareMessage}>카카오톡 공유</DropdownItems>
           <DropdownItems onClick={onShareURLClick}>URL 공유</DropdownItems>
         </ShareList>
       ) : null}
