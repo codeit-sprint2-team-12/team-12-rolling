@@ -5,6 +5,21 @@ import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
 
+export const CardBox = styled.section`
+  position: relative;
+  width: 38.4rem;
+  height: 28rem;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background: var(--white, #fff);
+  box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+
+  @media screen and (max-width: 1247px) {
+    width: 100%;
+  }
+`;
+
 export const ProfileBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -57,7 +72,7 @@ const TextBox = styled.p`
   border-top: 0.1rem solid var(--gray-200, #eee);
 `;
 
-const MakeDate = styled.span`
+export const MakeDate = styled.span`
   position: absolute;
   bottom: 2rem;
   color: var(--gray-400, #999);
@@ -70,7 +85,7 @@ const MakeDate = styled.span`
   letter-spacing: -0.006rem;
 `;
 
-const formatDate = (value) => {
+export const formatDate = (value) => {
   const date = new Date(value);
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
@@ -80,47 +95,35 @@ const DeleteBtn = styled(OutlinedBtn)`
   position: absolute;
   padding: 0.8rem !important;
   right: 3rem;
-  display: ${({ deletePage }) => (deletePage ? 'inline-flex' : 'none')};
+  display: 'inline-flex';
 `;
 
-export default function Card({ deletePage, item, onDelete }) {
-  const {
-    sender,
-    createdAt,
-    content,
-    profileImageURL = '',
-    relationship,
-  } = item;
-
-  const handleDeleteClick = () => {
-    console.log(item.id);
-    onDelete(item.id);
-  };
-
+export default function Card({
+  onDelete,
+  deletePage,
+  onClick,
+  profileImageURL = null,
+  ...info
+}) {
   return (
-    <>
-      <div>
-        <ProfileBox>
-          <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-          <ProfileText>
-            <h1>
-              <span>From. </span>
-              {sender}
-            </h1>
-            <Badge relationship={relationship} />
-          </ProfileText>
-
-          <DeleteBtn
-            size="md"
-            deletePage={deletePage}
-            onDelete={handleDeleteClick}
-          >
-            <img src={deleteBtn} alt="휴지통아이콘" />
+    <CardBox onClick={onClick}>
+      <ProfileBox>
+        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
+        <ProfileText>
+          <h1>
+            <span>From. </span>
+            {info.sender}
+          </h1>
+          <Badge relationship={info.relationship} />
+        </ProfileText>
+        {deletePage && (
+          <DeleteBtn size="md" onClick={() => onDelete(info.messageId)}>
+            <img src={deleteBtn} alt="삭제하기" />
           </DeleteBtn>
-        </ProfileBox>
-        <TextBox>{content}</TextBox>
-        <MakeDate>{formatDate(createdAt)}</MakeDate>
-      </div>
-    </>
+        )}
+      </ProfileBox>
+      <TextBox>{info.content}</TextBox>
+      <MakeDate>{formatDate(info.createdAt)}</MakeDate>
+    </CardBox>
   );
 }

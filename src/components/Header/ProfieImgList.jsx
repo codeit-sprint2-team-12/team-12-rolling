@@ -69,10 +69,11 @@ const ImgList = styled.div`
 
 // 미디어쿼리 부분적용 이슈
 
-export default function ProfileImgList({ nav = true }) {
-  const recipientData = useContext(RecipientContext);
-  const { recentMessages, messageCount } = recipientData;
-
+export default function ProfileImgList({
+  nav = true,
+  recentMessages = [],
+  messageCount = 0,
+}) {
   return (
     <>
       <ImgList>

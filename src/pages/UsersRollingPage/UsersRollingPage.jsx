@@ -1,9 +1,10 @@
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { useParams, useLocation, Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import {
   getRecipientMessages,
   getRecipients,
-  deleteRecipients,
+  deleteMessages,
+  deleteRecipient,
 } from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
@@ -46,6 +47,10 @@ const Main = styled.main`
   height: 100vh;
   overflow: scroll;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @media screen and (max-width: 1247px) {
     padding: 9.3rem 2.4rem;
   }
@@ -81,13 +86,24 @@ const StyledToast = styled(Toast)`
 export default function UsersRollingPage({ deletePage = false }) {
   const location = useLocation();
   const params = useParams();
+  const navigate = useNavigate();
   const [copyURL, setCopyURL] = useState(false);
-  const [items, setItems] = useState();
-  const [response, setResponse] = useState({});
   const [isLoadingSuccess, setIsLoadingSuccess] = useState(false);
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
 
-  const handleClickEmojiPickerOpenList = (e) => {
+  const [items, setItems] = useState();
+  const [response, setResponse] = useState({});
+
+  const [isModal, setIsModal] = useState(null);
+  const [isDeleteSuccess, setIsDeleteSuccess] = useState(false);
+
+  const openModal = (id) => {
+    if (deletePage) return;
+
+    setIsModal(id);
+  };
+
+  const handleClickEmojiPickerOpenList = () => {
     setEmojiPickerOpen((prev) => !prev);
   };
 
@@ -112,16 +128,24 @@ export default function UsersRollingPage({ deletePage = false }) {
     }
   };
   // location.pathname앞에 baseUrl 필요
-  const [deleteItem, setDeleteItem] = useState();
 
-  const handleDelete = async (id) => {
-    const result = await deleteRecipients(id);
-    if (!result) return;
+  const handleDeleteMessage = async (id) => {
+    try {
+      await deleteMessages(id);
+    } catch (error) {
+      return;
+    } finally {
+      setIsDeleteSuccess(true);
+    }
+  };
 
-    setDeleteItem((prevItems) => {
-      return prevItems.filter((item) => item.id !== id);
-    });
-    console.log(deleteItem);
+  const handleDeleteRecipient = async () => {
+    try {
+      await deleteRecipient(params.createdId);
+      navigate('/list');
+    } catch (error) {
+      return;
+    }
   };
 
   const handleGetInfo = async () => {
@@ -139,7 +163,7 @@ export default function UsersRollingPage({ deletePage = false }) {
   useEffect(() => {
     handleLoad();
     handleGetInfo();
-  }, []);
+  }, [isDeleteSuccess]);
 
   return (
     <>
@@ -168,21 +192,26 @@ export default function UsersRollingPage({ deletePage = false }) {
       >
         <AlignButton>
           {deletePage && (
-            <DeleteButton size="small">페이지 삭제하기</DeleteButton>
+            <DeleteButton size="small" onClick={handleDeleteRecipient}>
+              페이지 삭제하기
+            </DeleteButton>
           )}
           <Link
             to={deletePage ? `/post/${params.createdId}` : 'edit'}
             style={{ textDecoration: 'none' }}
           >
             <DeleteButton size="small">
-              {deletePage ? '취소하기' : '삭제하기'}
+              {deletePage ? '저장하기' : '삭제하기'}
             </DeleteButton>
           </Link>
         </AlignButton>
         <RollingPageCardList
+          onClick={openModal}
+          onDelete={handleDeleteMessage}
+          isModal={isModal}
+          setIsModal={setIsModal}
           items={items}
           deletePage={deletePage}
-          onClick={handleDelete}
         ></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}
