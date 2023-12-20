@@ -16,6 +16,7 @@ import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import EmojiPicker from 'emoji-picker-react';
 import IdContext from '../../contexts/IdContext';
 import RecipientContext from '../../contexts/RecipientContext';
+import shareMessage from '../../apis/apiKakao';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -129,6 +130,10 @@ export default function UsersRollingPage({ deletePage = false }) {
   };
   // location.pathname앞에 baseUrl 필요
 
+  const handleShare = () => {
+    shareMessage();
+  };
+
   const handleDeleteMessage = async (id) => {
     try {
       await deleteMessages(id);
@@ -161,6 +166,15 @@ export default function UsersRollingPage({ deletePage = false }) {
   };
 
   useEffect(() => {
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+      if (!kakao.isInitialized()) {
+        kakao.init(process.env.REACT_APP_KAKAO_KEY); // 사용하려는 앱의 JavaScript 키 입력
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     handleLoad();
     handleGetInfo();
   }, [isDeleteSuccess]);
@@ -175,9 +189,9 @@ export default function UsersRollingPage({ deletePage = false }) {
           <Header>
             {isLoadingSuccess ? (
               <HeaderBottom
+                onShare={handleShare}
                 onShareURLClick={handleSumbitAdressShare}
-                onClick={handleClickEmojiPickerOpenList}
-              >
+                onClick={handleClickEmojiPickerOpenList}>
                 {response.name}
               </HeaderBottom>
             ) : null}
@@ -188,8 +202,7 @@ export default function UsersRollingPage({ deletePage = false }) {
 
       <Main
         backgroundColor={response.backgroundColor}
-        backgroundImageURL={response.backgroundImageURL}
-      >
+        backgroundImageURL={response.backgroundImageURL}>
         <AlignButton>
           {deletePage && (
             <DeleteButton size="small" onClick={handleDeleteRecipient}>
@@ -198,8 +211,7 @@ export default function UsersRollingPage({ deletePage = false }) {
           )}
           <Link
             to={deletePage ? `/post/${params.createdId}` : 'edit'}
-            style={{ textDecoration: 'none' }}
-          >
+            style={{ textDecoration: 'none' }}>
             <DeleteButton size="small">
               {deletePage ? '저장하기' : '삭제하기'}
             </DeleteButton>
@@ -211,8 +223,7 @@ export default function UsersRollingPage({ deletePage = false }) {
           isModal={isModal}
           setIsModal={setIsModal}
           items={items}
-          deletePage={deletePage}
-        ></RollingPageCardList>
+          deletePage={deletePage}></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}
       </Main>
