@@ -1,3 +1,4 @@
+//import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
@@ -82,7 +83,7 @@ const DeleteBtn = styled(OutlinedBtn)`
   display: ${({ deletePage }) => (deletePage ? 'inline-flex' : 'none')};
 `;
 
-export default function Card({ deletePage, item }) {
+export default function Card({ deletePage, item, onDelete }) {
   const {
     sender,
     createdAt,
@@ -90,6 +91,11 @@ export default function Card({ deletePage, item }) {
     profileImageURL = '',
     relationship,
   } = item;
+
+  const handleDeleteClick = () => {
+    console.log(item.id);
+    onDelete(item.id);
+  };
 
   return (
     <>
@@ -104,8 +110,12 @@ export default function Card({ deletePage, item }) {
             <Badge relationship={relationship} />
           </ProfileText>
 
-          <DeleteBtn size="md" deletePage={deletePage}>
-            <img src={deleteBtn} alt="삭제하기" />
+          <DeleteBtn
+            size="md"
+            deletePage={deletePage}
+            onDelete={handleDeleteClick}
+          >
+            <img src={deleteBtn} alt="휴지통아이콘" />
           </DeleteBtn>
         </ProfileBox>
         <TextBox>{content}</TextBox>

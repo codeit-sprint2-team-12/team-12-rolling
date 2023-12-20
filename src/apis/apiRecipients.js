@@ -109,11 +109,15 @@ async function deleteRecipients(id = '') {
   if (!id) {
     throw new Error('삭제 대상을 지정해주세요.');
   }
-  const response = await fetch(`${ROOT_URL}/recipients/${id}/`);
+  const response = await fetch(`${ROOT_URL}/recipients/${id}/`, {
+    method: 'DELETE',
+  });
+
   if (!response.ok) {
     throw new Error('대상을 삭제하는데 실패했습니다.');
   }
-  alert('삭제에 성공했습니다.');
+  const body = await response.json();
+  return body;
 }
 
 export {
@@ -123,4 +127,5 @@ export {
   postRecipients,
   postMessages,
   postRecipientReactions,
+  deleteRecipients,
 };

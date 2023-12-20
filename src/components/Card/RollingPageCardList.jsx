@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Card from './Card';
 import { PlusButtonStyle } from '../Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
+//import { deleteRecipients } from '../../apis/apiRecipients';
+import { useState } from 'react';
 
 const CardListup = styled.article`
   max-width: 120rem;
@@ -44,7 +46,9 @@ const AddCardsBtn = styled(PlusButtonStyle)`
 
 export default function RollingPageCardList({
   deletePage,
-  items, // 이 {}는 프롭. =는 디폴트값
+  items,
+  id,
+  onDelete,
 }) {
   return (
     <CardListup>
@@ -59,7 +63,7 @@ export default function RollingPageCardList({
         //여기서 item은 파라미터
         return (
           <CardBox key={item.id}>
-            <Card deletePage={deletePage} item={item} />
+            <Card onDelete={onDelete} deletePage={deletePage} item={item} />
           </CardBox>
         );
       })}

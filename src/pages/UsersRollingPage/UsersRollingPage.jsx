@@ -1,6 +1,10 @@
 import { useParams, useLocation, Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { getRecipientMessages, getRecipients } from '../../apis/apiRecipients';
+import {
+  getRecipientMessages,
+  getRecipients,
+  deleteRecipients,
+} from '../../apis/apiRecipients';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom from '../../components/Header/HeaderBottom';
@@ -108,6 +112,17 @@ export default function UsersRollingPage({ deletePage = false }) {
     }
   };
   // location.pathname앞에 baseUrl 필요
+  const [deleteItem, setDeleteItem] = useState();
+
+  const handleDelete = async (id) => {
+    const result = await deleteRecipients(id);
+    if (!result) return;
+
+    setDeleteItem((prevItems) => {
+      return prevItems.filter((item) => item.id !== id);
+    });
+    console.log(deleteItem);
+  };
 
   const handleGetInfo = async () => {
     try {
@@ -167,6 +182,7 @@ export default function UsersRollingPage({ deletePage = false }) {
         <RollingPageCardList
           items={items}
           deletePage={deletePage}
+          onClick={handleDelete}
         ></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}
