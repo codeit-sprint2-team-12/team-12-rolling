@@ -12,6 +12,7 @@ const ToRecipient = styled.h1`
 `;
 
 export default function HeaderBottom({
+  onShare,
   onShareURLClick,
   children,
   profileImageURL = null,
@@ -21,8 +22,8 @@ export default function HeaderBottom({
       <ToRecipient>To. {children}</ToRecipient>
       <HeaderBottumRight
         onShareURLClick={onShareURLClick}
-        nav={true}
-      ></HeaderBottumRight>
+        onShare={onShare}
+        nav={true}></HeaderBottumRight>
     </>
   );
 }
