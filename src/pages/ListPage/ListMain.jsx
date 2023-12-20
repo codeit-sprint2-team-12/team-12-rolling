@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import styled from 'styled-components';
 import CardList from '../../components/CardList/CardList';
 import ArrowBtn from '../../components/Button/ArrowBtn';
 import { getRecipients } from '../../apis/apiRecipients';
 import { useNavigate } from 'react-router-dom';
+
+const commonCardStyle = `
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 const CardMain = styled.main`
   width: 100%;
   max-width: 1440px;
@@ -17,24 +24,16 @@ const CardListContainer = styled.ul`
   margin: 10rem;
   gap: 2rem;
 
-  @media screen and (min-width: 1200px) {
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  @media screen and (min-width: 375px) {
+    ${commonCardStyle}
   }
 
   @media screen and (min-width: 767px) {
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    ${commonCardStyle}
   }
-  @media screen and (min-width: 375px) {
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+
+  @media screen and (min-width: 1200px) {
+    ${commonCardStyle}
   }
 `;
 
@@ -45,11 +44,11 @@ const CardArrowLeftStyle = styled.div`
   z-index: 1;
 
   @media screen and (max-width: 1334px) {
-    display: none;
+    display: none !important;
   }
 
   @media screen and (max-width: 767px) {
-    display: none;
+    display: none !important;
   }
 `;
 
@@ -60,11 +59,11 @@ const CardArrowRightStyle = styled.div`
   z-index: 1;
 
   @media screen and (max-width: 1333px) {
-    display: none;
+    display: none !important;
   }
 
   @media screen and (max-width: 767px) {
-    display: none;
+    display: none !important;
   }
 `;
 
@@ -106,48 +105,57 @@ const Footer = styled.footer`
   }
 `;
 
-function CardListSection({
-  id,
-  title,
-  data,
-  scrollPosition,
-  handleArrowClick,
-}) {
-  const { results } = data;
-  const isLeftArrowVisible = scrollPosition > 0;
-  const isRightArrowVisible = scrollPosition < results.length;
-  return (
-    <CardMain>
-      <CardListTitle>{title}</CardListTitle>
-      <CardArrowLeftStyle
-        style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
-        onClick={() => handleArrowClick(true, id)}>
-        <ArrowBtn isLeft={true} />
-      </CardArrowLeftStyle>
-      <CardListContainer>
-        <CardListView id={`${id}CardListView`}>
-          <CardListBox>
-            {results.map((item, index) => (
-              <CardList key={index} cardData={item} />
-            ))}
-          </CardListBox>
-        </CardListView>
-      </CardListContainer>
-      <CardArrowRightStyle
-        style={{
-          display:
-            results.length > 4
-              ? isRightArrowVisible
-                ? 'flex'
-                : 'none'
-              : 'none',
-        }}
-        onClick={() => handleArrowClick(false, id)}>
-        <ArrowBtn isLeft={false} />
-      </CardArrowRightStyle>
-    </CardMain>
-  );
-}
+const MemoizedCardListSection = React.memo(
+  ({ id, title, data, scrollPosition, handleArrowClick }) => {
+    const { results } = data;
+    const isLeftArrowVisible = scrollPosition > 0;
+    const isRightArrowVisible = scrollPosition < results.length;
+
+    const handleLeftArrowClick = useCallback(() => handleArrowClick(true, id), [
+      handleArrowClick,
+      id,
+    ]);
+
+    const handleRightArrowClick = useCallback(
+      () => handleArrowClick(false, id),
+      [handleArrowClick, id]
+    );
+
+    return (
+      <CardMain>
+        <CardListTitle>{title}</CardListTitle>
+        <CardArrowLeftStyle
+          style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
+          onClick={handleLeftArrowClick}
+        >
+          <ArrowBtn isLeft={true} />
+        </CardArrowLeftStyle>
+        <CardListContainer>
+          <CardListView id={`${id}CardListView`}>
+            <CardListBox>
+              {results.map((item, index) => (
+                <CardList key={index} cardData={item} />
+              ))}
+            </CardListBox>
+          </CardListView>
+        </CardListContainer>
+        <CardArrowRightStyle
+          style={{
+            display:
+              results.length > 4
+                ? isRightArrowVisible
+                  ? 'flex'
+                  : 'none'
+                : 'none',
+          }}
+          onClick={handleRightArrowClick}
+        >
+          <ArrowBtn isLeft={false} />
+        </CardArrowRightStyle>
+      </CardMain>
+    );
+  }
+);
 
 export default function ListMain() {
   const [scrollPositions, setScrollPositions] = useState({
@@ -161,47 +169,52 @@ export default function ListMain() {
 
   const navigate = useNavigate();
 
-  const handleArrowClick = (isLeft, id) => {
-    const cardListView = document.getElementById(`${id}CardListView`);
-    const cardWidth = cardListView.clientWidth;
-    const currentPosition = scrollPositions[id];
-    const newPosition = isLeft
-      ? Math.max(currentPosition - cardWidth, 0)
-      : Math.min(
-          currentPosition + cardWidth,
-          cardListView.scrollWidth - cardWidth
-        );
+  const handleArrowClick = useCallback(
+    (isLeft, id) => {
+      const cardListView = document.getElementById(`${id}CardListView`);
+      if (!cardListView) return;
 
-    setScrollPositions({ ...scrollPositions, [id]: newPosition });
-    cardListView.scrollTo({ left: newPosition, behavior: 'smooth' });
-  };
+      const cardWidth = cardListView.clientWidth;
+      const currentPosition = scrollPositions[id];
+      const newPosition = isLeft
+        ? Math.max(currentPosition - cardWidth, 0)
+        : Math.min(
+            currentPosition + cardWidth,
+            cardListView.scrollWidth - cardWidth
+          );
 
-  function handleListClick() {
+      setScrollPositions((prev) => ({ ...prev, [id]: newPosition }));
+      cardListView.scrollTo({ left: newPosition, behavior: 'smooth' });
+    },
+    [scrollPositions]
+  );
+
+  const handleListClick = () => {
     navigate('/post');
-  }
+  };
 
   const handleLoad = async () => {
     try {
       const resultLike = await getRecipients('', 'like');
       const resultNew = await getRecipients('', 'new');
 
-      setReceivedHottestData({ ...receivedHottestData, ...resultLike });
-      setReceivedNewestData({ ...receivedNewestData, ...resultNew });
+      setReceivedHottestData((prev) => ({ ...prev, ...resultLike }));
+      setReceivedNewestData((prev) => ({ ...prev, ...resultNew }));
     } catch (error) {
-      return;
+      console.error('Error loading data:', error);
     } finally {
       setIsLoadingSuccess(true);
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     handleLoad();
   }, []);
 
   return (
     <main>
       {isLoadingSuccess && (
-        <CardListSection
+        <MemoizedCardListSection
           id="favorite"
           title="인기 롤링 페이퍼 🔥"
           data={receivedHottestData}
@@ -210,7 +223,7 @@ export default function ListMain() {
         />
       )}
       {isLoadingSuccess && (
-        <CardListSection
+        <MemoizedCardListSection
           id="new"
           title="최근에 만든 롤링 페이퍼 ⭐️️"
           data={receivedNewestData}
