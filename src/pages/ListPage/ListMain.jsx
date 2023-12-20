@@ -14,7 +14,7 @@ const commonCardStyle = `
 `;
 const CardMain = styled.main`
   width: 100%;
-  max-width: 1440px;
+  max-width: 144rem;
   margin: 0 auto;
 `;
 const CardListContainer = styled.ul`
@@ -37,34 +37,27 @@ const CardListContainer = styled.ul`
   }
 `;
 
-const CardArrowLeftStyle = styled.div`
+const CardArrowStyle = styled.div`
   position: absolute;
   width: 4rem;
-  margin: 21rem 0 10rem 8.5rem;
   z-index: 1;
+  display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
 
   @media screen and (max-width: 1334px) {
-    display: none !important;
+    display: none;
   }
 
   @media screen and (max-width: 767px) {
-    display: none !important;
+    display: none;
   }
 `;
 
-const CardArrowRightStyle = styled.div`
-  position: absolute;
-  width: 4rem;
+const CardArrowLeftStyle = styled(CardArrowStyle)`
+  margin: 21rem 0 10rem 8.5rem;
+`;
+
+const CardArrowRightStyle = styled(CardArrowStyle)`
   margin: -25rem 121rem 50rem;
-  z-index: 1;
-
-  @media screen and (max-width: 1333px) {
-    display: none !important;
-  }
-
-  @media screen and (max-width: 767px) {
-    display: none !important;
-  }
 `;
 
 const CardListTitle = styled.span`
@@ -79,6 +72,17 @@ const CardListTitle = styled.span`
 const CardListView = styled.div`
   width: 114rem;
   overflow: hidden;
+  @media screen and (min-width: 375px) {
+    ${commonCardStyle}
+  }
+
+  @media screen and (min-width: 767px) {
+    ${commonCardStyle}
+  }
+
+  @media screen and (min-width: 1200px) {
+    ${commonCardStyle}
+  }
 `;
 
 const CardListBox = styled.li`
@@ -111,10 +115,10 @@ const MemoizedCardListSection = React.memo(
     const isLeftArrowVisible = scrollPosition > 0;
     const isRightArrowVisible = scrollPosition < results.length;
 
-    const handleLeftArrowClick = useCallback(() => handleArrowClick(true, id), [
-      handleArrowClick,
-      id,
-    ]);
+    const handleLeftArrowClick = useCallback(
+      () => handleArrowClick(true, id),
+      [handleArrowClick, id]
+    );
 
     const handleRightArrowClick = useCallback(
       () => handleArrowClick(false, id),
@@ -125,7 +129,7 @@ const MemoizedCardListSection = React.memo(
       <CardMain>
         <CardListTitle>{title}</CardListTitle>
         <CardArrowLeftStyle
-          style={{ display: isLeftArrowVisible ? 'flex' : 'none' }}
+          isVisible={isLeftArrowVisible}
           onClick={handleLeftArrowClick}
         >
           <ArrowBtn isLeft={true} />
@@ -140,14 +144,7 @@ const MemoizedCardListSection = React.memo(
           </CardListView>
         </CardListContainer>
         <CardArrowRightStyle
-          style={{
-            display:
-              results.length > 4
-                ? isRightArrowVisible
-                  ? 'flex'
-                  : 'none'
-                : 'none',
-          }}
+          isVisible={results.length > 4 && isRightArrowVisible}
           onClick={handleRightArrowClick}
         >
           <ArrowBtn isLeft={false} />
