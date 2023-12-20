@@ -51,7 +51,7 @@ export default function HeaderBottumRight({ nav, onShareURLClick }) {
         nav={nav}
         recentMessages={recentMessages}
         messageCount={messageCount}
-      />
+      ></ProfileImgList>
       <SplitLine first={true} />
       <EmojiSelectBox />
       <SplitLine />

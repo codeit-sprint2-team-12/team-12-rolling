@@ -70,7 +70,7 @@ const ImgList = styled.div`
 // 미디어쿼리 부분적용 이슈
 
 export default function ProfileImgList({
-  nav = true,
+  nav = false,
   recentMessages = [],
   messageCount = 0,
 }) {
