@@ -20,7 +20,12 @@ const EmojiSelectContainer = styled.ul`
 
   & > * {
     padding-right: 2.8rem;
-    border-right: 0.1rem solid var(--gray-200, #eee);
+  }
+
+  @media screen and (max-width: 1247px) {
+    & > * {
+      padding-right: 0.8rem;
+    }
   }
 `;
 
@@ -28,7 +33,13 @@ const AddBtn = styled(OutlinedBtn)`
   gap: 0.4rem;
   position: relative;
 
+  @media screen and (max-width: 1247px) {
+    margin-left: 0.6rem;
+    padding: 0.6rem 1.6rem;
+  }
+
   @media (max-width: 767px) {
+    padding: 0.6rem 0.8rem;
     &:last-child {
       display: none;
     }
@@ -46,8 +57,6 @@ const DropDownBtn = styled.button`
   padding: 0.6rem;
   border: none;
   background-color: #fff;
-
-  cursor: pointer;
 `;
 
 const AllEmojiList = styled.ul`

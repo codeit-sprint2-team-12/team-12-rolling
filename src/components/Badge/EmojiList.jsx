@@ -9,7 +9,7 @@ const EmojiBest = styled.ul`
   border: none;
   list-style-type: none;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1247px) {
     margin: 0;
   }
 `;
