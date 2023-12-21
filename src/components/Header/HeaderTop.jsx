@@ -1,18 +1,22 @@
 import styled from 'styled-components';
 import logoImg from '../../assets/logo.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
+import { useNavigate } from 'react-router-dom';
 
 const LogoImg = styled.img`
   cursor: pointer;
 `;
-function handleHomeClick(e) {
-  window.location.href = '/';
-}
-function handlePaperClick(e) {
-  window.location.href = '/post';
-}
 
 export default function HeaderTop({ width, users = false }) {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+  const handlePaperClick = () => {
+    navigate('/post');
+  };
+
   return (
     <>
       <LogoImg src={logoImg} alt="로고" onClick={handleHomeClick} />
