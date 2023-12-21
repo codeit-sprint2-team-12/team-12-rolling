@@ -16,6 +16,10 @@ const CardMain = styled.main`
   width: 100%;
   max-width: 134.5rem;
   margin: 0 auto;
+  @media screen and (max-width: 430px) {
+    width: 48rem;
+    margin: -7rem;
+  }
 `;
 const CardListContainer = styled.ul`
   position: relative;
