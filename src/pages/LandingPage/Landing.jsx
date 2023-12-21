@@ -7,7 +7,7 @@ export default function Landing() {
   return (
     <>
       <Header>
-        <HeaderTop />
+        <HeaderTop isBtn={true} />
       </Header>
       <LandingMain />
     </>

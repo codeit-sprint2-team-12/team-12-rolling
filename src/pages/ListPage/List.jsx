@@ -7,7 +7,7 @@ export default function List() {
   return (
     <>
       <Header>
-        <HeaderTop />
+        <HeaderTop isBtn={true} />
       </Header>
       <ListMain />
     </>
