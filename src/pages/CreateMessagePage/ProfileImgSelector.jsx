@@ -18,6 +18,7 @@ const SelectorContainer = styled.div`
 
 const ProfileStatusIcon = styled.span`
   display: flex;
+  flex-shrink: 0;
   padding: 2.4rem;
   width: 8rem;
   height: 8rem;
