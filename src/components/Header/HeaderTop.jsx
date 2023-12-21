@@ -14,7 +14,12 @@ export default function HeaderTop({ width, users = false, isBtn = false }) {
     navigate('/');
   };
   const handlePaperClick = () => {
-    navigate('/post');
+    const recipientId = window.localStorage.getItem('recipientId');
+    if (recipientId === null) {
+      navigate('/post');
+    } else {
+      navigate(`/post/${recipientId}`);
+    }
   };
 
   return (

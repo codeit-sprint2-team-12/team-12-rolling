@@ -194,7 +194,12 @@ export default function ListMain() {
   );
 
   const handleListClick = () => {
-    navigate('/post');
+    const recipientId = window.localStorage.getItem('recipientId');
+    if (recipientId === null) {
+      navigate('/post');
+    } else {
+      navigate(`/post/${recipientId}`);
+    }
   };
 
   const handleLoad = async () => {
