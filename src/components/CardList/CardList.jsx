@@ -50,6 +50,7 @@ const CountWritePeople = styled.p`
 `;
 
 const Card = styled.li`
+  margin-right: 2rem;
   padding: 3rem 2.4rem;
   position: relative;
   width: 27.4rem;

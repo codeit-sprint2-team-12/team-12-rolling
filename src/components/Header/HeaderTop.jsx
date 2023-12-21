@@ -7,26 +7,25 @@ const LogoImg = styled.img`
   cursor: pointer;
 `;
 
-export default function HeaderTop({ width, users = false }) {
+export default function HeaderTop({ width, users = false, isBtn = false }) {
   const navigate = useNavigate();
 
   const handleHomeClick = () => {
     navigate('/');
   };
   const handlePaperClick = () => {
-    navigate('/post');
+    const recipientId = window.localStorage.getItem('recipientId');
+    if (recipientId === null) {
+      navigate('/post');
+    } else {
+      navigate(`/post/${recipientId}`);
+    }
   };
 
   return (
     <>
       <LogoImg src={logoImg} alt="로고" onClick={handleHomeClick} />
-      {users ? (
-        width > 1247 && (
-          <OutlinedBtn size="sm" onClick={handlePaperClick}>
-            롤링 페이퍼 만들기
-          </OutlinedBtn>
-        )
-      ) : (
+      {isBtn && (
         <OutlinedBtn size="sm" onClick={handlePaperClick}>
           롤링 페이퍼 만들기
         </OutlinedBtn>

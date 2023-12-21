@@ -61,6 +61,7 @@ function CreateRecipientPage() {
   // 제출 성공시 페이지 이동
   useEffect(() => {
     if (isSubmitSuccess) {
+      window.localStorage.setItem('recipientId', createdId);
       navigate(`./${createdId}`);
     }
   }, [isSubmitSuccess, createdId, navigate]);

@@ -62,6 +62,7 @@ export default function RollingPageCardList({
               sender={item.sender}
               createdAt={item.createdAt}
               content={item.content}
+              font={item.font}
               profileImageURL={item.profileImageURL}
               relationship={item.relationship}
             />
@@ -73,9 +74,9 @@ export default function RollingPageCardList({
                 sender={item.sender}
                 createdAt={item.createdAt}
                 content={item.content}
+                font={item.font}
                 profileImageURL={item.profileImageURL}
-                relationship={item.relationship}
-              ></Modal>
+                relationship={item.relationship}></Modal>
             )}
           </>
         );

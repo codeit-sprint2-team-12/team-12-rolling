@@ -5,6 +5,13 @@ import Badge from '../Badge/Badge';
 import deleteBtn from '../../assets/deleted.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
 
+const FONT = {
+  'Noto Sans': 'Noto Sans KR',
+  Pretendard: 'Pretendard Variable',
+  나눔명조: 'Nanum Myeongjo',
+  '나눔손글씨 손편지체': 'Nanum Brush Script',
+};
+
 export const CardBox = styled.section`
   position: relative;
   width: 38.4rem;
@@ -64,7 +71,7 @@ const TextBox = styled.p`
   text-overflow: ellipsis;
   white-space: normal;
   align-items: center;
-
+  font-family: ${({ $font }) => ($font ? FONT[$font] : 'Pretendard Variable')};
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 2.8rem;
@@ -122,7 +129,7 @@ export default function Card({
           </DeleteBtn>
         )}
       </ProfileBox>
-      <TextBox>{info.content}</TextBox>
+      <TextBox $font={info.font}>{info.content}</TextBox>
       <MakeDate>{formatDate(info.createdAt)}</MakeDate>
     </CardBox>
   );
