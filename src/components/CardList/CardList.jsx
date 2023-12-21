@@ -27,6 +27,7 @@ const TextBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 1.2rem;
+  min-height: 11.5rem;
 `;
 
 const ToRecipient = styled.h1`

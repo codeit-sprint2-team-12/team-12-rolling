@@ -18,7 +18,7 @@ import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import EmojiPicker from 'emoji-picker-react';
 import IdContext from '../../contexts/IdContext';
 import RecipientContext from '../../contexts/RecipientContext';
-// import shareMessage from '../../apis/apiKakao';
+import shareMessage from '../../apis/apiKakao';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -162,7 +162,6 @@ export default function UsersRollingPage({ deletePage = false }) {
       setTimeout(() => setCopyURL(false), 5000);
     }
   };
-  location.pathname앞에 baseUrl 필요
 
   const handleShare = () => {
     shareMessage(params.createdId);
@@ -203,7 +202,7 @@ export default function UsersRollingPage({ deletePage = false }) {
     if (window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
-        kakao.init(process.env.REACT_APP_KAKAO_KEY); 
+        kakao.init(process.env.REACT_APP_KAKAO_KEY);
       }
     }
   }, []);

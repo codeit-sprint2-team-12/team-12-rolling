@@ -30,12 +30,16 @@ const EmojiSelectContainer = styled.ul`
 `;
 
 const AddBtn = styled(OutlinedBtn)`
-  gap: 0.4rem;
   position: relative;
+  padding: 0.6rem 1.6rem;
+  gap: 0.4rem;
 
   @media screen and (max-width: 1247px) {
     margin-left: 0.6rem;
-    padding: 0.6rem 1.6rem;
+
+    &:last-child {
+      padding: 0;
+    }
   }
 
   @media (max-width: 767px) {
