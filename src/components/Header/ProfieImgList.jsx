@@ -60,6 +60,7 @@ const CountText = styled.p`
 
 const ImgList = styled.div`
   display: flex;
+  min-height: 2.8rem;
   gap: -1.2rem;
 `;
 
