@@ -54,11 +54,12 @@ export default function HeaderBottomRight({
           <ProfileImgList
             nav={nav}
             recentMessages={recentMessages}
-            messageCount={messageCount}></ProfileImgList>
+            messageCount={messageCount}
+          ></ProfileImgList>
           <SplitLine />
         </>
       )}
-      <EmojiSelectBox>{width > 1247 && '추가'}</EmojiSelectBox>
+      <EmojiSelectBox>{width > 767 && '추가'}</EmojiSelectBox>
       <SplitLine />
       <OutlinedBtn size="sm" nav={nav} onClick={handleClickShareOpenList}>
         <img src={goShare} alt="공유하기" />

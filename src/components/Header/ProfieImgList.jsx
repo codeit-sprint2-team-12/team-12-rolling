@@ -13,10 +13,6 @@ const ImgItems = styled.img`
   &:not(:first-child) {
     margin-left: -1.2rem;
   }
-
-  @media (max-width: 767px) {
-    display: ${({ nav }) => (nav ? 'none' : 'inline')};
-  }
 `;
 
 const CountImg = styled.div`

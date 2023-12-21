@@ -85,6 +85,10 @@ export const Button = styled.button`
       color: var(--white, #fff);
     }
   }
+
+  @media screen and (max-width: 767px) {
+    padding: 0.6rem 0.8rem;
+  }
 `;
 
 function OutlinedBtn({ className, size, children, disabled, onClick }) {

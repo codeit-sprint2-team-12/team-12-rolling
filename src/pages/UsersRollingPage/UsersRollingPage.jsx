@@ -18,7 +18,7 @@ import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import EmojiPicker from 'emoji-picker-react';
 import IdContext from '../../contexts/IdContext';
 import RecipientContext from '../../contexts/RecipientContext';
-import shareMessage from '../../apis/apiKakao';
+// import shareMessage from '../../apis/apiKakao';
 
 const COLOR = {
   beige: 'var(--orange-200, #FFE2AD)',
@@ -55,7 +55,7 @@ const Main = styled.main`
   }
 
   @media screen and (max-width: 1247px) {
-    padding: 9.3rem 2.4rem;
+    padding: 6rem 2.4rem;
   }
 
   @media screen and (max-width: 767px) {
@@ -71,16 +71,26 @@ const AlignButton = styled.div`
   gap: 1rem;
 
   align-items: center;
+
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    position: fixed;
+    width: 90vw;
+    right: 2.4rem;
+    bottom: 2.4rem;
+    left: 2.4rem;
+    z-index: 1;
+  }
 `;
 
 const DeleteButton = styled(PrimaryBtn)`
   width: auto;
 
-  @media screen and (max-width: 1247px) {
-    position: fixed;
+  @media screen and (max-width: 767px) {
+    width: ${({ deletePage }) => (deletePage ? '45vw' : '90vw')};
     bottom: 2.4rem;
-    left: 2.4rem;
     right: 2.4rem;
+    left: 2.4rem;
   }
 `;
 
@@ -88,7 +98,8 @@ const StyledToast = styled(Toast)`
   position: fixed;
 
   @media screen and (max-width: 767px) {
-    bottom: 2.4rem;
+    width: 90%;
+    bottom: 7.2rem;
   }
 `;
 
@@ -151,7 +162,7 @@ export default function UsersRollingPage({ deletePage = false }) {
       setTimeout(() => setCopyURL(false), 5000);
     }
   };
-  //location.pathname앞에 baseUrl 필요
+  location.pathname앞에 baseUrl 필요
 
   const handleShare = () => {
     shareMessage(params.createdId);
@@ -192,7 +203,7 @@ export default function UsersRollingPage({ deletePage = false }) {
     if (window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
-        kakao.init(process.env.REACT_APP_KAKAO_KEY); // 사용하려는 앱의 JavaScript 키 입력
+        kakao.init(process.env.REACT_APP_KAKAO_KEY); 
       }
     }
   }, []);
@@ -220,7 +231,8 @@ export default function UsersRollingPage({ deletePage = false }) {
                 width={width}
                 onShare={handleShare}
                 onShareURLClick={handleSumbitAdressShare}
-                onClick={handleClickEmojiPickerOpenList}>
+                onClick={handleClickEmojiPickerOpenList}
+              >
                 {response.name}
               </HeaderBottom>
             ) : null}
@@ -231,7 +243,8 @@ export default function UsersRollingPage({ deletePage = false }) {
 
       <Main
         backgroundColor={response.backgroundColor}
-        backgroundImageURL={response.backgroundImageURL}>
+        backgroundImageURL={response.backgroundImageURL}
+      >
         <AlignButton>
           {deletePage && (
             <DeleteButton size="small" onClick={handleDeleteRecipient}>
@@ -240,8 +253,9 @@ export default function UsersRollingPage({ deletePage = false }) {
           )}
           <Link
             to={deletePage ? `/post/${params.createdId}` : 'edit'}
-            style={{ textDecoration: 'none' }}>
-            <DeleteButton size="small">
+            style={{ textDecoration: 'none' }}
+          >
+            <DeleteButton size="small" deletePage={deletePage}>
               {deletePage ? '저장하기' : '삭제하기'}
             </DeleteButton>
           </Link>
@@ -252,7 +266,8 @@ export default function UsersRollingPage({ deletePage = false }) {
           isModal={isModal}
           setIsModal={setIsModal}
           items={items}
-          deletePage={deletePage}></RollingPageCardList>
+          deletePage={deletePage}
+        ></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}
       </Main>
