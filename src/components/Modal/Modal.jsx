@@ -10,6 +10,13 @@ import {
 } from '../Card/Card';
 import Badge from '../Badge/Badge';
 
+const FONT = {
+  'Noto Sans': 'Noto Sans KR',
+  Pretendard: 'Pretendard Variable',
+  나눔명조: 'Nanum Myeongjo',
+  '나눔손글씨 손편지체': 'Nanum Brush Script',
+};
+
 const ModalBackground = styled.div`
   position: fixed;
   inset: 0;
@@ -52,7 +59,7 @@ const TextBox = styled.p`
   overflow: auto;
 
   color: #5a5a5a;
-
+  font-family: ${({ $font }) => ($font ? FONT[$font] : 'Pretendard Variable')};
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 2.8rem; /* 155.556% */
@@ -85,7 +92,7 @@ export default function Modal({ setIsModal, ...info }) {
           </ProfileText>
           <MakeDate>{formatDate(info.createdAt)}</MakeDate>
         </ProfileBox>
-        <TextBox>{info.content}</TextBox>
+        <TextBox $font={info.font}>{info.content}</TextBox>
         <CheckButton onClick={() => setIsModal(null)} size="regular">
           확인
         </CheckButton>

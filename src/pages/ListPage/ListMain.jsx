@@ -12,20 +12,31 @@ const commonCardStyle = `
     display: none;
   }
 `;
-const CardMain = styled.main`
+
+const MainStyle = styled.main`
+  max-width: 116rem;
+  margin: 0 auto;
+`;
+
+const CardMain = styled.article`
+  position: relative;
   width: 100%;
   max-width: 134.5rem;
-  margin: 0 auto;
-  @media screen and (max-width: 430px) {
-    width: 48rem;
-    margin: -7rem;
+  margin: 5rem auto 0;
+
+  @media screen and (max-width: 375px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 0 2rem;
   }
 `;
 const CardListContainer = styled.ul`
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 10rem;
+  margin-top: 1.6rem;
+  max-width: 116rem;
   gap: 2rem;
 
   @media screen and (min-width: 375px) {
@@ -57,16 +68,19 @@ const CardArrowStyle = styled.div`
 `;
 
 const CardArrowLeftStyle = styled(CardArrowStyle)`
-  margin: 21rem 0 10rem 8.5rem;
+  display: absolute;
+  top: 50%;
+  left: -2rem;
 `;
 
 const CardArrowRightStyle = styled(CardArrowStyle)`
-  margin: -25rem 121rem 50rem;
+  position: absolute;
+  top: 50%;
+  right: -2rem;
 `;
 
 const CardListTitle = styled.span`
   display: flex;
-  margin: 10rem 0rem -7rem 10rem;
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 2.25rem;
@@ -85,7 +99,6 @@ const CardListBox = styled.li`
   display: inline-flex;
   align-items: flex-start;
   align-items: center;
-  gap: 1.25rem;
 `;
 
 const Footer = styled.footer`
@@ -126,8 +139,7 @@ const MemoizedCardListSection = React.memo(
         <CardListTitle>{title}</CardListTitle>
         <CardArrowLeftStyle
           isVisible={isLeftArrowVisible}
-          onClick={handleLeftArrowClick}
-        >
+          onClick={handleLeftArrowClick}>
           <ArrowBtn isLeft={true} />
         </CardArrowLeftStyle>
         <CardListContainer>
@@ -141,8 +153,7 @@ const MemoizedCardListSection = React.memo(
         </CardListContainer>
         <CardArrowRightStyle
           isVisible={data.length > 4 && isRightArrowVisible}
-          onClick={handleRightArrowClick}
-        >
+          onClick={handleRightArrowClick}>
           <ArrowBtn isLeft={false} />
         </CardArrowRightStyle>
       </CardMain>
@@ -169,12 +180,13 @@ export default function ListMain() {
       const cardWidth = cardListView.clientWidth;
       const currentPosition = scrollPositions[id];
       const newPosition = isLeft
-        ? Math.max(currentPosition - cardWidth, 0)
+        ? Math.max(currentPosition - cardWidth - 13, 0)
         : Math.min(
-            currentPosition + cardWidth,
+            currentPosition + cardWidth + 13,
             cardListView.scrollWidth - cardWidth
           );
 
+      console.log(cardListView.scrollWidth - cardWidth);
       setScrollPositions((prev) => ({ ...prev, [id]: newPosition }));
       cardListView.scrollTo({ left: newPosition, behavior: 'smooth' });
     },
@@ -182,7 +194,12 @@ export default function ListMain() {
   );
 
   const handleListClick = () => {
-    navigate('/post');
+    const recipientId = window.localStorage.getItem('recipientId');
+    if (recipientId === null) {
+      navigate('/post');
+    } else {
+      navigate(`/post/${recipientId}`);
+    }
   };
 
   const handleLoad = async () => {
@@ -202,7 +219,7 @@ export default function ListMain() {
   }, []);
 
   return (
-    <main>
+    <MainStyle>
       <MemoizedCardListSection
         id="favorite"
         title="인기 롤링 페이퍼 🔥"
@@ -222,6 +239,6 @@ export default function ListMain() {
           나도 만들어보기
         </PrimaryBtn>
       </Footer>
-    </main>
+    </MainStyle>
   );
 }

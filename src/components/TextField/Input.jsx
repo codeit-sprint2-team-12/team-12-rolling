@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
+const InputDiv = styled.div`
+  position: relative;
+`;
+
 const InputStyle = styled.input`
   display: flex;
   width: 100%;
   padding: 1.2rem 1.6rem;
+  outline: none;
   align-items: center;
   gap: 1rem;
   border-radius: 0.8rem;
@@ -24,12 +29,12 @@ const InputStyle = styled.input`
   }
 
   &:active {
-    border: 2px solid var(--gray-700, #3a3a3a);
+    border: 1px solid var(--gray-700, #3a3a3a);
     background: var(--white, #fff);
   }
 
   &:focus {
-    border: 2px solid var(--gray-500, #555);
+    outline: 1px solid var(--gray-500, #555);
     background: var(--white, #fff);
     color: var(--gray-900, #181818);
   }
@@ -37,6 +42,9 @@ const InputStyle = styled.input`
 
 const Span = styled.span`
   color: var(--Error, #dc3a3a);
+  position: absolute;
+  bottom: -1.2rem;
+  left: 0.1rem;
 `;
 
 function Input({ placeholder, onChange, target }) {
@@ -58,7 +66,7 @@ function Input({ placeholder, onChange, target }) {
   };
 
   return (
-    <div>
+    <InputDiv>
       <InputStyle
         $iserror={isError}
         placeholder={placeholder}
@@ -67,7 +75,7 @@ function Input({ placeholder, onChange, target }) {
         onChange={handleChange}
       />
       {isError ? <Span>{isError}</Span> : null}
-    </div>
+    </InputDiv>
   );
 }
 
