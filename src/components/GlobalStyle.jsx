@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Myeongjo&family=Noto+Sans+KR&display=swap');
 :root{
 
   --white:#FFF;
