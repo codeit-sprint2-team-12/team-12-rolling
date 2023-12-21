@@ -29,6 +29,7 @@ const Button = styled.button`
   color: var(--white, #fff);
   border: none;
   background: var(--purple-600, #9935ff);
+  cursor: pointer;
 
   &:disabled {
     background: var(--gray-300, #ccc);
@@ -58,19 +59,25 @@ const Button = styled.button`
   }
 
   @media screen and (min-width: 1248px) {
-    width: 28rem;
+    width: 100%;
   }
 `;
 
-export default function Primary({
+export default function PrimaryBtn({
   className,
   children,
   size,
   disabled,
   width,
+  onClick,
 }) {
   return (
-    <Button className={className} size={size} disabled={disabled} width={width}>
+    <Button
+      className={className}
+      size={size}
+      disabled={disabled}
+      width={width}
+      onClick={onClick}>
       {children}
     </Button>
   );

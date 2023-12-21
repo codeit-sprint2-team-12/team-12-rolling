@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
   --Error:#DC3A3A;
   --Surface:#F6F8FF;
 
+
   --purple-100:#F8F0FF;
   --purple-200:#ECD9FF;
   --purple-300:#DCB9FF;
@@ -48,11 +49,7 @@ const GlobalStyle = createGlobalStyle`
   --gray-700:#3A3A3A;
   --gray-800:#2B2B2B;
   --gray-900:#181818;
-
-  
-  
-}
-
+};
 
 
 html {
@@ -63,6 +60,9 @@ html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+body{
+  min-height: 100vh;
 }
 `;
 

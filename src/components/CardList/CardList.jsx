@@ -4,12 +4,14 @@ import greenBackground from '../../assets/cardListGreen.png';
 import blueBackground from '../../assets/cardListblue.png';
 import orangeBackground from '../../assets/cardListOrange.png';
 import purpleBackground from '../../assets/cardListPurple.png';
+import ProfileImgList from '../Header/ProfieImgList';
+import { useNavigate } from 'react-router-dom';
 
 const COLOR = {
-  green: `url(${greenBackground})`,
-  blue: `url(${blueBackground})`,
-  orange: `url(${orangeBackground})`,
-  purple: `url(${purpleBackground})`,
+  green: greenBackground,
+  blue: blueBackground,
+  beige: orangeBackground,
+  purple: purpleBackground,
 };
 
 /* Font/24 Bold */
@@ -25,6 +27,7 @@ const TextBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 1.2rem;
+  min-height: 11.5rem;
 `;
 
 const ToRecipient = styled.h1`
@@ -51,11 +54,13 @@ const Card = styled.li`
   position: relative;
   width: 27.4rem;
   height: 26rem;
+  cursor: pointer;
 
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
-  background: ${({ backgroundcolor }) => COLOR[backgroundcolor]};
+  background: ${({ $background }) =>
+    $background ? `url(${$background})` : `url(${COLOR['beige']})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -73,31 +78,48 @@ const EmojiBox = styled.ul`
   }
 `;
 
-export default function CardList({
-  backgroundcolor = 'orange',
-  name = 'ddd',
-  count = '21',
-}) {
+export default function CardList({ cardData }) {
+  const navigate = useNavigate();
+  const {
+    id,
+    backgroundColor,
+    backgroundImageURL,
+    recentMessages,
+    name,
+    messageCount,
+    topReactions,
+  } = cardData;
+
+  const background = backgroundImageURL
+    ? backgroundImageURL
+    : COLOR[backgroundColor];
+
+  const handlePostClick = () => {
+    navigate(`/post/${id}`);
+  };
+
   return (
     <CardListBox>
-      <Card backgroundcolor={backgroundcolor}>
+      <Card $background={background} onClick={handlePostClick}>
         <TextBox>
           <ToRecipient>To.{name}</ToRecipient>
-          <div>프로필 이미지 나열</div>
-          <CountWritePeople>
-            <span>{count}</span>명이 작성했어요!
-          </CountWritePeople>
+
+          <ProfileImgList
+            recentMessages={recentMessages}
+            messageCount={messageCount}
+          />
         </TextBox>
+
         <EmojiBox>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
-          <li>
-            <EmojiBadge></EmojiBadge>
-          </li>
+          {topReactions.map((item) => {
+            return (
+              <li>
+                <EmojiBadge
+                  emojiList={{ emoji: item.emoji, count: item.count }}
+                />
+              </li>
+            );
+          })}
         </EmojiBox>
       </Card>
     </CardListBox>

@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import { LuSmilePlus } from 'react-icons/lu';
-//<LuSmilePlus />
-import { LiaTrashAlt } from 'react-icons/lia';
-// <LiaTrashAlt />
+
 const SIZES = {
   lg: {
     padding: `1.4rem 1.6rem`,
@@ -47,7 +44,7 @@ const SIZES = {
   },
 };
 
-const Button = styled.button`
+export const Button = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -56,6 +53,7 @@ const Button = styled.button`
   background: var(--white, #fff);
   color: var(--gray-900, #181818);
   text-align: center;
+  cursor: pointer;
 
   border-radius: ${({ size }) => (size ? SIZES[size].borderRadius : `auto`)};
   padding: ${({ size }) => (size ? SIZES[size].padding : `auto`)};
@@ -63,10 +61,6 @@ const Button = styled.button`
   font-weight: ${({ size }) => (size ? SIZES[size].fontWeight : `auto`)};
   line-height: ${({ size }) => (size ? SIZES[size].lineHeight : `auto`)};
   letter-spacing: ${({ size }) => (size ? SIZES[size].letterSpacing : `auto`)};
-
-  /* > div {
-    width: ${({ size }) => (size ? SIZES[size].width : `auto`)};
-  } */
 
   &:hover {
     border: 1px solid var(--gray-300, #ccc);
@@ -87,9 +81,13 @@ const Button = styled.button`
       color: var(--white, #fff);
     }
   }
+
+  @media screen and (max-width: 767px) {
+    padding: 0.6rem 0.8rem;
+  }
 `;
 
-function Outlined({ className, size, children, disabled, onClick }) {
+function OutlinedBtn({ className, size, children, disabled, onClick }) {
   return (
     <Button
       className={className}
@@ -102,4 +100,4 @@ function Outlined({ className, size, children, disabled, onClick }) {
   );
 }
 
-export default Outlined;
+export default OutlinedBtn;
