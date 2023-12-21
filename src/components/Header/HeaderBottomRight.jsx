@@ -54,8 +54,7 @@ export default function HeaderBottomRight({
           <ProfileImgList
             nav={nav}
             recentMessages={recentMessages}
-            messageCount={messageCount}
-          ></ProfileImgList>
+            messageCount={messageCount}></ProfileImgList>
           <SplitLine />
         </>
       )}
@@ -66,7 +65,7 @@ export default function HeaderBottomRight({
       </OutlinedBtn>
       {shareOpen ? (
         <ShareList nav={nav}>
-          <DropdownItems onClick={shareMessage}>카카오톡 공유</DropdownItems>
+          <DropdownItems onClick={onShare}>카카오톡 공유</DropdownItems>
           <DropdownItems onClick={onShareURLClick}>URL 공유</DropdownItems>
         </ShareList>
       ) : null}

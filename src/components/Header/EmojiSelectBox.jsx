@@ -4,7 +4,7 @@ import addFace from '../../assets/add-24.svg';
 import upImg from '../../assets/arrow_top.png';
 import downImg from '../../assets/arrow_down.png';
 import EmojiPick from './EmojiInput';
-import React, { children, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import EmojiBestList, { AddEmojiText } from '../Badge/EmojiList';
 import {
@@ -18,7 +18,7 @@ const EmojiSelectContainer = styled.ul`
   display: flex;
   align-items: center;
 
-  ${children} {
+  & > * {
     padding-right: 2.8rem;
     border-right: 0.1rem solid var(--gray-200, #eee);
   }
@@ -69,7 +69,7 @@ const AllEmojiList = styled.ul`
   z-index: 1;
 `;
 
-export default function EmojiSelectBox() {
+export default function EmojiSelectBox({ children }) {
   const recipientData = useContext(RecipientContext);
   const [emojiList, setEmojiList] = useState([]);
   const [emojiOpen, setEmojiOpen] = useState(false);

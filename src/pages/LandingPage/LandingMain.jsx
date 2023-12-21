@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import landingImg1 from '../../assets/landingimg1.png';
 import landingImg2 from '../../assets/landingimg2.png';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
+import { useNavigate } from 'react-router-dom';
 
 const Point01Text = `누구나 손쉽게, 온라인
 롤링 페이퍼를 만들 수 있어요`;
@@ -144,11 +145,11 @@ const Footer = styled.footer`
   }
 `;
 
-function handleListClick() {
-  window.location.href = '/List';
-}
-
 function LandingMain() {
+  const navigate = useNavigate();
+  const handleListClick = () => {
+    navigate('/list');
+  };
   return (
     <main>
       <Article type="left">
