@@ -4,10 +4,12 @@ import HeaderTop from '../../components/Header/HeaderTop';
 import ListMain from './ListMain';
 
 export default function List() {
-  return <>
-        <Header>
+  return (
+    <>
+      <Header>
         <HeaderTop />
       </Header>
-      <ListMain/>
-  </>;
+      <ListMain />
+    </>
+  );
 }
