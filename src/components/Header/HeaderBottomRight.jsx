@@ -6,7 +6,6 @@ import ProfileImgList from './ProfieImgList';
 import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
 import EmojiSelectBox from './EmojiSelectBox';
 import RecipientContext from '../../contexts/RecipientContext';
-import shareMessage from '../../apis/apiKakao';
 
 const RightSection = styled.div`
   position: relative;

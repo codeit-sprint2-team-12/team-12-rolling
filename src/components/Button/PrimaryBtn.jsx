@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const sizes = {
-  /* Font/18 Bold */
   regular: css`
     border-radius: 12px;
     padding: 1.4rem 2.4rem;
@@ -11,7 +10,7 @@ const sizes = {
     line-height: 28px;
     letter-spacing: -0.18px;
   `,
-  /* Font/16 Regular */
+
   small: css`
     border-radius: 6px;
     padding: 0.7rem 1.6rem;
@@ -30,6 +29,11 @@ const Button = styled.button`
   border: none;
   background: var(--purple-600, #9935ff);
   cursor: pointer;
+
+  &:hover {
+    animation: heartBeat;
+    animation-duration: 2s;
+  }
 
   &:disabled {
     background: var(--gray-300, #ccc);
@@ -77,7 +81,8 @@ export default function PrimaryBtn({
       size={size}
       disabled={disabled}
       width={width}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {children}
     </Button>
   );

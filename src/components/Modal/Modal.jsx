@@ -49,7 +49,6 @@ const ModalContainer = styled.article`
   }
 `;
 
-/* Font/18 Regular */
 const TextBox = styled.p`
   margin: 1.6rem auto;
   padding-top: 1.6rem;
@@ -62,7 +61,7 @@ const TextBox = styled.p`
   font-family: ${({ $font }) => ($font ? FONT[$font] : 'Pretendard Variable')};
   font-size: 1.8rem;
   font-weight: 400;
-  line-height: 2.8rem; /* 155.556% */
+  line-height: 2.8rem;
   letter-spacing: -0.018rem;
 `;
 

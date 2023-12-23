@@ -26,7 +26,7 @@ const BadgeContainer = styled.span`
   align-items: center;
   gap: 1rem;
   font-size: 1.4rem;
-  line-height: 2rem; /* 142.857% */
+  line-height: 2rem;
   letter-spacing: -0.007rem;
   border-radius: 0.4rem;
 

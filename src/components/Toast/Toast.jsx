@@ -20,7 +20,6 @@ const TextContainer = styled.div`
 `;
 
 const ToastContainer = styled.div`
-  /* 안바뀌는거 */
   display: flex;
   padding: 1.9rem 3rem;
   justify-content: space-between;
@@ -29,10 +28,9 @@ const ToastContainer = styled.div`
   border-radius: 0.8rem;
   background: rgba(0, 0, 0, 0.8);
   z-index: 1;
-  /* font */
   color: var(--white, #fff);
   font-size: 1.6rem;
-  line-height: 2.6rem; /* 162.5% */
+  line-height: 2.6rem;
   letter-spacing: -0.016rem;
 
   @media screen and (min-width: 375px) {

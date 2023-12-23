@@ -120,7 +120,6 @@ const Footer = styled.footer`
 
 const MemoizedCardListSection = React.memo(
   ({ id, title, data, scrollPosition, handleArrowClick }) => {
-    // const { results } = data;
     const isLeftArrowVisible = scrollPosition > data.length;
     const isRightArrowVisible = scrollPosition < data.length * 200;
 
@@ -139,7 +138,8 @@ const MemoizedCardListSection = React.memo(
         <CardListTitle>{title}</CardListTitle>
         <CardArrowLeftStyle
           isVisible={isLeftArrowVisible}
-          onClick={handleLeftArrowClick}>
+          onClick={handleLeftArrowClick}
+        >
           <ArrowBtn isLeft={true} />
         </CardArrowLeftStyle>
         <CardListContainer>
@@ -153,7 +153,8 @@ const MemoizedCardListSection = React.memo(
         </CardListContainer>
         <CardArrowRightStyle
           isVisible={data.length > 4 && isRightArrowVisible}
-          onClick={handleRightArrowClick}>
+          onClick={handleRightArrowClick}
+        >
           <ArrowBtn isLeft={false} />
         </CardArrowRightStyle>
       </CardMain>
