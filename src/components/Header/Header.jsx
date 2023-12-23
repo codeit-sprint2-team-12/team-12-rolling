@@ -5,28 +5,19 @@ const NavStyle = styled.nav`
   border-bottom: 1px solid #ededed;
   align-items: center;
 
+  @media screen and (min-width: 375px) {
+    padding: 1.1rem 2rem;
+  }
+  @media screen and (min-width: 1248px) {
+    padding: 1.1rem 2.4rem;
+  }
+
   > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 120rem;
-    margin: 1.1rem auto;
-  }
-
-  @media screen and (max-width: 1247px) {
-    > div {
-      padding: 0 2.4rem;
-    }
-  }
-  @media screen and (max-width: 767px) {
-    > div {
-      padding: 0 2.4rem;
-    }
-  }
-  @media screen and (max-width: 374px) {
-    > div {
-      padding: 0 2rem;
-    }
+    margin: 0 auto;
   }
 `;
 

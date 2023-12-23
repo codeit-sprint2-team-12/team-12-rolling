@@ -56,7 +56,7 @@ const CardArrowStyle = styled.div`
   position: absolute;
   width: 4rem;
   z-index: 1;
-  display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
+  display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};
 
   @media screen and (max-width: 1335px) {
     display: none;
@@ -137,21 +137,21 @@ const MemoizedCardListSection = React.memo(
       <CardMainStyle>
         <CardListTitleStyle>{title}</CardListTitleStyle>
         <CardArrowLeftStyle
-          isVisible={isLeftArrowVisible}
+          $isVisible={isLeftArrowVisible}
           onClick={handleLeftArrowClick}>
           <ArrowBtn isLeft={true} />
         </CardArrowLeftStyle>
         <CardListContainerStyle>
           <CardListViewStyle id={`${id}CardListView`}>
             <CardListBoxStyle>
-              {data.map((item, index) => (
-                <CardList key={index} cardData={item} />
+              {data.map((item) => (
+                <CardList key={item.id} cardData={item} />
               ))}
             </CardListBoxStyle>
           </CardListViewStyle>
         </CardListContainerStyle>
         <CardArrowRightStyle
-          isVisible={data.length > 4 && isRightArrowVisible}
+          $isVisible={data.length > 4 && isRightArrowVisible}
           onClick={handleRightArrowClick}>
           <ArrowBtn isLeft={false} />
         </CardArrowRightStyle>
