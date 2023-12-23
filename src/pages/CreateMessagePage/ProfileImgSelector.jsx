@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ProfileDefaultImg from '../../assets/noneProfileImg.png';
 import ProfileOptionContainer from './ProfileOptionContainer';
 
-const SelectorContainer = styled.div`
+const SelectorContainerStyle = styled.div`
   display: flex;
   gap: 3.2rem;
   align-items: center;
@@ -16,7 +16,7 @@ const SelectorContainer = styled.div`
   }
 `;
 
-const ProfileStatusIcon = styled.span`
+const ProfileStatusIconStyle = styled.span`
   display: flex;
   flex-shrink: 0;
   padding: 2.4rem;
@@ -36,13 +36,13 @@ const ProfileStatusIcon = styled.span`
 
 function ProfileImgSelector({ profileImages, onChange, selectedProfileImg }) {
   return (
-    <SelectorContainer>
-      <ProfileStatusIcon $selectedProfileImg={selectedProfileImg} />
+    <SelectorContainerStyle>
+      <ProfileStatusIconStyle $selectedProfileImg={selectedProfileImg} />
       <ProfileOptionContainer
         profileImages={profileImages}
         onChange={onChange}
       />
-    </SelectorContainer>
+    </SelectorContainerStyle>
   );
 }
 

@@ -11,7 +11,7 @@ const FONT = {
   '나눔손글씨 손편지체': 'Nanum Brush Script',
 };
 
-export const CardBox = styled.section`
+export const CardBoxStyle = styled.section`
   position: relative;
   width: 38.4rem;
   height: 28rem;
@@ -26,14 +26,14 @@ export const CardBox = styled.section`
   }
 `;
 
-export const ProfileBox = styled.div`
+export const ProfileBoxStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 1.4rem;
 `;
 
-export const ProfileText = styled.div`
+export const ProfileTextStyle = styled.div`
   > h1 {
     font-size: 2rem;
     font-weight: 700;
@@ -46,7 +46,7 @@ export const ProfileText = styled.div`
   }
 `;
 
-export const ProfileImg = styled.img`
+export const ProfileImgStyle = styled.img`
   padding: 0;
   width: 5.6rem;
   height: 5.6rem;
@@ -55,7 +55,7 @@ export const ProfileImg = styled.img`
   background: var(--white, #fff);
 `;
 
-const TextBox = styled.p`
+const TextBoxStyle = styled.p`
   margin: 1.6rem auto;
   padding-top: 1.6rem;
   width: 100%;
@@ -77,7 +77,7 @@ const TextBox = styled.p`
   border-top: 0.1rem solid var(--gray-200, #eee);
 `;
 
-export const MakeDate = styled.span`
+export const MakeDateStyle = styled.span`
   position: absolute;
   bottom: 2rem;
   color: var(--gray-400, #999);
@@ -93,7 +93,7 @@ export const formatDate = (value) => {
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
 
-const DeleteBtn = styled(OutlinedBtn)`
+const DeleteBtnStyle = styled(OutlinedBtn)`
   position: absolute;
   padding: 0.8rem !important;
   right: 3rem;
@@ -108,24 +108,24 @@ export default function Card({
   ...info
 }) {
   return (
-    <CardBox onClick={onClick}>
-      <ProfileBox>
-        <ProfileImg src={profileImageURL || noneImg} alt="프로필 이미지" />
-        <ProfileText>
+    <CardBoxStyle onClick={onClick}>
+      <ProfileBoxStyle>
+        <ProfileImgStyle src={profileImageURL || noneImg} alt="프로필 이미지" />
+        <ProfileTextStyle>
           <h1>
             <span>From. </span>
             {info.sender}
           </h1>
           <Badge relationship={info.relationship} />
-        </ProfileText>
+        </ProfileTextStyle>
         {deletePage && (
-          <DeleteBtn size="md" onClick={() => onDelete(info.messageId)}>
+          <DeleteBtnStyle size="md" onClick={() => onDelete(info.messageId)}>
             <img src={deleteBtn} alt="삭제하기" />
-          </DeleteBtn>
+          </DeleteBtnStyle>
         )}
-      </ProfileBox>
-      <TextBox $font={info.font}>{info.content}</TextBox>
-      <MakeDate>{formatDate(info.createdAt)}</MakeDate>
-    </CardBox>
+      </ProfileBoxStyle>
+      <TextBoxStyle $font={info.font}>{info.content}</TextBoxStyle>
+      <MakeDateStyle>{formatDate(info.createdAt)}</MakeDateStyle>
+    </CardBoxStyle>
   );
 }

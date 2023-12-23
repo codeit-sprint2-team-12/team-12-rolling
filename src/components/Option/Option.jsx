@@ -8,7 +8,7 @@ const COLOR = [
   { value: 'green', color: 'var(--green-200, #d0f5c3)' },
 ];
 
-const OptionContainer = styled.div`
+const OptionContainerStyle = styled.div`
   gap: 1.6rem;
   margin: 0 auto;
   @media screen and (min-width: 375px) {
@@ -21,7 +21,7 @@ const OptionContainer = styled.div`
   }
 `;
 
-const OptionItem = styled.button`
+const OptionItemStyle = styled.button`
   display: flex;
   position: relative;
   width: 16.8rem;
@@ -36,7 +36,7 @@ const OptionItem = styled.button`
   cursor: pointer;
 `;
 
-const CheckIcon = styled.img`
+const CheckIconStyle = styled.img`
   display: flex;
   position: absolute;
   top: 50%;
@@ -74,22 +74,21 @@ export default function Option({ isImage, onClick, backgroundImages }) {
   }, [isImage]);
 
   return (
-    <OptionContainer>
+    <OptionContainerStyle>
       {data.map((item, index) => {
         return (
-          <OptionItem
+          <OptionItemStyle
             key={index}
             $background={isImage ? `url(${item})` : item.color}
             id={index}
             type="button"
-            onClick={handleClick}
-          >
+            onClick={handleClick}>
             {selectedIndex === index && (
-              <CheckIcon src={checkImg} alt="체크됨" />
+              <CheckIconStyle src={checkImg} alt="체크됨" />
             )}
-          </OptionItem>
+          </OptionItemStyle>
         );
       })}
-    </OptionContainer>
+    </OptionContainerStyle>
   );
 }

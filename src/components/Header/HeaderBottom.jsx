@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import HeaderBottomRight from './HeaderBottomRight';
 
-export const ToRecipient = styled.h1`
+export const ToRecipientStyle = styled.h1`
   padding: 0;
   color: var(--gray-800, #2b2b2b);
   font-size: 2.8rem;
@@ -19,13 +19,12 @@ export default function HeaderBottom({
 }) {
   return (
     <>
-      {width > 767 && <ToRecipient>To. {children}</ToRecipient>}
+      {width > 767 && <ToRecipientStyle>To. {children}</ToRecipientStyle>}
       <HeaderBottomRight
         width={width}
         onShareURLClick={onShareURLClick}
         onShare={onShare}
-        nav={true}
-      ></HeaderBottomRight>
+        nav={true}></HeaderBottomRight>
     </>
   );
 }

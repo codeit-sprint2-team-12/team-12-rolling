@@ -9,7 +9,7 @@ import {
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import HeaderBottom, {
-  ToRecipient,
+  ToRecipientStyle,
 } from '../../components/Header/HeaderBottom';
 import HeaderTop from '../../components/Header/HeaderTop';
 import Toast from '../../components/Toast/Toast';
@@ -27,7 +27,7 @@ const COLOR = {
   purple: 'var(--purple-200, #ECD9FF)',
 };
 
-const Main = styled.main`
+const MainStyle = styled.main`
   ${({ backgroundColor, backgroundImageURL }) => {
     if (backgroundImageURL) {
       return `
@@ -63,7 +63,7 @@ const Main = styled.main`
   }
 `;
 
-const AlignButton = styled.div`
+const AlignButtonStyle = styled.div`
   max-width: 120rem;
   margin: 0 auto;
   display: flex;
@@ -82,7 +82,7 @@ const AlignButton = styled.div`
   }
 `;
 
-const DeleteButton = styled(PrimaryBtn)`
+const DeleteButtonStyle = styled(PrimaryBtn)`
   width: auto;
 
   @media screen and (max-width: 767px) {
@@ -93,7 +93,7 @@ const DeleteButton = styled(PrimaryBtn)`
   }
 `;
 
-const StyledToast = styled(Toast)`
+const StyledToastStyle = styled(Toast)`
   position: fixed;
 
   @media screen and (max-width: 767px) {
@@ -217,7 +217,7 @@ export default function UsersRollingPage({ deletePage = false }) {
         {width > 767 ? (
           <HeaderTop width={width} users={true} />
         ) : (
-          <ToRecipient>To. {response.name}</ToRecipient>
+          <ToRecipientStyle>To. {response.name}</ToRecipientStyle>
         )}
       </Header>
 
@@ -229,8 +229,7 @@ export default function UsersRollingPage({ deletePage = false }) {
                 width={width}
                 onShare={handleShare}
                 onShareURLClick={handleSumbitAdressShare}
-                onClick={handleClickEmojiPickerOpenList}
-              >
+                onClick={handleClickEmojiPickerOpenList}>
                 {response.name}
               </HeaderBottom>
             ) : null}
@@ -239,36 +238,33 @@ export default function UsersRollingPage({ deletePage = false }) {
         </IdContext.Provider>
       </RecipientContext.Provider>
 
-      <Main
+      <MainStyle
         backgroundColor={response.backgroundColor}
-        backgroundImageURL={response.backgroundImageURL}
-      >
-        <AlignButton>
+        backgroundImageURL={response.backgroundImageURL}>
+        <AlignButtonStyle>
           {deletePage && (
-            <DeleteButton size="small" onClick={handleDeleteRecipient}>
+            <DeleteButtonStyle size="small" onClick={handleDeleteRecipient}>
               페이지 삭제하기
-            </DeleteButton>
+            </DeleteButtonStyle>
           )}
           <Link
             to={deletePage ? `/post/${params.createdId}` : 'edit'}
-            style={{ textDecoration: 'none' }}
-          >
-            <DeleteButton size="small" deletePage={deletePage}>
+            style={{ textDecoration: 'none' }}>
+            <DeleteButtonStyle size="small" deletePage={deletePage}>
               {deletePage ? '저장하기' : '삭제하기'}
-            </DeleteButton>
+            </DeleteButtonStyle>
           </Link>
-        </AlignButton>
+        </AlignButtonStyle>
         <RollingPageCardList
           onClick={openModal}
           onDelete={handleDeleteMessage}
           isModal={isModal}
           setIsModal={setIsModal}
           items={items}
-          deletePage={deletePage}
-        ></RollingPageCardList>
+          deletePage={deletePage}></RollingPageCardList>
 
-        {copyURL && <StyledToast></StyledToast>}
-      </Main>
+        {copyURL && <StyledToastStyle></StyledToastStyle>}
+      </MainStyle>
     </>
   );
 }

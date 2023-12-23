@@ -7,14 +7,14 @@ const OptionContainerStyle = styled.div`
   gap: 1.2rem;
 `;
 
-const ProfileOptionList = styled.ul`
+const ProfileOptionListStyle = styled.ul`
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
   gap: 0.4rem;
 `;
 
-const ProfileOptionItem = styled.li`
+const ProfileOptionItemStyle = styled.li`
   display: flex;
   width: 5.6rem;
   height: 5.6rem;
@@ -36,10 +36,10 @@ function ProfileOptionContainer({ profileImages, onChange }) {
   return (
     <OptionContainerStyle>
       <Subtitle>프로필 이미지를 선택해 주세요!</Subtitle>
-      <ProfileOptionList>
+      <ProfileOptionListStyle>
         {profileImages.map((urls, index) => {
           return (
-            <ProfileOptionItem
+            <ProfileOptionItemStyle
               key={urls}
               $urls={urls}
               id={index}
@@ -47,7 +47,7 @@ function ProfileOptionContainer({ profileImages, onChange }) {
             />
           );
         })}
-      </ProfileOptionList>
+      </ProfileOptionListStyle>
     </OptionContainerStyle>
   );
 }

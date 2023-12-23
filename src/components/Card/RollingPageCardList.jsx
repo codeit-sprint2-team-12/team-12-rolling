@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import Card, { CardBox } from './Card';
+import Card, { CardBoxStyle } from './Card';
 import { PlusButtonStyle } from '../Button/PlusBtn';
 import { FaPlus } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 
-const CardListup = styled.article`
+const CardListUpStyle = styled.article`
   max-width: 120rem;
   margin: 0 auto;
   display: grid;
@@ -22,7 +22,7 @@ const CardListup = styled.article`
   }
 `;
 
-const AddCardsBtn = styled(PlusButtonStyle)`
+const AddCardBtnStyle = styled(PlusButtonStyle)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,15 +38,15 @@ export default function RollingPageCardList({
   onDelete,
 }) {
   return (
-    <CardListup>
+    <CardListUpStyle>
       {deletePage ? null : (
-        <CardBox>
+        <CardBoxStyle>
           <Link to="message">
-            <AddCardsBtn>
+            <AddCardBtnStyle>
               <FaPlus />
-            </AddCardsBtn>
+            </AddCardBtnStyle>
           </Link>
-        </CardBox>
+        </CardBoxStyle>
       )}
       {items?.map((item) => {
         return (
@@ -81,6 +81,6 @@ export default function RollingPageCardList({
           </>
         );
       })}
-    </CardListup>
+    </CardListUpStyle>
   );
 }

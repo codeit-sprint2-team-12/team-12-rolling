@@ -7,14 +7,6 @@ const PlusSize = {
   height: '24px',
 };
 
-const PlusBtn = ({ disabled }) => {
-  return (
-    <PlusButtonStyle disabled={disabled}>
-      <FaPlus style={PlusSize} />
-    </PlusButtonStyle>
-  );
-};
-
 export const PlusButtonStyle = styled.button`
   display: flex;
   padding: 16px;
@@ -41,5 +33,13 @@ export const PlusButtonStyle = styled.button`
     background: var(--gray-300, #ccc);
   }
 `;
+
+const PlusBtn = ({ children, disabled }) => {
+  return (
+    <PlusButtonStyle disabled={disabled}>
+      <FaPlus style={PlusSize} />
+    </PlusButtonStyle>
+  );
+};
 
 export default PlusBtn;

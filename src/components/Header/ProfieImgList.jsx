@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ImgItems = styled.img`
+const ImgItemsStyle = styled.img`
   width: 2.8rem;
   height: 2.8rem;
   border-radius: 5rem;
@@ -13,7 +13,7 @@ const ImgItems = styled.img`
   }
 `;
 
-const CountImg = styled.div`
+const CountImgStyle = styled.div`
   display: flex;
   align-items: center;
   border-radius: 3rem;
@@ -37,7 +37,7 @@ const CountImg = styled.div`
   }
 `;
 
-const CountText = styled.p`
+const CountTextStyle = styled.p`
   margin-left: 1.1rem;
   color: var(--gray-900, #181818);
   font-size: 1.8rem;
@@ -53,7 +53,7 @@ const CountText = styled.p`
   }
 `;
 
-const ImgList = styled.div`
+const ImgListStyle = styled.div`
   display: flex;
   min-height: 2.8rem;
   gap: -1.2rem;
@@ -66,17 +66,17 @@ export default function ProfileImgList({
 }) {
   return (
     <>
-      <ImgList>
+      <ImgListStyle>
         {recentMessages.map((item) => {
-          return <ImgItems src={item.profileImageURL} alt="프로필" />;
+          return <ImgItemsStyle src={item.profileImageURL} alt="프로필" />;
         })}
         {messageCount > 3 && (
-          <CountImg nav={nav}> +{messageCount - 3}</CountImg>
+          <CountImgStyle nav={nav}> +{messageCount - 3}</CountImgStyle>
         )}
-      </ImgList>
-      <CountText>
+      </ImgListStyle>
+      <CountTextStyle>
         <span>{messageCount}</span>명이 작성했어요!
-      </CountText>
+      </CountTextStyle>
     </>
   );
 }

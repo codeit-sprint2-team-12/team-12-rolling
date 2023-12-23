@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SecondaryBtn = ({ children, disabled }) => {
-  return <CommonButtonStyle disabled={disabled}>{children}</CommonButtonStyle>;
-};
-
 const CommonButtonStyle = styled.button`
   display: inline-flex;
   padding: 0.7rem 1.6rem;
@@ -37,5 +33,9 @@ const CommonButtonStyle = styled.button`
     border: none;
   }
 `;
+
+const SecondaryBtn = ({ children, disabled }) => {
+  return <CommonButtonStyle disabled={disabled}>{children}</CommonButtonStyle>;
+};
 
 export default SecondaryBtn;

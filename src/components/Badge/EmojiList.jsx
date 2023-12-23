@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import EmojiBadge from '../Badge/EmojiBadge';
 import { useEffect, useState } from 'react';
 
-const EmojiBest = styled.ul`
+const EmojiBestStyle = styled.ul`
   min-width: 15rem;
   display: flex;
   gap: 0.8rem;
@@ -21,17 +21,16 @@ export const AddEmojiText = styled.p`
 `;
 
 export default function EmojiBestList({ emojiList }) {
-  const [orderEmoji, setOrderEmoji] = useState('count');
   const [emojiBestList, setEmojiBestList] = useState(emojiList);
 
   useEffect(() => {
     setEmojiBestList(emojiList);
   }, [emojiList]);
 
-  emojiBestList.sort((a, b) => b[orderEmoji] - a[orderEmoji]);
+  emojiBestList.sort((a, b) => b['count'] - a['count']);
 
   return (
-    <EmojiBest>
+    <EmojiBestStyle>
       {emojiBestList.length !== 0 ? (
         emojiBestList.slice(0, 3).map((emoji, index) => (
           <li key={index}>
@@ -41,6 +40,6 @@ export default function EmojiBestList({ emojiList }) {
       ) : (
         <AddEmojiText>이모티콘을 추가해 보세요! 😃</AddEmojiText>
       )}
-    </EmojiBest>
+    </EmojiBestStyle>
   );
 }

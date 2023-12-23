@@ -21,7 +21,7 @@ const sizes = {
   `,
 };
 
-const Button = styled.button`
+const ButtonStyle = styled.button`
   ${({ size }) => (size === 'small' ? sizes.small : sizes.regular)};
   font-style: normal;
   text-align: center;
@@ -76,7 +76,7 @@ export default function PrimaryBtn({
   onClick,
 }) {
   return (
-    <Button
+    <ButtonStyle
       className={className}
       size={size}
       disabled={disabled}
@@ -84,6 +84,6 @@ export default function PrimaryBtn({
       onClick={onClick}
     >
       {children}
-    </Button>
+    </ButtonStyle>
   );
 }
