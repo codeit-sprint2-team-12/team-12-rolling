@@ -14,12 +14,14 @@ const COLOR = {
   purple: purpleBackground,
 };
 
-/* Font/24 Bold */
-
 const CardListBox = styled.ul`
   list-style-type: none;
   overflow: hidden;
   color: var(--gray-900, #181818);
+  &:hover {
+    animation: bounce;
+    animation-duration: 1s;
+  }
 `;
 
 const TextBox = styled.div`
@@ -32,21 +34,9 @@ const TextBox = styled.div`
 
 const ToRecipient = styled.h1`
   font-size: 2.4rem;
-
   font-weight: 700;
   line-height: 3.6rem;
   letter-spacing: -0.024rem;
-`;
-/* Font/16 Regular */
-const CountWritePeople = styled.p`
-  font-size: 1.6rem;
-  font-weight: 400;
-  line-height: 2.6rem;
-  letter-spacing: -0.016rem;
-
-  > span {
-    font-weight: 700;
-  }
 `;
 
 const Card = styled.li`
@@ -56,7 +46,6 @@ const Card = styled.li`
   width: 27.4rem;
   height: 26rem;
   cursor: pointer;
-
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);

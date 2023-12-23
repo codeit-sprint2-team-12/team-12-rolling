@@ -19,7 +19,7 @@ const ToggleStyle = styled.div`
     color: var(--gray-900, #181818);
     text-align: center;
     font-size: 1.6rem;
-    line-height: 2.6rem; /* 162.5% */
+    line-height: 2.6rem;
     letter-spacing: -0.016rem;
   }
 
@@ -44,14 +44,16 @@ export default function ToggleButton({ className, onClick, isActive }) {
         className={isActive ? '' : 'toggle-selected'}
         value="color"
         onClick={handleClick}
-        type="button">
+        type="button"
+      >
         컬러
       </button>
       <button
         className={isActive ? 'toggle-selected' : ''}
         onClick={handleClick}
         value="image"
-        type="button">
+        type="button"
+      >
         이미지
       </button>
     </ToggleStyle>

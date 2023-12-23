@@ -14,7 +14,7 @@ const BadgeContainer = styled.button`
 
   color: #fff;
   font-size: 1.6rem;
-  line-height: 2rem; /* 125% */
+  line-height: 2rem;
 `;
 
 function EmojiBadge({

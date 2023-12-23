@@ -1,4 +1,3 @@
-//import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import noneImg from '../../assets/noneProfileImg.png';
 import Badge from '../Badge/Badge';
@@ -56,7 +55,6 @@ export const ProfileImg = styled.img`
   background: var(--white, #fff);
 `;
 
-/* Font/18 Regular */
 const TextBox = styled.p`
   margin: 1.6rem auto;
   padding-top: 1.6rem;
@@ -84,11 +82,9 @@ export const MakeDate = styled.span`
   bottom: 2rem;
   color: var(--gray-400, #999);
 
-  /* Font/12 Regular */
-
   font-size: 1.2rem;
   font-weight: 400;
-  line-height: 1.8rem; /* 150% */
+  line-height: 1.8rem;
   letter-spacing: -0.006rem;
 `;
 
@@ -96,7 +92,6 @@ export const formatDate = (value) => {
   const date = new Date(value);
   return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 };
-// 함수 겹침 나중에 util로 합치기
 
 const DeleteBtn = styled(OutlinedBtn)`
   position: absolute;

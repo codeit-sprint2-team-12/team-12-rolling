@@ -96,7 +96,8 @@ function CreateMessagePage() {
           <DropdownBox
             listItems={RELATIONSHIP}
             onChange={handleChange}
-            target="relationship">
+            target="relationship"
+          >
             {postData.relationship}
           </DropdownBox>
         </div>
@@ -113,7 +114,8 @@ function CreateMessagePage() {
         <div className="RecipientForm__submit-box">
           <PrimaryBtn
             disabled={!postData.sender || !postData.content}
-            onClick={handleSubmit}>
+            onClick={handleSubmit}
+          >
             생성하기
           </PrimaryBtn>
         </div>

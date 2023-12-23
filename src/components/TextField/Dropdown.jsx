@@ -136,7 +136,8 @@ function DropdownBox({ children, nav = false, listItems, onChange, target }) {
                   onMouseOver={handleChange}
                   onClick={handleOpen}
                   data-value={item}
-                  type="button">
+                  type="button"
+                >
                   {item}
                 </ListButton>
               </DropdownList>

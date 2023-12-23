@@ -3,6 +3,7 @@ import landingImg1 from '../../assets/landingimg1.png';
 import landingImg2 from '../../assets/landingimg2.png';
 import PrimaryBtn from '../../components/Button/PrimaryBtn';
 import { useNavigate } from 'react-router-dom';
+import 'animate.css';
 
 const Point01Text = `누구나 손쉽게, 온라인
 롤링 페이퍼를 만들 수 있어요`;
@@ -25,6 +26,8 @@ const Article = styled.article`
   margin: ${({ type }) => (type ? TYPE[type].margin : '3rem auto')};
   border-radius: 1.6rem;
   background: var(--Surface, #f6f8ff);
+  animation: flipInX;
+  animation-duration: 2s;
 
   > section {
     display: flex;

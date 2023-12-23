@@ -82,7 +82,8 @@ export default function Option({ isImage, onClick, backgroundImages }) {
             $background={isImage ? `url(${item})` : item.color}
             id={index}
             type="button"
-            onClick={handleClick}>
+            onClick={handleClick}
+          >
             {selectedIndex === index && (
               <CheckIcon src={checkImg} alt="체크됨" />
             )}
@@ -92,5 +93,3 @@ export default function Option({ isImage, onClick, backgroundImages }) {
     </OptionContainer>
   );
 }
-
-// 선택 자동해제가 안됨

@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import RecipientContext from '../../contexts/RecipientContext';
-import { useContext } from 'react';
 
 const ImgItems = styled.img`
   width: 2.8rem;
@@ -23,18 +21,15 @@ const CountImg = styled.div`
   padding: 0.5rem 0.6rem;
   text-align: center;
   margin-left: -1.2rem;
-  /* margin-left: -1.2rem; */
   height: 2.8rem;
 
   border: ${({ nav }) => (nav ? '0.1rem solid #e3e3e3' : 'none')};
 
   color: var(--gray-500, #555);
 
-  /* Font/12 Regular */
-
   font-size: 1.2rem;
   font-weight: 400;
-  line-height: 1.8rem; /* 150% */
+  line-height: 1.8rem;
   letter-spacing: -0.006rem;
 
   @media (max-width: 767px) {
@@ -63,8 +58,6 @@ const ImgList = styled.div`
   min-height: 2.8rem;
   gap: -1.2rem;
 `;
-
-// 미디어쿼리 부분적용 이슈
 
 export default function ProfileImgList({
   nav = false,

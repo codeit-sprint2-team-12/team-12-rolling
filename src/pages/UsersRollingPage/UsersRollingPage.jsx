@@ -75,7 +75,6 @@ const AlignButton = styled.div`
   @media screen and (max-width: 767px) {
     justify-content: center;
     position: fixed;
-    /* width: 90vw; */
     right: 2.4rem;
     bottom: 2.4rem;
     left: 2.4rem;
@@ -230,7 +229,8 @@ export default function UsersRollingPage({ deletePage = false }) {
                 width={width}
                 onShare={handleShare}
                 onShareURLClick={handleSumbitAdressShare}
-                onClick={handleClickEmojiPickerOpenList}>
+                onClick={handleClickEmojiPickerOpenList}
+              >
                 {response.name}
               </HeaderBottom>
             ) : null}
@@ -241,7 +241,8 @@ export default function UsersRollingPage({ deletePage = false }) {
 
       <Main
         backgroundColor={response.backgroundColor}
-        backgroundImageURL={response.backgroundImageURL}>
+        backgroundImageURL={response.backgroundImageURL}
+      >
         <AlignButton>
           {deletePage && (
             <DeleteButton size="small" onClick={handleDeleteRecipient}>
@@ -250,7 +251,8 @@ export default function UsersRollingPage({ deletePage = false }) {
           )}
           <Link
             to={deletePage ? `/post/${params.createdId}` : 'edit'}
-            style={{ textDecoration: 'none' }}>
+            style={{ textDecoration: 'none' }}
+          >
             <DeleteButton size="small" deletePage={deletePage}>
               {deletePage ? '저장하기' : '삭제하기'}
             </DeleteButton>
@@ -262,7 +264,8 @@ export default function UsersRollingPage({ deletePage = false }) {
           isModal={isModal}
           setIsModal={setIsModal}
           items={items}
-          deletePage={deletePage}></RollingPageCardList>
+          deletePage={deletePage}
+        ></RollingPageCardList>
 
         {copyURL && <StyledToast></StyledToast>}
       </Main>

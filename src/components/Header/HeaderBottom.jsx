@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import HeaderBottomRight from './HeaderBottomRight';
 
 export const ToRecipient = styled.h1`

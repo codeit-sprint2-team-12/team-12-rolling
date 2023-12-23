@@ -7,7 +7,7 @@ const PlusSize = {
   height: '24px',
 };
 
-const PlusBtn = ({ children, disabled }) => {
+const PlusBtn = ({ disabled }) => {
   return (
     <PlusButtonStyle disabled={disabled}>
       <FaPlus style={PlusSize} />
