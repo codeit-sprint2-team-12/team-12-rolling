@@ -6,11 +6,11 @@ const EmojiBestStyle = styled.ul`
   min-width: 15rem;
   display: flex;
   gap: 0.8rem;
-  margin: 0 1.4rem;
+  /* margin: 0 1.4rem; */
   border: none;
   list-style-type: none;
 
-  @media screen and (max-width: 1247px) {
+  @media screen and (min-width: 375px) {
     margin: 0;
   }
 `;

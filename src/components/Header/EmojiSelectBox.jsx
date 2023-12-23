@@ -22,7 +22,12 @@ const EmojiSelectContainerStyle = styled.ul`
     padding-right: 2.8rem;
   }
 
-  @media screen and (max-width: 1247px) {
+  @media screen and (min-width: 375px) {
+    & > * {
+      padding-right: 0;
+    }
+  }
+  @media screen and (min-width: 1248px) {
     & > * {
       padding-right: 0.8rem;
     }
@@ -31,21 +36,24 @@ const EmojiSelectContainerStyle = styled.ul`
 
 const AddBtnStyle = styled(OutlinedBtn)`
   position: relative;
-  padding: 0.6rem 1.6rem;
+
   gap: 0.4rem;
 
-  @media screen and (max-width: 1247px) {
-    margin-left: 0.6rem;
-
-    &:last-child {
-      padding: 0;
-    }
+  @media screen and (min-width: 375px) {
+    margin: 0;
+    padding: 0.6rem;
   }
-
-  @media (max-width: 767px) {
+  @media screen and (min-width: 768px) {
     padding: 0.6rem 0.8rem;
     &:last-child {
       display: none;
+    }
+  }
+  @media screen and (min-width: 1248px) {
+    margin-left: 0.6rem;
+    padding: 0.6rem 1.6rem;
+    &:last-child {
+      padding: 0;
     }
   }
 `;
@@ -69,10 +77,6 @@ const AllEmojiListStyle = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   list-style-type: none;
 
-  right: 0;
-  top: 4.5rem;
-  padding: 2.4rem;
-
   gap: 1rem;
 
   border-radius: 0.8rem;
@@ -80,6 +84,16 @@ const AllEmojiListStyle = styled.ul`
   background: #fff;
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
   z-index: 1;
+  padding: 2.4rem;
+
+  @media screen and (min-width: 375px) {
+    top: 4.5rem;
+    left: -20rem;
+  }
+  @media screen and (min-width: 768px) {
+    right: 0;
+    top: 4.5rem;
+  }
 `;
 
 export default function EmojiSelectBox({ children }) {

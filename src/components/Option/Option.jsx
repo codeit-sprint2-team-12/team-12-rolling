@@ -13,7 +13,7 @@ const OptionContainerStyle = styled.div`
   margin: 0 auto;
   @media screen and (min-width: 375px) {
     display: grid;
-    grid-template-columns: 16.8rem 16.8rem;
+    grid-template-columns: 15.4rem 15.4rem;
   }
 
   @media screen and (min-width: 768px) {
@@ -24,8 +24,6 @@ const OptionContainerStyle = styled.div`
 const OptionItemStyle = styled.button`
   display: flex;
   position: relative;
-  width: 16.8rem;
-  height: 16.8rem;
   flex-shrink: 0;
   border-radius: 1.6rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -34,6 +32,15 @@ const OptionItemStyle = styled.button`
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+
+  @media screen and (min-width: 375px) {
+    width: 15.4rem;
+    height: 15.4rem;
+  }
+  @media screen and (min-width: 768px) {
+    width: 16.8rem;
+    height: 16.8rem;
+  }
 `;
 
 const CheckIconStyle = styled.img`
