@@ -45,7 +45,7 @@ const SIZES = {
   },
 };
 
-const Button = styled.button`
+const ButtonStyle = styled.button`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -62,10 +62,6 @@ const Button = styled.button`
   font-weight: ${({ size }) => (size ? SIZES[size].fontWeight : `auto`)};
   line-height: ${({ size }) => (size ? SIZES[size].lineHeight : `auto`)};
   letter-spacing: ${({ size }) => (size ? SIZES[size].letterSpacing : `auto`)};
-
-  /* > div {
-    width: ${({ size }) => (size ? SIZES[size].width : `auto`)};
-  } */
 
   &:hover {
     border: 1px solid var(--gray-300, #ccc);
@@ -90,15 +86,14 @@ const Button = styled.button`
 
 function EmojiOutlinedBtn({ className, size, children, disabled, onClick }) {
   return (
-    <Button
+    <ButtonStyle
       className={className}
       size={size}
       disabled={disabled}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       <LuSmilePlus />
       {children}
-    </Button>
+    </ButtonStyle>
   );
 }
 

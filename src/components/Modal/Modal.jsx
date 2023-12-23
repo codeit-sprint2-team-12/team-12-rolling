@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import PrimaryBtn from '../Button/PrimaryBtn';
 import noneImg from '../../assets/noneProfileImg.png';
 import {
-  ProfileBox,
-  ProfileImg,
-  ProfileText,
-  MakeDate,
+  ProfileBoxStyle,
+  ProfileImgStyle,
+  ProfileTextStyle,
+  MakeDateStyle,
   formatDate,
 } from '../Card/Card';
 import Badge from '../Badge/Badge';
@@ -17,7 +17,7 @@ const FONT = {
   '나눔손글씨 손편지체': 'Nanum Brush Script',
 };
 
-const ModalBackground = styled.div`
+const ModalBackgroundStyle = styled.div`
   position: fixed;
   inset: 0;
   inset: 0;
@@ -27,7 +27,7 @@ const ModalBackground = styled.div`
   z-index: 3;
 `;
 
-const ModalContainer = styled.article`
+const ModalContainerStyle = styled.article`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -49,7 +49,7 @@ const ModalContainer = styled.article`
   }
 `;
 
-const TextBox = styled.p`
+const TextBoxStyle = styled.p`
   margin: 1.6rem auto;
   padding-top: 1.6rem;
   width: 100%;
@@ -65,7 +65,7 @@ const TextBox = styled.p`
   letter-spacing: -0.018rem;
 `;
 
-const CheckButton = styled(PrimaryBtn)`
+const CheckButtonStyle = styled(PrimaryBtn)`
   position: absolute;
   left: 50%;
   bottom: 4rem;
@@ -75,27 +75,27 @@ const CheckButton = styled(PrimaryBtn)`
 
 export default function Modal({ setIsModal, ...info }) {
   return (
-    <ModalBackground>
-      <ModalContainer>
-        <ProfileBox>
-          <ProfileImg
+    <ModalBackgroundStyle>
+      <ModalContainerStyle>
+        <ProfileBoxStyle>
+          <ProfileImgStyle
             src={info.profileImageURL || noneImg}
             alt="프로필 이미지"
           />
-          <ProfileText>
+          <ProfileTextStyle>
             <h1>
               <span>From. </span>
               {info.sender}
             </h1>
             <Badge relationship={info.relationship} />
-          </ProfileText>
-          <MakeDate>{formatDate(info.createdAt)}</MakeDate>
-        </ProfileBox>
-        <TextBox $font={info.font}>{info.content}</TextBox>
-        <CheckButton onClick={() => setIsModal(null)} size="regular">
+          </ProfileTextStyle>
+          <MakeDateStyle>{formatDate(info.createdAt)}</MakeDateStyle>
+        </ProfileBoxStyle>
+        <TextBoxStyle $font={info.font}>{info.content}</TextBoxStyle>
+        <CheckButtonStyle onClick={() => setIsModal(null)} size="regular">
           확인
-        </CheckButton>
-      </ModalContainer>
-    </ModalBackground>
+        </CheckButtonStyle>
+      </ModalContainerStyle>
+    </ModalBackgroundStyle>
   );
 }

@@ -2,7 +2,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
-const StyledEditorContainer = styled.div`
+const EditorContainerStyle = styled.div`
   border-radius: 10px;
   border: 2 solid red;
   overflow: hidden;
@@ -15,7 +15,7 @@ const StyledEditorContainer = styled.div`
   }
 `;
 
-const StyledReactQuill = styled(ReactQuill)`
+const ReactQuillStyle = styled(ReactQuill)`
   width: 72rem;
 
   .ql-editor {
@@ -58,14 +58,14 @@ function TextEdit({ onChange }) {
   };
 
   return (
-    <StyledEditorContainer>
-      <StyledReactQuill
+    <EditorContainerStyle>
+      <ReactQuillStyle
         className="ql-editor ql-toolbar"
         modules={modules}
         style={{ padding: '0' }}
         onChange={handleChange}
       />
-    </StyledEditorContainer>
+    </EditorContainerStyle>
   );
 }
 

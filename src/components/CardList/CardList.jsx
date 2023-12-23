@@ -14,7 +14,7 @@ const COLOR = {
   purple: purpleBackground,
 };
 
-const CardListBox = styled.ul`
+const CardListBoxStyle = styled.ul`
   list-style-type: none;
   overflow: hidden;
   color: var(--gray-900, #181818);
@@ -24,7 +24,7 @@ const CardListBox = styled.ul`
   }
 `;
 
-const TextBox = styled.div`
+const TextBoxStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -32,14 +32,14 @@ const TextBox = styled.div`
   min-height: 11.5rem;
 `;
 
-const ToRecipient = styled.h1`
+const ToRecipientStyle = styled.h1`
   font-size: 2.4rem;
   font-weight: 700;
   line-height: 3.6rem;
   letter-spacing: -0.024rem;
 `;
 
-const Card = styled.li`
+const CardStyle = styled.li`
   margin-right: 2rem;
   padding: 3rem 2.4rem;
   position: relative;
@@ -56,7 +56,7 @@ const Card = styled.li`
   background-size: cover;
 `;
 
-const EmojiBox = styled.ul`
+const EmojiBoxStyle = styled.ul`
   list-style-type: none;
   margin-top: 4.3rem;
   padding-top: 1.6rem;
@@ -89,18 +89,18 @@ export default function CardList({ cardData }) {
   };
 
   return (
-    <CardListBox>
-      <Card $background={background} onClick={handlePostClick}>
-        <TextBox>
-          <ToRecipient>To.{name}</ToRecipient>
+    <CardListBoxStyle>
+      <CardStyle $background={background} onClick={handlePostClick}>
+        <TextBoxStyle>
+          <ToRecipientStyle>To.{name}</ToRecipientStyle>
 
           <ProfileImgList
             recentMessages={recentMessages}
             messageCount={messageCount}
           />
-        </TextBox>
+        </TextBoxStyle>
 
-        <EmojiBox>
+        <EmojiBoxStyle>
           {topReactions.map((item) => {
             return (
               <li>
@@ -110,8 +110,8 @@ export default function CardList({ cardData }) {
               </li>
             );
           })}
-        </EmojiBox>
-      </Card>
-    </CardListBox>
+        </EmojiBoxStyle>
+      </CardStyle>
+    </CardListBoxStyle>
   );
 }

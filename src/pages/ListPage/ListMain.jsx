@@ -6,7 +6,7 @@ import ArrowBtn from '../../components/Button/ArrowBtn';
 import { getRecipients } from '../../apis/apiRecipients';
 import { useNavigate } from 'react-router-dom';
 
-const commonCardStyle = `
+const CommonCardStyle = `
   overflow-x: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -18,7 +18,7 @@ const MainStyle = styled.main`
   margin: 0 auto;
 `;
 
-const CardMain = styled.article`
+const CardMainStyle = styled.article`
   position: relative;
   width: 100%;
   max-width: 134.5rem;
@@ -31,7 +31,7 @@ const CardMain = styled.article`
     padding: 0 2rem;
   }
 `;
-const CardListContainer = styled.ul`
+const CardListContainerStyle = styled.ul`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -40,15 +40,15 @@ const CardListContainer = styled.ul`
   gap: 2rem;
 
   @media screen and (min-width: 375px) {
-    ${commonCardStyle}
+    ${CommonCardStyle}
   }
 
   @media screen and (min-width: 767px) {
-    ${commonCardStyle}
+    ${CommonCardStyle}
   }
 
   @media screen and (min-width: 1335px) {
-    ${commonCardStyle}
+    ${CommonCardStyle}
   }
 `;
 
@@ -79,7 +79,7 @@ const CardArrowRightStyle = styled(CardArrowStyle)`
   right: -2rem;
 `;
 
-const CardListTitle = styled.span`
+const CardListTitleStyle = styled.span`
   display: flex;
   font-size: 2.5rem;
   font-weight: 700;
@@ -87,7 +87,7 @@ const CardListTitle = styled.span`
   letter-spacing: -0.015rem;
 `;
 
-const CardListView = styled.div`
+const CardListViewStyle = styled.div`
   overflow-x: hidden;
 
   @media screen and (max-width: 1335px) {
@@ -95,13 +95,13 @@ const CardListView = styled.div`
   }
 `;
 
-const CardListBox = styled.li`
+const CardListBoxStyle = styled.li`
   display: inline-flex;
   align-items: flex-start;
   align-items: center;
 `;
 
-const Footer = styled.footer`
+const FooterStyle = styled.footer`
   padding: 2.4rem 2.4rem;
   margin: 0 auto;
   display: flex;
@@ -134,30 +134,28 @@ const MemoizedCardListSection = React.memo(
     );
 
     return (
-      <CardMain>
-        <CardListTitle>{title}</CardListTitle>
+      <CardMainStyle>
+        <CardListTitleStyle>{title}</CardListTitleStyle>
         <CardArrowLeftStyle
           isVisible={isLeftArrowVisible}
-          onClick={handleLeftArrowClick}
-        >
+          onClick={handleLeftArrowClick}>
           <ArrowBtn isLeft={true} />
         </CardArrowLeftStyle>
-        <CardListContainer>
-          <CardListView id={`${id}CardListView`}>
-            <CardListBox>
+        <CardListContainerStyle>
+          <CardListViewStyle id={`${id}CardListView`}>
+            <CardListBoxStyle>
               {data.map((item, index) => (
                 <CardList key={index} cardData={item} />
               ))}
-            </CardListBox>
-          </CardListView>
-        </CardListContainer>
+            </CardListBoxStyle>
+          </CardListViewStyle>
+        </CardListContainerStyle>
         <CardArrowRightStyle
           isVisible={data.length > 4 && isRightArrowVisible}
-          onClick={handleRightArrowClick}
-        >
+          onClick={handleRightArrowClick}>
           <ArrowBtn isLeft={false} />
         </CardArrowRightStyle>
-      </CardMain>
+      </CardMainStyle>
     );
   }
 );
@@ -235,11 +233,11 @@ export default function ListMain() {
         scrollPosition={scrollPositions['new']}
         handleArrowClick={handleArrowClick}
       />
-      <Footer>
+      <FooterStyle>
         <PrimaryBtn size="regular" onClick={handleListClick}>
           나도 만들어보기
         </PrimaryBtn>
-      </Footer>
+      </FooterStyle>
     </MainStyle>
   );
 }

@@ -3,24 +3,24 @@ import { useContext, useState } from 'react';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import goShare from '../../assets/share-24.svg';
 import ProfileImgList from './ProfieImgList';
-import { DropdownUl, DropdownItems } from '../TextField/Dropdown';
+import { DropdownUlStyle, DropdownItems } from '../TextField/Dropdown';
 import EmojiSelectBox from './EmojiSelectBox';
 import RecipientContext from '../../contexts/RecipientContext';
 
-const RightSection = styled.div`
+const RightSectionStyle = styled.div`
   position: relative;
   display: flex;
   align-items: center;
 `;
 
-const SplitLine = styled.div`
+const SplitLineStyle = styled.div`
   width: 0.1rem;
   height: 2.8rem;
   background: var(--gray-200, #eee);
   margin: 0 1.3rem;
 `;
 
-const ShareList = styled(DropdownUl)`
+const ShareListStyle = styled(DropdownUlStyle)`
   top: 4.5rem;
   right: -8rem;
   overflow: hidden;
@@ -47,29 +47,28 @@ export default function HeaderBottomRight({
   const { recentMessages, messageCount } = recipientData;
 
   return (
-    <RightSection>
+    <RightSectionStyle>
       {width > 1247 && (
         <>
           <ProfileImgList
             nav={nav}
             recentMessages={recentMessages}
-            messageCount={messageCount}
-          ></ProfileImgList>
-          <SplitLine />
+            messageCount={messageCount}></ProfileImgList>
+          <SplitLineStyle />
         </>
       )}
       <EmojiSelectBox>{width > 767 && '추가'}</EmojiSelectBox>
-      <SplitLine />
+      <SplitLineStyle />
       <OutlinedBtn size="sm" nav={nav} onClick={handleClickShareOpenList}>
         <img src={goShare} alt="공유하기" />
       </OutlinedBtn>
       {shareOpen ? (
-        <ShareList nav={nav}>
+        <ShareListStyle nav={nav}>
           <DropdownItems onClick={onShare}>카카오톡 공유</DropdownItems>
           <DropdownItems onClick={onShareURLClick}>URL 공유</DropdownItems>
-        </ShareList>
+        </ShareListStyle>
       ) : null}
-    </RightSection>
+    </RightSectionStyle>
   );
 }
 

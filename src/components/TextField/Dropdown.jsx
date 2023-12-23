@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ArrowDown from '../../assets/arrow_down.png';
 import ArrowUp from '../../assets/arrow_top.png';
 
-const BtnDropdown = styled.button`
+const BtnDropdownStyle = styled.button`
   display: flex;
   position: relative;
   justify-content: space-between;
@@ -49,7 +49,7 @@ const BtnDropdown = styled.button`
   }
 `;
 
-export const DropdownUl = styled.ul`
+export const DropdownUlStyle = styled.ul`
   position: absolute;
   z-index: 1;
   display: inline-flex;
@@ -63,7 +63,7 @@ export const DropdownUl = styled.ul`
   box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.08);
 `;
 
-const DropdownList = styled.li`
+const DropdownListStyle = styled.li`
   display: flex;
   width: 100%;
   align-items: center;
@@ -71,13 +71,13 @@ const DropdownList = styled.li`
   font-size: 1.6rem;
 `;
 
-const DropdownIcon = styled.img`
+const DropdownIconStyle = styled.img`
   width: 1.6rem;
   height: 1.6rem;
   flex-shrink: 0;
 `;
 
-const ListButton = styled.button`
+const ListButtonStyle = styled.button`
   border: none;
   padding: 1.2rem 1.6rem;
   width: 100%;
@@ -95,9 +95,9 @@ const ListButton = styled.button`
 
 export const DropdownItems = ({ children, onClick }) => {
   return (
-    <DropdownList>
-      <ListButton onClick={onClick}>{children}</ListButton>
-    </DropdownList>
+    <DropdownListStyle>
+      <ListButtonStyle onClick={onClick}>{children}</ListButtonStyle>
+    </DropdownListStyle>
   );
 };
 
@@ -118,32 +118,31 @@ function DropdownBox({ children, nav = false, listItems, onChange, target }) {
 
   return (
     <div onBlur={handleBlur}>
-      <BtnDropdown nav={nav} onClick={handleOpen} type="button">
+      <BtnDropdownStyle nav={nav} onClick={handleOpen} type="button">
         <span>{children}</span>
         {open ? (
-          <DropdownIcon src={ArrowDown} />
+          <DropdownIconStyle src={ArrowDown} />
         ) : (
-          <DropdownIcon src={ArrowUp} />
+          <DropdownIconStyle src={ArrowUp} />
         )}
-      </BtnDropdown>
+      </BtnDropdownStyle>
       {open ? (
-        <DropdownUl>
+        <DropdownUlStyle>
           {listItems.map((item) => {
             return (
-              <DropdownList>
-                <ListButton
+              <DropdownListStyle>
+                <ListButtonStyle
                   key={item}
                   onMouseOver={handleChange}
                   onClick={handleOpen}
                   data-value={item}
-                  type="button"
-                >
+                  type="button">
                   {item}
-                </ListButton>
-              </DropdownList>
+                </ListButtonStyle>
+              </DropdownListStyle>
             );
           })}
-        </DropdownUl>
+        </DropdownUlStyle>
       ) : null}
     </div>
   );

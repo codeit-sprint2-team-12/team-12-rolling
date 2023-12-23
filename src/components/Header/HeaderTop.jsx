@@ -3,7 +3,7 @@ import logoImg from '../../assets/logo.svg';
 import OutlinedBtn from '../Button/OutlinedBtn';
 import { useNavigate } from 'react-router-dom';
 
-const LogoImg = styled.img`
+const LogoImgStyle = styled.img`
   cursor: pointer;
 `;
 
@@ -24,7 +24,7 @@ export default function HeaderTop({ width, users = false, isBtn = false }) {
 
   return (
     <>
-      <LogoImg src={logoImg} alt="로고" onClick={handleHomeClick} />
+      <LogoImgStyle src={logoImg} alt="로고" onClick={handleHomeClick} />
       {isBtn && (
         <OutlinedBtn size="sm" onClick={handlePaperClick}>
           롤링 페이퍼 만들기

@@ -19,7 +19,7 @@ const STYLE = {
   },
 };
 
-const BadgeContainer = styled.span`
+const BadgeContainerStyle = styled.span`
   display: inline-flex;
   padding: 0rem 0.8rem;
   justify-content: center;
@@ -30,18 +30,18 @@ const BadgeContainer = styled.span`
   letter-spacing: -0.007rem;
   border-radius: 0.4rem;
 
-  color: ${({ relationship }) =>
-    relationship ? STYLE[relationship].color : 'transparent'};
+  color: ${({ $relationship }) =>
+    $relationship ? STYLE[$relationship].color : 'transparent'};
 
-  background: ${({ relationship }) =>
-    relationship ? STYLE[relationship].background : 'transparent'};
+  background: ${({ $relationship }) =>
+    $relationship ? STYLE[$relationship].background : 'transparent'};
 `;
 
 function Badge({ className, relationship = '지인' }) {
   return (
-    <BadgeContainer className={className} relationship={relationship}>
+    <BadgeContainerStyle className={className} $relationship={relationship}>
       {relationship}
-    </BadgeContainer>
+    </BadgeContainerStyle>
   );
 }
 

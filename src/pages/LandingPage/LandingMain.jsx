@@ -21,7 +21,7 @@ const TYPE = {
   },
 };
 
-const Article = styled.article`
+const ArticleStyle = styled.article`
   display: flex;
   margin: ${({ type }) => (type ? TYPE[type].margin : '3rem auto')};
   border-radius: 1.6rem;
@@ -82,7 +82,7 @@ const Article = styled.article`
   }
 `;
 
-const TextBox = styled.div`
+const TextBoxStyle = styled.div`
   display: flex;
   padding: 0rem;
   flex-direction: column;
@@ -118,7 +118,7 @@ const TextBox = styled.div`
   }
 `;
 
-const Point = styled.span`
+const PointStyle = styled.span`
   display: inline-block;
   padding: 0.6rem 1.2rem;
   align-items: center;
@@ -131,7 +131,7 @@ const Point = styled.span`
   background: var(--purple-600, #9935ff);
 `;
 
-const Footer = styled.footer`
+const FooterStyle = styled.footer`
   padding: 2.4rem 2.4rem;
   margin: 0 auto;
   display: flex;
@@ -155,32 +155,32 @@ function LandingMain() {
   };
   return (
     <main>
-      <Article type="left">
-        <TextBox>
-          <Point>point. 01</Point>
+      <ArticleStyle type="left">
+        <TextBoxStyle>
+          <PointStyle>point. 01</PointStyle>
           <h1>{Point01Text}</h1>
           <p>로그인 없이 자유롭게 만들어요.</p>
-        </TextBox>
+        </TextBoxStyle>
         <section>
           <img src={landingImg1} alt="롤링 페이퍼 예시" />
         </section>
-      </Article>
+      </ArticleStyle>
 
-      <Article>
+      <ArticleStyle>
         <section>
           <img src={landingImg2} alt="롤링 페이퍼 예시" />
         </section>
-        <TextBox>
-          <Point>point. 02</Point>
+        <TextBoxStyle>
+          <PointStyle>point. 02</PointStyle>
           <h1>{Point02Text}</h1>
           <p>롤링 페이퍼에 이모지를 추가할 수 있어요.</p>
-        </TextBox>
-      </Article>
-      <Footer>
+        </TextBoxStyle>
+      </ArticleStyle>
+      <FooterStyle>
         <PrimaryBtn size="regular" onClick={handleListClick}>
           구경해보기
         </PrimaryBtn>
-      </Footer>
+      </FooterStyle>
     </main>
   );
 }

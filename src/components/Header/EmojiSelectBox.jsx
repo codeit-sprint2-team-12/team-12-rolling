@@ -13,7 +13,7 @@ import {
 } from '../../apis/apiRecipients';
 import RecipientContext from '../../contexts/RecipientContext';
 
-const EmojiSelectContainer = styled.ul`
+const EmojiSelectContainerStyle = styled.ul`
   list-style-type: none;
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@ const EmojiSelectContainer = styled.ul`
   }
 `;
 
-const AddBtn = styled(OutlinedBtn)`
+const AddBtnStyle = styled(OutlinedBtn)`
   position: relative;
   padding: 0.6rem 1.6rem;
   gap: 0.4rem;
@@ -50,20 +50,20 @@ const AddBtn = styled(OutlinedBtn)`
   }
 `;
 
-const DropDown = styled.img`
+const DropDownStyle = styled.img`
   width: 2.4rem;
   height: 2.4rem;
   flex-shrink: 0;
 `;
 
-const DropDownBtn = styled.button`
+const DropDownBtnStyle = styled.button`
   position: relative;
   padding: 0.6rem;
   border: none;
   background-color: #fff;
 `;
 
-const AllEmojiList = styled.ul`
+const AllEmojiListStyle = styled.ul`
   position: absolute;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -130,13 +130,13 @@ export default function EmojiSelectBox({ children }) {
   };
 
   return (
-    <EmojiSelectContainer>
+    <EmojiSelectContainerStyle>
       <EmojiBestList emojiList={emojiList}></EmojiBestList>
-      <DropDownBtn onClick={handleClickEmojiList}>
+      <DropDownBtnStyle onClick={handleClickEmojiList}>
         {emojiOpen ? (
           <>
-            <DropDown src={upImg} />
-            <AllEmojiList>
+            <DropDownStyle src={upImg} />
+            <AllEmojiListStyle>
               {emojiList.length !== 0 ? (
                 emojiList.slice(0, 8).map((emoji, index) => (
                   <li key={index}>
@@ -146,18 +146,18 @@ export default function EmojiSelectBox({ children }) {
               ) : (
                 <AddEmojiText>이모티콘을 추가해 보세요! 😃</AddEmojiText>
               )}
-            </AllEmojiList>
+            </AllEmojiListStyle>
           </>
         ) : (
-          <DropDown src={downImg} />
+          <DropDownStyle src={downImg} />
         )}
-      </DropDownBtn>
+      </DropDownBtnStyle>
 
-      <AddBtn size="sm" onClick={handleClickEmojiPickerOpenList}>
+      <AddBtnStyle size="sm" onClick={handleClickEmojiPickerOpenList}>
         <img src={addFace} alt="추가하기" />
         {children}
-      </AddBtn>
+      </AddBtnStyle>
       <EmojiPick onClick={handleClickCount} emojiPickerOpen={emojiPickerOpen} />
-    </EmojiSelectContainer>
+    </EmojiSelectContainerStyle>
   );
 }

@@ -3,23 +3,23 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { useState } from 'react';
 
-const CheckIcon = styled(FaCheckCircle)`
+const CheckIconStyle = styled(FaCheckCircle)`
   color: green;
   width: 2.4rem;
   height: 2.4rem;
 `;
 
-const CloseIcon = styled(IoMdClose)`
+const CloseIconStyle = styled(IoMdClose)`
   width: 2.4rem;
   height: 2.4rem;
 `;
 
-const TextContainer = styled.div`
+const TextContainerStyle = styled.div`
   display: flex;
   gap: 1.2rem;
 `;
 
-const ToastContainer = styled.div`
+const ToastContainerStyle = styled.div`
   display: flex;
   padding: 1.9rem 3rem;
   justify-content: space-between;
@@ -59,13 +59,13 @@ function Toast({ className }) {
 
   return (
     !isClicked && (
-      <ToastContainer className={className}>
-        <TextContainer>
-          <CheckIcon />
+      <ToastContainerStyle className={className}>
+        <TextContainerStyle>
+          <CheckIconStyle />
           URL이 복사 되었습니다.
-        </TextContainer>
-        <CloseIcon onClick={handleCloseClick} />
-      </ToastContainer>
+        </TextContainerStyle>
+        <CloseIconStyle onClick={handleCloseClick} />
+      </ToastContainerStyle>
     )
   );
 }

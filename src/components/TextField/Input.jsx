@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-const InputDiv = styled.div`
+const InputDivStyle = styled.div`
   position: relative;
 `;
 
@@ -40,7 +40,7 @@ const InputStyle = styled.input`
   }
 `;
 
-const Span = styled.span`
+const SpanStyle = styled.span`
   color: var(--Error, #dc3a3a);
   position: absolute;
   bottom: -1.2rem;
@@ -66,7 +66,7 @@ function Input({ placeholder, onChange, target }) {
   };
 
   return (
-    <InputDiv>
+    <InputDivStyle>
       <InputStyle
         $iserror={isError}
         placeholder={placeholder}
@@ -74,8 +74,8 @@ function Input({ placeholder, onChange, target }) {
         onFocus={focusHandler}
         onChange={handleChange}
       />
-      {isError ? <Span>{isError}</Span> : null}
-    </InputDiv>
+      {isError ? <SpanStyle>{isError}</SpanStyle> : null}
+    </InputDivStyle>
   );
 }
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Nav = styled.nav`
+const NavStyle = styled.nav`
   width: 100%;
   border-bottom: 1px solid #ededed;
   align-items: center;
@@ -32,8 +32,8 @@ const Nav = styled.nav`
 
 export default function Header({ children, onClick }) {
   return (
-    <Nav onClick={onClick}>
+    <NavStyle onClick={onClick}>
       <div>{children}</div>
-    </Nav>
+    </NavStyle>
   );
 }

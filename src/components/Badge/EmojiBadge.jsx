@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const BadgeContainer = styled.button`
+const BadgeContainerStyle = styled.button`
   border: none;
   display: inline-flex;
   flex-direction: row;
@@ -25,10 +25,10 @@ function EmojiBadge({
   const { emoji, count } = emojiList;
 
   return (
-    <BadgeContainer className={className} onClick={onClick}>
+    <BadgeContainerStyle className={className} onClick={onClick}>
       <div>{emoji}</div>
       <div>{count}</div>
-    </BadgeContainer>
+    </BadgeContainerStyle>
   );
 }
 

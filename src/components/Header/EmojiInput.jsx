@@ -1,7 +1,7 @@
 import EmojiPicker from 'emoji-picker-react';
 import styled from 'styled-components';
 
-const StyledEmojiPicker = styled.div`
+const StyledEmojiPickerStyle = styled.div`
   display: ${({ emojiPickerOpen }) => (emojiPickerOpen ? 'block' : 'none')};
   position: absolute;
   top: 4.3rem;
@@ -11,8 +11,8 @@ const StyledEmojiPicker = styled.div`
 
 export default function EmojiPick({ onClick, emojiPickerOpen }) {
   return (
-    <StyledEmojiPicker emojiPickerOpen={emojiPickerOpen}>
+    <StyledEmojiPickerStyle emojiPickerOpen={emojiPickerOpen}>
       <EmojiPicker onEmojiClick={onClick} lazyLoadEmojis />
-    </StyledEmojiPicker>
+    </StyledEmojiPickerStyle>
   );
 }
